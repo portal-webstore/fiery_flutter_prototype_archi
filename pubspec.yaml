@@ -15,6 +15,10 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  authentication_repository:
+    path: packages/authentication_repository
+  order_repository:
+    path: packages/order_repository
   bloc: ^7.0.0
   cupertino_icons: ^1.0.2
   flutter_bloc: ^7.0.0
