@@ -1,5 +1,5 @@
 name: fiery_flutter_prototype_archi
-description: A new Flutter project.
+description: Building out Flutter archtecture
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -32,7 +32,7 @@ dev_dependencies:
   bloc_test: ^8.0.0
   build_runner: ^2.0.2
   json_serializable: ^4.1.1
-  lint: ^1.5.3
+  lint: ^1.5.2
   mockito: ^5.0.7
 
 # For information on the generic Dart part of this file, see the
