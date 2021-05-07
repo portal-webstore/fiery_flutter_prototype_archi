@@ -26,6 +26,9 @@ class Patient {
   final String lastName;
   final String firstName;
   final String birthDate;
+
+  /// Optional to allow for model reuse when a free-text patient is desired
+  /// Rather than querying existing
   final int? patientOcsLink;
 
   Patient copyWith({

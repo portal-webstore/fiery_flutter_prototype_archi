@@ -1,4 +1,4 @@
-import 'dart:convert' show json;
+import 'dart:convert' show jsonDecode, jsonEncode;
 
 /// {@template drug_model}
 /// Drug name units model ported from ocs scrape.
@@ -19,11 +19,17 @@ class Drug {
   }
 
   factory Drug.fromJson(String source) => Drug.fromMap(
-        json.decode(source) as Map<String, dynamic>,
+        jsonDecode(source) as Map<String, dynamic>,
       );
 
   final String drugName;
   final String drugUnitsOfMeasurement;
+
+  /// ocsDrugLink is only optional for us reusing this model in ad-hoc product
+  ///
+  /// otherwise it will always be directly taken from OCS scrape query to always
+  /// have an OCS drug ID.
+  ///
   final int ocsDrugLink;
 
   Drug copyWith({
@@ -47,7 +53,7 @@ class Drug {
     };
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => jsonEncode(toMap());
 
   @override
   String toString() =>

@@ -54,12 +54,15 @@ class Product {
   final String attachmentName;
 
   /// OCS specials.
+  ///
+  /// ocsLink is optional for when we create an ad hoc free-text without ID.
   /// To help reconcile auto
   ///
   /// Otherwise we fallback to manual checking on the order reintegration side
   /// (future reintegration part)
   ///
-  final int ocsProductLink;
+  final int? ocsProductLink;
+
   Product copyWith({
     String? productName,
     List<Drug>? drugs,
