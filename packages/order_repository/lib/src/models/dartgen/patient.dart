@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:convert' show jsonDecode, jsonEncode;
 
 class Patient {
   Patient({
@@ -54,7 +54,7 @@ class Patient {
     };
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => jsonEncode(toMap());
   @override
   String toString() {
     return 'Patient(patientIdentifier: $patientIdentifier, lastName: $lastName, firstName: $firstName, birthDate: $birthDate, patientOcsLink: $patientOcsLink)';

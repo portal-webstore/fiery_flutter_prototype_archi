@@ -1,6 +1,6 @@
-import 'dart:convert';
+import 'dart:convert' show jsonDecode, jsonEncode;
 
-import 'drug.dart';
+import 'drug.dart' show Drug;
 
 class DrugDose {
   DrugDose({
@@ -38,7 +38,7 @@ class DrugDose {
     };
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => jsonEncode(toMap());
 
   @override
   String toString() => 'DrugDose(drug: $drug, dose: $dose)';

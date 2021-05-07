@@ -1,8 +1,8 @@
-import 'dart:convert';
+import 'dart:convert' show jsonDecode, jsonEncode;
 
-import 'package:collection/collection.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 
-import 'drug.dart';
+import 'drug.dart' show Drug;
 
 class Product {
   Product({

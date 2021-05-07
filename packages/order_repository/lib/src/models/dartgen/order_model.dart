@@ -1,6 +1,6 @@
-import 'dart:convert' show json, jsonDecode;
+import 'dart:convert' show jsonDecode, jsonEncode;
 
-import 'package:collection/collection.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 
 import 'patient_treatment_product_item.dart' show PatientTreatmentProductItem;
 
@@ -87,7 +87,7 @@ class Order {
     };
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => jsonEncode(toMap());
 
   @override
   String toString() {

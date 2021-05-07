@@ -1,10 +1,10 @@
-import 'dart:convert';
+import 'dart:convert' show jsonDecode, jsonEncode;
 
-import 'package:collection/collection.dart';
+import 'package:collection/collection.dart' show DeepCollectionEquality;
 
-import 'drug_dose.dart';
-import 'patient.dart';
-import 'product.dart';
+import 'drug_dose.dart' show DrugDose;
+import 'patient.dart' show Patient;
+import 'product.dart' show Product;
 
 class PatientTreatmentProductItem {
   const PatientTreatmentProductItem({
@@ -69,7 +69,7 @@ class PatientTreatmentProductItem {
     };
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => jsonEncode(toMap());
 
   @override
   String toString() {
