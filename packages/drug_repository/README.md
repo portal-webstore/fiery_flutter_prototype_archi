@@ -1,4 +1,4 @@
-# drugs_repository
+# drug_repository
 
 A new Flutter package project.
 

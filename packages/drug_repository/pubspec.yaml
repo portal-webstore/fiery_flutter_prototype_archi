@@ -1,5 +1,5 @@
-name: drugs_repository
-description: A new Flutter package project.
+name: drug_repository
+description: Repository for managing queried drugs and provide drug model.
 version: 0.0.1
 author: "sl"
 homepage: "https://github.com/portal-webstore/fiery_flutter_prototype_archi"
