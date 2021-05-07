@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'ocs_drug_link.dart';
-
 class Drug {
   final String drugName;
   final String drugUnitsOfMeasurement;
-  final OcsDrugLink ocsDrugLink;
+  final int? ocsDrugLink;
+
   Drug({
     required this.drugName,
     required this.drugUnitsOfMeasurement,
@@ -15,48 +14,55 @@ class Drug {
   Drug copyWith({
     String? drugName,
     String? drugUnitsOfMeasurement,
-    OcsDrugLink? ocsDrugLink,
+    int? ocsDrugLink,
   }) {
     return Drug(
       drugName: drugName ?? this.drugName,
-      drugUnitsOfMeasurement: drugUnitsOfMeasurement ?? this.drugUnitsOfMeasurement,
+      drugUnitsOfMeasurement:
+          drugUnitsOfMeasurement ?? this.drugUnitsOfMeasurement,
       ocsDrugLink: ocsDrugLink ?? this.ocsDrugLink,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'drugName': drugName,
       'drugUnitsOfMeasurement': drugUnitsOfMeasurement,
-      'ocsDrugLink': ocsDrugLink.toMap(),
+      'ocsDrugLink': ocsDrugLink,
     };
   }
 
   factory Drug.fromMap(Map<String, dynamic> map) {
     return Drug(
-      drugName: map['drugName'],
-      drugUnitsOfMeasurement: map['drugUnitsOfMeasurement'],
-      ocsDrugLink: OcsDrugLink.fromMap(map['ocsDrugLink']),
+      drugName: map['drugName'] as String,
+      drugUnitsOfMeasurement: map['drugUnitsOfMeasurement'] as String,
+      ocsDrugLink: (map['ocsDrugLink'] as int?),
     );
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => jsonEncode(toMap());
 
-  factory Drug.fromJson(String source) => Drug.fromMap(json.decode(source));
+  factory Drug.fromJson(String source) => Drug.fromMap(
+        jsonDecode(source) as Map<String, dynamic>,
+      );
 
   @override
-  String toString() => 'Drug(drugName: $drugName, drugUnitsOfMeasurement: $drugUnitsOfMeasurement, ocsDrugLink: $ocsDrugLink)';
+  String toString() =>
+      'Drug(drugName: $drugName, drugUnitsOfMeasurement: $drugUnitsOfMeasurement, ocsDrugLink: $ocsDrugLink)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is Drug &&
-      other.drugName == drugName &&
-      other.drugUnitsOfMeasurement == drugUnitsOfMeasurement &&
-      other.ocsDrugLink == ocsDrugLink;
+        other.drugName == drugName &&
+        other.drugUnitsOfMeasurement == drugUnitsOfMeasurement &&
+        other.ocsDrugLink == ocsDrugLink;
   }
 
   @override
-  int get hashCode => drugName.hashCode ^ drugUnitsOfMeasurement.hashCode ^ ocsDrugLink.hashCode;
+  int get hashCode =>
+      drugName.hashCode ^
+      drugUnitsOfMeasurement.hashCode ^
+      ocsDrugLink.hashCode;
 }
