@@ -6,14 +6,14 @@ import 'dart:convert' show json;
 class Drug {
   const Drug({
     required this.drugName,
-    required this.drugUnits,
+    required this.drugUnitsOfMeasurement,
     required this.ocsDrugLink,
   });
 
   factory Drug.fromMap(Map<String, dynamic> map) {
     return Drug(
       drugName: map['drugName'] as String,
-      drugUnits: map['drugUnits'] as String,
+      drugUnitsOfMeasurement: map['drugUnitsOfMeasurement'] as String,
       ocsDrugLink: map['ocsDrugLink'] as int,
     );
   }
@@ -23,17 +23,18 @@ class Drug {
       );
 
   final String drugName;
-  final String drugUnits;
+  final String drugUnitsOfMeasurement;
   final int ocsDrugLink;
 
   Drug copyWith({
     String? drugName,
-    String? drugUnits,
+    String? drugUnitsOfMeasurement,
     int? ocsDrugLink,
   }) {
     return Drug(
       drugName: drugName ?? this.drugName,
-      drugUnits: drugUnits ?? this.drugUnits,
+      drugUnitsOfMeasurement:
+          drugUnitsOfMeasurement ?? this.drugUnitsOfMeasurement,
       ocsDrugLink: ocsDrugLink ?? this.ocsDrugLink,
     );
   }
@@ -41,7 +42,7 @@ class Drug {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'drugName': drugName,
-      'drugUnits': drugUnits,
+      'drugUnitsOfMeasurement': drugUnitsOfMeasurement,
       'ocsDrugLink': ocsDrugLink,
     };
   }
@@ -50,7 +51,7 @@ class Drug {
 
   @override
   String toString() =>
-      'Drug(drugName: $drugName, drugUnits: $drugUnits, ocsDrugLink: $ocsDrugLink)';
+      'Drug(drugName: $drugName, drugUnitsOfMeasurement: $drugUnitsOfMeasurement, ocsDrugLink: $ocsDrugLink)';
 
   @override
   bool operator ==(Object other) {
@@ -58,11 +59,13 @@ class Drug {
 
     return other is Drug &&
         other.drugName == drugName &&
-        other.drugUnits == drugUnits &&
+        other.drugUnitsOfMeasurement == drugUnitsOfMeasurement &&
         other.ocsDrugLink == ocsDrugLink;
   }
 
   @override
   int get hashCode =>
-      drugName.hashCode ^ drugUnits.hashCode ^ ocsDrugLink.hashCode;
+      drugName.hashCode ^
+      drugUnitsOfMeasurement.hashCode ^
+      ocsDrugLink.hashCode;
 }
