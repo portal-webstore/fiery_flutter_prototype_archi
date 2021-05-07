@@ -2,7 +2,7 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 
-import 'drug.dart' show Drug;
+import 'drug_model.dart' show Drug;
 
 class Product {
   Product({

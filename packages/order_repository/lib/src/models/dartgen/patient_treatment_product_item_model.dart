@@ -2,9 +2,9 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 
-import 'drug_dose.dart' show DrugDose;
-import 'patient.dart' show Patient;
-import 'product.dart' show Product;
+import 'drug_dose_model.dart' show DrugDose;
+import 'patient_model.dart' show Patient;
+import 'product_model.dart' show Product;
 
 class PatientTreatmentProductItem {
   const PatientTreatmentProductItem({

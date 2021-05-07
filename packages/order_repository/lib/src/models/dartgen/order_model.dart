@@ -2,7 +2,8 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 
-import 'patient_treatment_product_item.dart' show PatientTreatmentProductItem;
+import 'patient_treatment_product_item_model.dart'
+    show PatientTreatmentProductItem;
 
 class Order {
   const Order({
