@@ -1,15 +1,27 @@
 import 'dart:convert';
 
 class Drug {
-  final String drugName;
-  final String drugUnitsOfMeasurement;
-  final int? ocsDrugLink;
-
-  Drug({
+  const Drug({
     required this.drugName,
     required this.drugUnitsOfMeasurement,
     required this.ocsDrugLink,
   });
+
+  factory Drug.fromMap(Map<String, dynamic> map) {
+    return Drug(
+      drugName: map['drugName'] as String,
+      drugUnitsOfMeasurement: map['drugUnitsOfMeasurement'] as String,
+      ocsDrugLink: (map['ocsDrugLink'] as int?),
+    );
+  }
+
+  factory Drug.fromJson(String source) => Drug.fromMap(
+        jsonDecode(source) as Map<String, dynamic>,
+      );
+
+  final String drugName;
+  final String drugUnitsOfMeasurement;
+  final int? ocsDrugLink;
 
   Drug copyWith({
     String? drugName,
@@ -32,19 +44,7 @@ class Drug {
     };
   }
 
-  factory Drug.fromMap(Map<String, dynamic> map) {
-    return Drug(
-      drugName: map['drugName'] as String,
-      drugUnitsOfMeasurement: map['drugUnitsOfMeasurement'] as String,
-      ocsDrugLink: (map['ocsDrugLink'] as int?),
-    );
-  }
-
   String toJson() => jsonEncode(toMap());
-
-  factory Drug.fromJson(String source) => Drug.fromMap(
-        jsonDecode(source) as Map<String, dynamic>,
-      );
 
   @override
   String toString() =>
