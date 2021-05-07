@@ -14,7 +14,7 @@ class Drug {
     return Drug(
       drugName: map['drugName'] as String,
       drugUnitsOfMeasurement: map['drugUnitsOfMeasurement'] as String,
-      ocsDrugLink: map['ocsDrugLink'] as int,
+      ocsDrugLink: map['ocsDrugLink'] as int?,
     );
   }
 
@@ -30,7 +30,7 @@ class Drug {
   /// otherwise it will always be directly taken from OCS scrape query to always
   /// have an OCS drug ID.
   ///
-  final int ocsDrugLink;
+  final int? ocsDrugLink;
 
   Drug copyWith({
     String? drugName,
