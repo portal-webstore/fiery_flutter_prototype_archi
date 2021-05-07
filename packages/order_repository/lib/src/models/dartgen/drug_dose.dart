@@ -3,12 +3,23 @@ import 'dart:convert';
 import 'drug.dart';
 
 class DrugDose {
-  final Drug drug;
-  final double dose;
   DrugDose({
     required this.drug,
     required this.dose,
   });
+
+  factory DrugDose.fromMap(Map<String, dynamic> map) {
+    return DrugDose(
+      drug: Drug.fromMap(map['drug'] as Map<String, dynamic>),
+      dose: (map['dose'] as num).toDouble(),
+    );
+  }
+
+  factory DrugDose.fromJson(String source) =>
+      DrugDose.fromMap(jsonDecode(source) as Map<String, dynamic>);
+
+  final Drug drug;
+  final double dose;
 
   DrugDose copyWith({
     Drug? drug,
@@ -27,17 +38,7 @@ class DrugDose {
     };
   }
 
-  factory DrugDose.fromMap(Map<String, dynamic> map) {
-    return DrugDose(
-      drug: Drug.fromMap(map['drug'] as Map<String, dynamic>),
-      dose: (map['dose'] as num).toDouble(),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory DrugDose.fromJson(String source) =>
-      DrugDose.fromMap(jsonDecode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'DrugDose(drug: $drug, dose: $dose)';

@@ -5,6 +5,44 @@ import 'package:collection/collection.dart';
 import 'drug.dart';
 
 class Product {
+  Product({
+    required this.productName,
+    required this.drugs,
+    required this.diluentName,
+    required this.containerName,
+    required this.containerCustomName,
+    required this.containerVolume,
+    required this.containerIsFixedFinalVolume,
+    required this.administrationRoute,
+    required this.attachmentName,
+    required this.ocsProductLink,
+  });
+  factory Product.fromMap(Map<String, dynamic> map) {
+    final Iterable<Drug> drugs =
+        (map['drugs'] as Iterable<Map<String, dynamic>>?)?.map<Drug>(
+              (x) => Drug.fromMap(x),
+            ) ??
+            [];
+
+    return Product(
+      productName: map['productName'] as String,
+      drugs: List<Drug>.from(
+        drugs,
+      ),
+      diluentName: map['diluentName'] as String,
+      containerName: map['containerName'] as String,
+      containerCustomName: map['containerCustomName'] as String,
+      containerVolume: (['containerVolume'] as num).toDouble(),
+      containerIsFixedFinalVolume: map['containerIsFixedFinalVolume'] as bool,
+      administrationRoute: map['administrationRoute'] as String,
+      attachmentName: map['attachmentName'] as String,
+      ocsProductLink: map['ocsProductLink'] as int,
+    );
+  }
+
+  factory Product.fromJson(String source) =>
+      Product.fromMap(jsonDecode(source) as Map<String, dynamic>);
+
   final String productName;
   final List<Drug> drugs;
   final String diluentName;
@@ -22,19 +60,6 @@ class Product {
   /// (future reintegration part)
   ///
   final int ocsProductLink;
-  Product({
-    required this.productName,
-    required this.drugs,
-    required this.diluentName,
-    required this.containerName,
-    required this.containerCustomName,
-    required this.containerVolume,
-    required this.containerIsFixedFinalVolume,
-    required this.administrationRoute,
-    required this.attachmentName,
-    required this.ocsProductLink,
-  });
-
   Product copyWith({
     String? productName,
     List<Drug>? drugs,
@@ -77,33 +102,7 @@ class Product {
     };
   }
 
-  factory Product.fromMap(Map<String, dynamic> map) {
-    final Iterable<Drug> drugs =
-        (map['drugs'] as Iterable<Map<String, dynamic>>?)?.map<Drug>(
-              (x) => Drug.fromMap(x),
-            ) ??
-            [];
-
-    return Product(
-      productName: map['productName'] as String,
-      drugs: List<Drug>.from(
-        drugs,
-      ),
-      diluentName: map['diluentName'] as String,
-      containerName: map['containerName'] as String,
-      containerCustomName: map['containerCustomName'] as String,
-      containerVolume: (['containerVolume'] as num).toDouble(),
-      containerIsFixedFinalVolume: map['containerIsFixedFinalVolume'] as bool,
-      administrationRoute: map['administrationRoute'] as String,
-      attachmentName: map['attachmentName'] as String,
-      ocsProductLink: map['ocsProductLink'] as int,
-    );
-  }
-
   String toJson() => jsonEncode(toMap());
-
-  factory Product.fromJson(String source) =>
-      Product.fromMap(jsonDecode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
