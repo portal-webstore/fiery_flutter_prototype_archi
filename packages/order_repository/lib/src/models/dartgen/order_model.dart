@@ -5,15 +5,6 @@ import 'package:collection/collection.dart';
 import 'patient_treatment_product_item.dart' show PatientTreatmentProductItem;
 
 class Order {
-  final String orderID;
-  final String orderReference;
-  final int createdAt;
-  final int updatedAt;
-  final String requiredByDeliveryDate;
-  final String comments;
-  final bool isDraft;
-  final List<PatientTreatmentProductItem>? patientTreatmentProductItems;
-
   const Order({
     required this.orderID,
     required this.orderReference,
@@ -24,6 +15,39 @@ class Order {
     required this.isDraft,
     required this.patientTreatmentProductItems,
   });
+
+  factory Order.fromMap(Map<String, dynamic> map) {
+    return Order(
+      orderID: map['orderID'] as String,
+      orderReference: map['orderReference'] as String,
+      createdAt: (map['createdAt'] as num?)?.toInt() ?? 0,
+      updatedAt: (map['updatedAt'] as num?)?.toInt() ?? 0,
+      requiredByDeliveryDate: map['requiredByDeliveryDate'] as String,
+      comments: map['comments'] as String,
+      isDraft: map['isDraft'] as bool,
+      patientTreatmentProductItems: List<PatientTreatmentProductItem>.from(
+        (map['patientTreatmentProductItems'] as Iterable<dynamic>? ??
+                <dynamic>[])
+            .map<PatientTreatmentProductItem>(
+          (dynamic x) => PatientTreatmentProductItem.fromMap(
+            x as Map<String, dynamic>,
+          ),
+        ),
+      ),
+    );
+  }
+
+  factory Order.fromJson(String source) =>
+      Order.fromMap(jsonDecode(source) as Map<String, dynamic>);
+
+  final String orderID;
+  final String orderReference;
+  final int createdAt;
+  final int updatedAt;
+  final String requiredByDeliveryDate;
+  final String comments;
+  final bool isDraft;
+  final List<PatientTreatmentProductItem>? patientTreatmentProductItems;
 
   Order copyWith({
     String? orderID,
@@ -63,31 +87,7 @@ class Order {
     };
   }
 
-  factory Order.fromMap(Map<String, dynamic> map) {
-    return Order(
-      orderID: map['orderID'] as String,
-      orderReference: map['orderReference'] as String,
-      createdAt: (map['createdAt'] as num?)?.toInt() ?? 0,
-      updatedAt: (map['updatedAt'] as num?)?.toInt() ?? 0,
-      requiredByDeliveryDate: map['requiredByDeliveryDate'] as String,
-      comments: map['comments'] as String,
-      isDraft: map['isDraft'] as bool,
-      patientTreatmentProductItems: List<PatientTreatmentProductItem>.from(
-        (map['patientTreatmentProductItems'] as Iterable<dynamic>? ??
-                <dynamic>[])
-            .map<PatientTreatmentProductItem>(
-          (dynamic x) => PatientTreatmentProductItem.fromMap(
-            x as Map<String, dynamic>,
-          ),
-        ),
-      ),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory Order.fromJson(String source) =>
-      Order.fromMap(jsonDecode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
