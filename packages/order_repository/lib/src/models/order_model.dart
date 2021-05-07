@@ -1,8 +1,7 @@
 import 'dart:convert' show jsonDecode, jsonEncode;
 
 import 'package:collection/collection.dart' show DeepCollectionEquality;
-
-import 'patient_treatment_product_item_model.dart'
+import 'package:order_repository/src/treatment/models/patient_treatment_product_item_model.dart'
     show PatientTreatmentProductItem;
 
 class Order {

@@ -1,7 +1,4 @@
 library product_repository;
 
-/// {@template product_repository}
-/// Repository to manage product info.
-/// May map from clinic preferences
-/// @endtemplate}
-class ProductRepository {}
+export 'src/models/product_model.dart' show Product;
+export 'src/product_repository.dart' show ProductRepository;

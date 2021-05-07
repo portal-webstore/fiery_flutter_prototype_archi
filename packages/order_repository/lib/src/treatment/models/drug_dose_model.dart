@@ -1,6 +1,6 @@
 import 'dart:convert' show jsonDecode, jsonEncode;
 
-import 'drug_model.dart' show Drug;
+import 'package:drug_repository/drug_repository.dart' show Drug;
 
 class DrugDose {
   DrugDose({

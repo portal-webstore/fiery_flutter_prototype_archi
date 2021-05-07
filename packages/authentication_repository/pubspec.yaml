@@ -3,6 +3,7 @@ description: Repository for mediating logins
 version: 0.0.1
 author: "sl"
 homepage: "https://github.com/portal-webstore/fiery_flutter_prototype_archi"
+publish_to: none
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
