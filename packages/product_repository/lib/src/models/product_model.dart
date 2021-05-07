@@ -16,6 +16,8 @@ class Product {
     required this.attachmentName,
     required this.ocsProductLink,
   });
+
+  /// Convert from a **queried** json map with no optionals.
   factory Product.fromMap(Map<String, dynamic> map) {
     final Iterable<Drug> drugs =
         (map['drugs'] as Iterable<Map<String, dynamic>>?)?.map<Drug>(
@@ -35,6 +37,8 @@ class Product {
       containerIsFixedFinalVolume: map['containerIsFixedFinalVolume'] as bool,
       administrationRoute: map['administrationRoute'] as String,
       attachmentName: map['attachmentName'] as String,
+
+      /// This should not be null if we are querying from a json!
       ocsProductLink: map['ocsProductLink'] as int,
     );
   }

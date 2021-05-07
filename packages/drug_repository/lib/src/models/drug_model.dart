@@ -10,11 +10,16 @@ class Drug {
     required this.ocsDrugLink,
   });
 
+  /// Convert from a **queried** json map with no optionals.
   factory Drug.fromMap(Map<String, dynamic> map) {
     return Drug(
       drugName: map['drugName'] as String,
       drugUnitsOfMeasurement: map['drugUnitsOfMeasurement'] as String,
-      ocsDrugLink: map['ocsDrugLink'] as int?,
+
+      /// We are not querying drug dropdowns; however, this would indicate
+      /// presence of mandatory ocsDrugLink scraped from OCS.
+      /// Different to container names and diluent names which are baked-in text
+      ocsDrugLink: map['ocsDrugLink'] as int,
     );
   }
 

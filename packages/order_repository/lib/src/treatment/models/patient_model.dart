@@ -9,13 +9,16 @@ class Patient {
     required this.patientOcsLink,
   });
 
+  /// Convert from a **queried** json map with no optionals.
   factory Patient.fromMap(Map<String, dynamic> map) {
     return Patient(
       patientIdentifier: map['patientIdentifier'] as String,
       lastName: map['lastName'] as String,
       firstName: map['firstName'] as String,
       birthDate: map['birthDate'] as String,
-      patientOcsLink: (map['patientOcsLink'] as int),
+
+      /// OCS-scraped patients should have mandatory ocs link id field.
+      patientOcsLink: map['patientOcsLink'] as int,
     );
   }
 
