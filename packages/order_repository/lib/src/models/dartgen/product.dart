@@ -2,21 +2,26 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 
-import 'container_custom_name.dart';
 import 'drug.dart';
-import 'ocs_product_link.dart';
 
 class Product {
   final String productName;
   final List<Drug> drugs;
   final String diluentName;
   final String containerName;
-  final ContainerCustomName containerCustomName;
-  final int containerVolume;
+  final String containerCustomName;
+  final double containerVolume;
   final bool containerIsFixedFinalVolume;
   final String administrationRoute;
   final String attachmentName;
-  final OcsProductLink ocsProductLink;
+
+  /// OCS specials.
+  /// To help reconcile auto
+  ///
+  /// Otherwise we fallback to manual checking on the order reintegration side
+  /// (future reintegration part)
+  ///
+  final int ocsProductLink;
   Product({
     required this.productName,
     required this.drugs,
@@ -35,12 +40,12 @@ class Product {
     List<Drug>? drugs,
     String? diluentName,
     String? containerName,
-    ContainerCustomName? containerCustomName,
-    int? containerVolume,
+    String? containerCustomName,
+    double? containerVolume,
     bool? containerIsFixedFinalVolume,
     String? administrationRoute,
     String? attachmentName,
-    OcsProductLink? ocsProductLink,
+    int? ocsProductLink,
   }) {
     return Product(
       productName: productName ?? this.productName,
@@ -49,7 +54,8 @@ class Product {
       containerName: containerName ?? this.containerName,
       containerCustomName: containerCustomName ?? this.containerCustomName,
       containerVolume: containerVolume ?? this.containerVolume,
-      containerIsFixedFinalVolume: containerIsFixedFinalVolume ?? this.containerIsFixedFinalVolume,
+      containerIsFixedFinalVolume:
+          containerIsFixedFinalVolume ?? this.containerIsFixedFinalVolume,
       administrationRoute: administrationRoute ?? this.administrationRoute,
       attachmentName: attachmentName ?? this.attachmentName,
       ocsProductLink: ocsProductLink ?? this.ocsProductLink,
@@ -57,38 +63,47 @@ class Product {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'productName': productName,
-      'drugs': drugs?.map((x) => x.toMap())?.toList(),
+      'drugs': drugs.map((x) => x.toMap()).toList(),
       'diluentName': diluentName,
       'containerName': containerName,
-      'containerCustomName': containerCustomName.toMap(),
+      'containerCustomName': containerCustomName,
       'containerVolume': containerVolume,
       'containerIsFixedFinalVolume': containerIsFixedFinalVolume,
       'administrationRoute': administrationRoute,
       'attachmentName': attachmentName,
-      'ocsProductLink': ocsProductLink.toMap(),
+      'ocsProductLink': ocsProductLink,
     };
   }
 
   factory Product.fromMap(Map<String, dynamic> map) {
+    final Iterable<Drug> drugs =
+        (map['drugs'] as Iterable<Map<String, dynamic>>?)?.map<Drug>(
+              (x) => Drug.fromMap(x),
+            ) ??
+            [];
+
     return Product(
-      productName: map['productName'],
-      drugs: List<Drug>.from(map['drugs']?.map((x) => Drug.fromMap(x))),
-      diluentName: map['diluentName'],
-      containerName: map['containerName'],
-      containerCustomName: ContainerCustomName.fromMap(map['containerCustomName']),
-      containerVolume: map['containerVolume']?.toInt(),
-      containerIsFixedFinalVolume: map['containerIsFixedFinalVolume'],
-      administrationRoute: map['administrationRoute'],
-      attachmentName: map['attachmentName'],
-      ocsProductLink: OcsProductLink.fromMap(map['ocsProductLink']),
+      productName: map['productName'] as String,
+      drugs: List<Drug>.from(
+        drugs,
+      ),
+      diluentName: map['diluentName'] as String,
+      containerName: map['containerName'] as String,
+      containerCustomName: map['containerCustomName'] as String,
+      containerVolume: (['containerVolume'] as num).toDouble(),
+      containerIsFixedFinalVolume: map['containerIsFixedFinalVolume'] as bool,
+      administrationRoute: map['administrationRoute'] as String,
+      attachmentName: map['attachmentName'] as String,
+      ocsProductLink: map['ocsProductLink'] as int,
     );
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => jsonEncode(toMap());
 
-  factory Product.fromJson(String source) => Product.fromMap(json.decode(source));
+  factory Product.fromJson(String source) =>
+      Product.fromMap(jsonDecode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -99,31 +114,31 @@ class Product {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
-  
+
     return other is Product &&
-      other.productName == productName &&
-      listEquals(other.drugs, drugs) &&
-      other.diluentName == diluentName &&
-      other.containerName == containerName &&
-      other.containerCustomName == containerCustomName &&
-      other.containerVolume == containerVolume &&
-      other.containerIsFixedFinalVolume == containerIsFixedFinalVolume &&
-      other.administrationRoute == administrationRoute &&
-      other.attachmentName == attachmentName &&
-      other.ocsProductLink == ocsProductLink;
+        other.productName == productName &&
+        listEquals(other.drugs, drugs) &&
+        other.diluentName == diluentName &&
+        other.containerName == containerName &&
+        other.containerCustomName == containerCustomName &&
+        other.containerVolume == containerVolume &&
+        other.containerIsFixedFinalVolume == containerIsFixedFinalVolume &&
+        other.administrationRoute == administrationRoute &&
+        other.attachmentName == attachmentName &&
+        other.ocsProductLink == ocsProductLink;
   }
 
   @override
   int get hashCode {
     return productName.hashCode ^
-      drugs.hashCode ^
-      diluentName.hashCode ^
-      containerName.hashCode ^
-      containerCustomName.hashCode ^
-      containerVolume.hashCode ^
-      containerIsFixedFinalVolume.hashCode ^
-      administrationRoute.hashCode ^
-      attachmentName.hashCode ^
-      ocsProductLink.hashCode;
+        drugs.hashCode ^
+        diluentName.hashCode ^
+        containerName.hashCode ^
+        containerCustomName.hashCode ^
+        containerVolume.hashCode ^
+        containerIsFixedFinalVolume.hashCode ^
+        administrationRoute.hashCode ^
+        attachmentName.hashCode ^
+        ocsProductLink.hashCode;
   }
 }

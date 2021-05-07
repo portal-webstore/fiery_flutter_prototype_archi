@@ -39,7 +39,7 @@
                     ],
                     "diluentName": "",
                     "containerName": "Syringe",
-                    "containerCustomName": null,
+                    "containerCustomName": "",
                     "containerVolume": 20.0,
                     "containerIsFixedFinalVolume": false,
                     "administrationRoute": "IVINF",

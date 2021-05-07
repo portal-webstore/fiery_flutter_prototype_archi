@@ -21,22 +21,23 @@ class DrugDose {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'drug': drug.toMap(),
-      'dose': dose,
+      'dose': dose.toDouble(),
     };
   }
 
   factory DrugDose.fromMap(Map<String, dynamic> map) {
     return DrugDose(
-      drug: Drug.fromMap(map['drug']),
-      dose: map['dose']?.toDouble(),
+      drug: Drug.fromMap(map['drug'] as Map<String, dynamic>),
+      dose: (map['dose'] as num).toDouble(),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory DrugDose.fromJson(String source) => DrugDose.fromMap(json.decode(source));
+  factory DrugDose.fromJson(String source) =>
+      DrugDose.fromMap(jsonDecode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'DrugDose(drug: $drug, dose: $dose)';
@@ -44,10 +45,8 @@ class DrugDose {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is DrugDose &&
-      other.drug == drug &&
-      other.dose == dose;
+
+    return other is DrugDose && other.drug == drug && other.dose == dose;
   }
 
   @override

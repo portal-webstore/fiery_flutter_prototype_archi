@@ -1,13 +1,6 @@
 import 'dart:convert';
 
-import 'patient_ocs_link.dart';
-
 class Patient {
-  final String patientIdentifier;
-  final String lastName;
-  final String firstName;
-  final String birthDate;
-  final PatientOcsLink patientOcsLink;
   Patient({
     required this.patientIdentifier,
     required this.lastName,
@@ -16,12 +9,31 @@ class Patient {
     required this.patientOcsLink,
   });
 
+  factory Patient.fromMap(Map<String, dynamic> map) {
+    return Patient(
+      patientIdentifier: map['patientIdentifier'] as String,
+      lastName: map['lastName'] as String,
+      firstName: map['firstName'] as String,
+      birthDate: map['birthDate'] as String,
+      patientOcsLink: (map['patientOcsLink'] as int),
+    );
+  }
+
+  factory Patient.fromJson(String source) =>
+      Patient.fromMap(jsonDecode(source) as Map<String, dynamic>);
+
+  final String patientIdentifier;
+  final String lastName;
+  final String firstName;
+  final String birthDate;
+  final int? patientOcsLink;
+
   Patient copyWith({
     String? patientIdentifier,
     String? lastName,
     String? firstName,
     String? birthDate,
-    PatientOcsLink? patientOcsLink,
+    int? patientOcsLink,
   }) {
     return Patient(
       patientIdentifier: patientIdentifier ?? this.patientIdentifier,
@@ -33,29 +45,16 @@ class Patient {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'patientIdentifier': patientIdentifier,
       'lastName': lastName,
       'firstName': firstName,
       'birthDate': birthDate,
-      'patientOcsLink': patientOcsLink.toMap(),
+      'patientOcsLink': patientOcsLink,
     };
   }
 
-  factory Patient.fromMap(Map<String, dynamic> map) {
-    return Patient(
-      patientIdentifier: map['patientIdentifier'],
-      lastName: map['lastName'],
-      firstName: map['firstName'],
-      birthDate: map['birthDate'],
-      patientOcsLink: PatientOcsLink.fromMap(map['patientOcsLink']),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory Patient.fromJson(String source) => Patient.fromMap(json.decode(source));
-
   @override
   String toString() {
     return 'Patient(patientIdentifier: $patientIdentifier, lastName: $lastName, firstName: $firstName, birthDate: $birthDate, patientOcsLink: $patientOcsLink)';
@@ -64,21 +63,21 @@ class Patient {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is Patient &&
-      other.patientIdentifier == patientIdentifier &&
-      other.lastName == lastName &&
-      other.firstName == firstName &&
-      other.birthDate == birthDate &&
-      other.patientOcsLink == patientOcsLink;
+        other.patientIdentifier == patientIdentifier &&
+        other.lastName == lastName &&
+        other.firstName == firstName &&
+        other.birthDate == birthDate &&
+        other.patientOcsLink == patientOcsLink;
   }
 
   @override
   int get hashCode {
     return patientIdentifier.hashCode ^
-      lastName.hashCode ^
-      firstName.hashCode ^
-      birthDate.hashCode ^
-      patientOcsLink.hashCode;
+        lastName.hashCode ^
+        firstName.hashCode ^
+        birthDate.hashCode ^
+        patientOcsLink.hashCode;
   }
 }
