@@ -17,6 +17,8 @@ dependencies:
     sdk: flutter
   authentication_repository:
     path: packages/authentication_repository
+  clinic_repository:
+    path: packages/clinic_repository
   order_repository:
     path: packages/order_repository
   bloc: ^7.0.0

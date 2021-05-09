@@ -1,0 +1,3 @@
+class Clinic {
+  const Clinic();
+}

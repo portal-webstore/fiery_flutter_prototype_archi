@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.0"
+  clinic_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/clinic_repository"
+      relative: true
+    source: path
+    version: "0.0.1"
   clock:
     dependency: transitive
     description:
@@ -218,6 +225,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  drug_repository:
+    dependency: transitive
+    description:
+      path: "packages/drug_repository"
+      relative: true
+    source: path
+    version: "0.0.1"
   equatable:
     dependency: transitive
     description:
@@ -560,6 +574,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.1"
+  product_repository:
+    dependency: transitive
+    description:
+      path: "packages/product_repository"
+      relative: true
+    source: path
+    version: "0.0.1"
   provider:
     dependency: transitive
     description:
