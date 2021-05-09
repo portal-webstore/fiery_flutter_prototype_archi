@@ -7,10 +7,12 @@
         "requiredByDeliveryDate": "2021-05-11",
         "comments": "",
         "isDraft": true,
+        "overallStatus": "AWAITING_CONFIRMATION",
         "patientTreatmentProductItems": [
             {
                 "quantity": 2,
                 "status": "AWAITING_CONFIRMATION",
+                "comments": "",
                 "patient": {
                     "patientIdentifier": "",
                     "lastName": "Blogs",
