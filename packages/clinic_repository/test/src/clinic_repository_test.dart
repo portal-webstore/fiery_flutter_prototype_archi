@@ -8,5 +8,8 @@ void main() {
     test('parses product preferences', () {
       expect(true, true);
     });
+    test('is unable to access other clinic patients', () {
+      expect(true, true);
+    });
   });
 }
