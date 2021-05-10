@@ -21,6 +21,8 @@ dependencies:
     path: packages/clinic_repository
   order_repository:
     path: packages/order_repository
+  patient_repository:
+    path: packages/patient_repository
   bloc: ^7.0.0
   cupertino_icons: ^1.0.2
   flutter_bloc: ^7.0.0
