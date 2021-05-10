@@ -5,19 +5,22 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:fiery_flutter_prototype_archi/main.dart';
+import 'package:fiery_flutter_prototype_archi/app.dart' show WebstoreApp;
+import 'package:fiery_flutter_prototype_archi/home/keys/home_keys.dart'
+    show HomeKeys;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('Menu is clickable', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const WebstoreApp());
 
     // Find a menu on home app screen.
     expect(find.byIcon(Icons.menu), findsOneWidget);
 
-    await tester.tap(find.byKey(const Key('__menu_button__')));
+    await tester.tap(find.byKey(HomeKeys.menuKey));
+
     await tester.pump();
   });
 }
