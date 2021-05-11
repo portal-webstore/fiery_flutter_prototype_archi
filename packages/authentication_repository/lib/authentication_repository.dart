@@ -6,6 +6,7 @@ export 'src/authentication_repository_keys.dart'
 export 'src/exceptions/exceptions.dart'
     show
         LogInWithEmailAndPasswordFailure,
+        LogInWithEmailOtpLinkFailure,
         LogInWithGoogleFailure,
         LogOutFailure,
         SignUpFailure;
