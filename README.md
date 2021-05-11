@@ -1,6 +1,8 @@
 
 # fiery-flutter-prototype-archi
 
+[![style: lint](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lint)
+
 Updating architecture samples
 
 console.firebase.google.com setup steps for new projects

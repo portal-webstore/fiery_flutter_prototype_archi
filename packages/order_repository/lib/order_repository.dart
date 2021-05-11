@@ -1,7 +1,9 @@
 library order_repository;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+/// Base order models
+export 'src/models/models.dart' show Order, OrderEntity;
+export 'src/order_repository.dart' show OrderRepository;
+
+/// Treatment specific patient treatment item models
+export 'src/treatment/treatment.dart'
+    show DrugDose, Patient, PatientTreatmentProductItem;
