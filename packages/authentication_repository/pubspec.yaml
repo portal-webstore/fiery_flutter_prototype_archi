@@ -12,8 +12,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cache_client:
+    path: ../cache_client
   cloud_firestore: ^2.0.0
   equatable: ^2.0.0
+  firebase_auth: ^1.1.4
   shared_preferences: ^2.0.5
 
 dev_dependencies:
