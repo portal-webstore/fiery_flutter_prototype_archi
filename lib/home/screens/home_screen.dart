@@ -1,5 +1,6 @@
-import 'package:fiery_flutter_prototype_archi/home/keys/home_keys.dart';
-import 'package:fiery_flutter_prototype_archi/shared/widgets/atoms/atoms.dart'
+import 'package:fiery_flutter_prototype_archi/home/keys/home_keys.dart'
+    show HomeKeys;
+import 'package:fiery_flutter_prototype_archi/shared/widgets/logo/atoms/atoms.dart'
     show WebstoreLogo;
 import 'package:flutter/material.dart';
 
