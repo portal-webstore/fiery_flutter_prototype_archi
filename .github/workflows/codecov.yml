@@ -18,6 +18,8 @@ jobs:
         run: flutter --version
       - name: Install plugin package dependencies
         run: flutter pub get
+      # Bug resolution of assets potentially worked around with `flutter test test --coverage` explicit path
+      # i.e. Check against seed json files for data model resiliency to conversions
       - name: Test
         run: flutter test --coverage
 
