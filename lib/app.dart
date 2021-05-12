@@ -1,3 +1,4 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:fiery_flutter_prototype_archi/home/screens/home_screen.dart';
 import 'package:fiery_flutter_prototype_archi/shared/routes/route_generator.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,11 @@ import 'package:flutter/material.dart';
 class WebstoreApp extends StatelessWidget {
   const WebstoreApp({
     Key? key,
-  }) : super(key: key);
+    required FirebaseAuthenticationRepository authenticationRepository,
+  })   : _authenticationRepository = authenticationRepository,
+        super(key: key);
+
+  final FirebaseAuthenticationRepository _authenticationRepository;
 
   // This widget is the root of your application.
   @override

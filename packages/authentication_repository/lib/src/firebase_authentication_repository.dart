@@ -1,3 +1,4 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:authentication_repository/src/authentication_repository.dart'
     show AuthenticationRepository;
 import 'package:authentication_repository/src/exceptions/exceptions.dart'
@@ -5,33 +6,65 @@ import 'package:authentication_repository/src/exceptions/exceptions.dart'
         LogInWithEmailOtpLinkFailure,
         LogInWithEmailAndPasswordFailure,
         SignUpFailure;
-import 'package:authentication_repository/src/models/models.dart';
-import 'package:firebase_auth/firebase_auth.dart' as ffAuth
+import 'package:authentication_repository/src/models/models.dart' as auth_repo
+    show User;
+import 'package:cache_client/cache_client.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth
     show FirebaseAuth, FirebaseAuthException, User, UserCredential;
+import 'package:authentication_repository/src/extensions/firebase_auth_to_user.dart'
+    show UserConverter;
 
 class FirebaseAuthenticationRepository implements AuthenticationRepository {
-  const FirebaseAuthenticationRepository({
-    required ffAuth.FirebaseAuth firebaseAuth,
-  }) : _firebaseAuth = firebaseAuth;
+  FirebaseAuthenticationRepository({
+    firebase_auth.FirebaseAuth? firebaseAuth,
+    CacheClient? cacheClient,
+  })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
+        _cacheClient = cacheClient ?? CacheClient();
 
-  final ffAuth.FirebaseAuth _firebaseAuth;
+  final firebase_auth.FirebaseAuth _firebaseAuth;
+  final CacheClient _cacheClient;
+
+  /// Stream of [User] which will emit the current user when
+  /// the authentication state changes.
+  ///
+  /// Emits [User.empty] if the user is not authenticated.
+  Stream<User> get user {
+    return _firebaseAuth.authStateChanges().map((
+      firebase_auth.User? firebaseUser,
+    ) {
+      final auth_repo.User blankedUser =
+          firebaseUser == null ? auth_repo.User.empty : firebaseUser.toUser;
+
+      _cacheClient.write(
+        key: AuthenticationRepositoryKeys.loginUserCache,
+        value: blankedUser,
+      );
+
+      return blankedUser;
+    });
+  }
 
   /// Anonymous sign in...
   @override
-  Future<ffAuth.UserCredential> authenticate() async {
+  Future<firebase_auth.UserCredential> authenticate() async {
     return _firebaseAuth.signInAnonymously();
   }
 
-  Future<ffAuth.UserCredential> magicEmailOtpSignIn(
+  Future<firebase_auth.UserCredential> magicEmailOtpSignIn(
     String email,
     String emailLink,
   ) async {
     try {
-      ffAuth.UserCredential signedIn = await _firebaseAuth.signInWithEmailLink(
+      final firebase_auth.UserCredential signedIn =
+          await _firebaseAuth.signInWithEmailLink(
         email: email,
         emailLink: emailLink,
       );
-    } on ffAuth.FirebaseAuthException catch (signInException) {
+
+      return signedIn;
+    } on firebase_auth.FirebaseAuthException catch (signInException) {
+      print(signInException);
+
       // Invalid link, expired etc
       throw LogInWithEmailOtpLinkFailure();
     } on Exception catch (unexpectedFailure) {
@@ -50,24 +83,24 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
 
   @override
   Future<bool> isAuthenticated() async {
-    final ffAuth.User? currentUser = await _firebaseAuth.currentUser;
+    final firebase_auth.User? currentUser = await _firebaseAuth.currentUser;
 
     return currentUser != null;
   }
 
-  Future<ffAuth.UserCredential> signUp({
+  Future<firebase_auth.UserCredential> signUp({
     required String email,
     required String password,
   }) async {
     try {
-      final ffAuth.UserCredential createdUserCredentials =
+      final firebase_auth.UserCredential createdUserCredentials =
           await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       return createdUserCredentials;
-    } on ffAuth.FirebaseAuthException catch (knownSignUpException) {
+    } on firebase_auth.FirebaseAuthException catch (knownSignUpException) {
       /// [FirebaseAuthException] maybe thrown with the following error codes:
       /// email-already-in-use:
       /// Thrown if there already exists an account with the given email address.
@@ -99,19 +132,21 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
     // return null;
   }
 
-  Future<ffAuth.UserCredential> logIn({
+  Future<firebase_auth.UserCredential> logIn({
     required String email,
     required String password,
   }) async {
     try {
-      final ffAuth.UserCredential signedInUser =
+      final firebase_auth.UserCredential signedInUser =
           await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       return signedInUser;
-    } on ffAuth.FirebaseAuthException catch (loginException) {
+    } on firebase_auth.FirebaseAuthException catch (loginException) {
+      print(loginException);
+
       /// Important: You must enable Email & Password accounts in the Auth section of the Firebase console before being able to use them.
       ///
       /// A [FirebaseAuthException] maybe thrown with the following error code:
