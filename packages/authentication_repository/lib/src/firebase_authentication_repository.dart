@@ -1,7 +1,10 @@
 import 'package:authentication_repository/src/authentication_repository.dart'
     show AuthenticationRepository;
 import 'package:authentication_repository/src/exceptions/exceptions.dart'
-    show LogInWithEmailOtpLinkFailure, SignUpFailure;
+    show
+        LogInWithEmailOtpLinkFailure,
+        LogInWithEmailAndPasswordFailure,
+        SignUpFailure;
 import 'package:firebase_auth/firebase_auth.dart' as ffAuth
     show FirebaseAuth, FirebaseAuthException, User, UserCredential;
 
@@ -56,7 +59,7 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
     required String password,
   }) async {
     try {
-      ffAuth.UserCredential createdUserCredentials =
+      final ffAuth.UserCredential createdUserCredentials =
           await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -93,5 +96,35 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
 
     /// This should never occur
     // return null;
+  }
+
+  Future<ffAuth.UserCredential> logIn({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final ffAuth.UserCredential signedInUser =
+          await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return signedInUser;
+    } on ffAuth.FirebaseAuthException catch (loginException) {
+      /// Important: You must enable Email & Password accounts in the Auth section of the Firebase console before being able to use them.
+      ///
+      /// A [FirebaseAuthException] maybe thrown with the following error code:
+      ///
+      /// invalid-email:
+      /// Thrown if the email address is not valid.
+      /// user-disabled:
+      /// Thrown if the user corresponding to the given email has been disabled.
+      /// user-not-found:
+      /// Thrown if there is no user corresponding to the given email.
+      /// wrong-password:
+      /// Thrown if the password is invalid for the given email, or the account corresponding to the email does not have a password set.
+      ///
+      throw LogInWithEmailAndPasswordFailure();
+    }
   }
 }
