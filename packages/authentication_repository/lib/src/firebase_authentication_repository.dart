@@ -5,6 +5,7 @@ import 'package:authentication_repository/src/exceptions/exceptions.dart'
         LogInWithEmailOtpLinkFailure,
         LogInWithEmailAndPasswordFailure,
         SignUpFailure;
+import 'package:authentication_repository/src/models/models.dart';
 import 'package:firebase_auth/firebase_auth.dart' as ffAuth
     show FirebaseAuth, FirebaseAuthException, User, UserCredential;
 
