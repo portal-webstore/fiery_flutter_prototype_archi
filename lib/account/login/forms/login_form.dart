@@ -1,5 +1,6 @@
 import 'package:fiery_flutter_prototype_archi/account/login/cubits/login_cubit.dart'
     show LoginCubit, LoginState;
+import 'package:fiery_flutter_prototype_archi/account/login/forms/login_form_keys.dart';
 import 'package:fiery_flutter_prototype_archi/account/login/molecules/login_button_molecule.dart';
 import 'package:fiery_flutter_prototype_archi/account/sign_up/screens/sign_up_screen.dart'
     show SignUpScreen;
@@ -62,7 +63,7 @@ class _EmailInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
         return TextField(
-          key: const Key('loginForm_emailInput_textField'),
+          key: const Key(LoginFormKeys.emailInputTextField),
           onChanged: (email) => context.read<LoginCubit>().emailChanged(email),
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
@@ -83,7 +84,7 @@ class _PasswordInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextField(
-          key: const Key('loginForm_passwordInput_textField'),
+          key: const Key(LoginFormKeys.passwordInputTextField),
           onChanged: (password) =>
               context.read<LoginCubit>().passwordChanged(password),
           obscureText: true,
@@ -126,7 +127,7 @@ class _SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return TextButton(
-      key: const Key('loginForm_createAccount_flatButton'),
+      key: const Key(LoginFormKeys.createAccountButton),
       onPressed: () => Navigator.of(context).push<void>(SignUpScreen.route()),
       child: Text(
         'CREATE ACCOUNT',

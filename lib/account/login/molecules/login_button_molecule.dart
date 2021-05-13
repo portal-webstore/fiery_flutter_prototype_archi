@@ -6,10 +6,13 @@ class LoginButton extends StatelessWidget {
   const LoginButton({Key? key, required this.onPressed}) : super(key: key);
   final VoidCallback? onPressed;
 
+  static const String loginContinueButtonKey =
+      'loginForm_continue_raisedButton';
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      key: const Key('loginForm_continue_raisedButton'),
+      key: const Key(loginContinueButtonKey),
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
