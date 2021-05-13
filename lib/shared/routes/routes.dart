@@ -9,4 +9,6 @@ class Routes {
   const Routes._();
 
   static const String home = '/';
+  static const String signUp = '/account/sign-up';
+  static const String login = '/account/login';
 }

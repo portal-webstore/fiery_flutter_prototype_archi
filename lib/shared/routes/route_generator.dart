@@ -1,3 +1,5 @@
+import 'package:fiery_flutter_prototype_archi/account/login/screens/login_screen.dart';
+import 'package:fiery_flutter_prototype_archi/account/sign_up/screens/sign_up_screen.dart';
 import 'package:fiery_flutter_prototype_archi/home/screens/home_screen.dart';
 import 'package:fiery_flutter_prototype_archi/shared/routes/routes.dart'
     show Routes;
@@ -19,6 +21,14 @@ class RouteGenerator {
       case Routes.home:
         return MaterialPageRoute<void>(builder: (BuildContext context) {
           return const HomeScreen();
+        });
+      case Routes.signUp:
+        return MaterialPageRoute<void>(builder: (BuildContext context) {
+          return const SignUpScreen();
+        });
+      case Routes.login:
+        return MaterialPageRoute<void>(builder: (BuildContext context) {
+          return const LoginScreen();
         });
 
       default:
