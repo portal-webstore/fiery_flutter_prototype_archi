@@ -197,6 +197,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+  colour_style_guide:
+    dependency: "direct main"
+    description:
+      path: "packages/colour_style_guide"
+      relative: true
+    source: path
+    version: "0.0.1"
   convert:
     dependency: transitive
     description:
@@ -413,6 +420,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+  i18n_l10n_australian:
+    dependency: "direct main"
+    description:
+      path: "packages/i18n_l10n_australian"
+      relative: true
+    source: path
+    version: "0.0.1"
   intl:
     dependency: "direct main"
     description:
@@ -638,7 +652,7 @@ packages:
     source: hosted
     version: "4.2.1"
   product_repository:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "packages/product_repository"
       relative: true

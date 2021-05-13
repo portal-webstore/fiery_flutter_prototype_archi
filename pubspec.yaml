@@ -21,12 +21,20 @@ dependencies:
 
   clinic_repository:
     path: packages/clinic_repository
+  colour_style_guide:
+    path: packages/colour_style_guide
   formz_inputs:
     path: packages/formz_inputs
+  i18n_l10n_australian:
+    path: packages/i18n_l10n_australian
+  # input_format_helpers:
+  #   path: packages/input_format_helpers
   order_repository:
     path: packages/order_repository
   patient_repository:
     path: packages/patient_repository
+  product_repository:
+    path: packages/product_repository
   bloc: ^7.0.0
   cupertino_icons: ^1.0.2
   equatable: ^2.0.0
