@@ -17,6 +17,9 @@ void main() {
   testWidgets('Menu is clickable', (WidgetTester tester) async {
     // Build our app and trigger a frame.
 
+    /// Check whether we simply mock this or use the non-firebase local mock
+    /// implementation to provide uid and things or use firebase local
+    /// emulator
     final FirebaseAuthenticationRepository firebaseAuthenticationRepository =
         FirebaseAuthenticationRepository();
     await firebaseAuthenticationRepository.user.first;
