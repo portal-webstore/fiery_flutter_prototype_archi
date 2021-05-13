@@ -29,6 +29,12 @@ class User extends Equatable {
     firstName: '',
   );
 
+  /// Convenience getter to determine whether the current user is empty.
+  bool get isEmpty => this == User.empty;
+
+  /// Convenience getter to determine whether the current user is not empty.
+  bool get isNotEmpty => this != User.empty;
+
   final String userID;
   final String emailAddress;
   final String lastName;

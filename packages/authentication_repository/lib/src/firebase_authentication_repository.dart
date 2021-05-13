@@ -6,13 +6,13 @@ import 'package:authentication_repository/src/exceptions/exceptions.dart'
         LogInWithEmailOtpLinkFailure,
         LogInWithEmailAndPasswordFailure,
         SignUpFailure;
+import 'package:authentication_repository/src/extensions/firebase_auth_to_user.dart'
+    show UserConverter;
 import 'package:authentication_repository/src/models/models.dart' as auth_repo
     show User;
 import 'package:cache_client/cache_client.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth
     show FirebaseAuth, FirebaseAuthException, User, UserCredential;
-import 'package:authentication_repository/src/extensions/firebase_auth_to_user.dart'
-    show UserConverter;
 
 class FirebaseAuthenticationRepository implements AuthenticationRepository {
   FirebaseAuthenticationRepository({
@@ -79,6 +79,15 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   @override
   Future<String?> getUserID() async {
     return (_firebaseAuth.currentUser)?.uid;
+  }
+
+  /// Returns the current cached user.
+  /// Defaults to [User.empty] if there is no cached user.
+  User get currentUser {
+    return _cacheClient.read<User>(
+          key: AuthenticationRepositoryKeys.loginUserCache,
+        ) ??
+        User.empty;
   }
 
   @override
@@ -161,6 +170,24 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
       /// Thrown if the password is invalid for the given email, or the account corresponding to the email does not have a password set.
       ///
       throw LogInWithEmailAndPasswordFailure();
+    }
+  }
+
+  /// Signs out the current user which will emit
+  /// [User.empty] from the [user] Stream.
+  ///
+  /// Throws a [LogOutFailure] if an exception occurs.
+  Future<void> logOut() async {
+    try {
+      await Future.wait([
+        _firebaseAuth.signOut(),
+
+        /// Multiple awaits if we colocalised multiple providers in one.
+      ]);
+    } on firebase_auth.FirebaseAuthException {
+      throw LogOutFailure();
+    } on Exception {
+      throw LogOutFailure();
     }
   }
 }
