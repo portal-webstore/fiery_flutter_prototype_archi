@@ -1,7 +1,4 @@
 library formz_inputs;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/formz_inputs.dart';
+export 'src/login/login.dart';

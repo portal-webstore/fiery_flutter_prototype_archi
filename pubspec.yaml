@@ -20,13 +20,18 @@ dependencies:
     path: packages/authentication_repository
   clinic_repository:
     path: packages/clinic_repository
+  formz_inputs:
+    path: packages/formz_inputs
   order_repository:
     path: packages/order_repository
   patient_repository:
     path: packages/patient_repository
   bloc: ^7.0.0
   cupertino_icons: ^1.0.2
+  equatable: ^2.0.0
   flutter_bloc: ^7.0.0
+  font_awesome_flutter: ^9.0.0
+  formz: ^0.4.0
   intl: ^0.17.0
   json_annotation: ^4.0.1
   package_info_plus: ^1.0.1

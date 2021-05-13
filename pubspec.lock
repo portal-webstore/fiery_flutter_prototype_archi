@@ -240,7 +240,7 @@ packages:
     source: path
     version: "0.0.1"
   equatable:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: equatable
       url: "https://pub.dartlang.org"
@@ -343,6 +343,27 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.0.0"
+  formz:
+    dependency: "direct main"
+    description:
+      name: formz
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
+  formz_inputs:
+    dependency: "direct main"
+    description:
+      path: "packages/formz_inputs"
+      relative: true
+    source: path
+    version: "0.0.1"
   frontend_server_client:
     dependency: transitive
     description:
