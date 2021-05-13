@@ -1,8 +1,11 @@
+import 'package:fiery_flutter_prototype_archi/app/blocs/app_bloc.dart'
+    show AppBloc, AppLogoutRequested;
 import 'package:fiery_flutter_prototype_archi/home/keys/home_keys.dart'
     show HomeKeys;
 import 'package:fiery_flutter_prototype_archi/shared/widgets/logo/atoms/atoms.dart'
     show WebstoreLogo;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -11,6 +14,8 @@ class HomeScreen extends StatefulWidget {
   }) : super(key: key);
 
   static const Key menuKey = HomeKeys.menuKey;
+
+  static Page page() => const MaterialPage<void>(child: HomeScreen());
 
   final String? title;
 
@@ -24,6 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title ?? 'Home'),
+        actions: <Widget>[
+          IconButton(
+            key: const Key('homePage_logout_iconButton'),
+            icon: const Icon(Icons.logout),
+            onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
+          )
+        ],
       ),
       // - TODO: Add drawer for side menu navigation fallback
 
