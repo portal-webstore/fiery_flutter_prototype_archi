@@ -58,3 +58,7 @@ class AppState extends Equatable {
 /// https://stackoverflow.com/questions/54317000/are-there-any-sealed-classes-alternatives-in-dart-2-0
 /// 
 /// https://github.com/dart-lang/language/issues/349#issuecomment-388912316
+/// 
+/// A relatively well-structured real-ish world example scaffolded out
+/// https://github.com/TortikiDev/mobile-app/tree/70f6427105f741775b5ff641840e3f05048a84ab/lib/bloc
+/// 
