@@ -7,7 +7,8 @@
 
 import 'package:authentication_repository/authentication_repository.dart'
     show FirebaseAuthenticationRepository;
-import 'package:fiery_flutter_prototype_archi/app.dart' show WebstoreApp;
+import 'package:fiery_flutter_prototype_archi/app/views/webstore_app.dart'
+    show WebstoreApp;
 import 'package:fiery_flutter_prototype_archi/home/keys/home_keys.dart'
     show HomeKeys;
 import 'package:flutter/material.dart';
