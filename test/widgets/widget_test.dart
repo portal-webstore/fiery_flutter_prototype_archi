@@ -7,6 +7,8 @@
 
 import 'package:authentication_repository/authentication_repository.dart'
     as authentication_repository show FirebaseAuthenticationRepository, User;
+import 'package:bloc_test/bloc_test.dart';
+import 'package:fiery_flutter_prototype_archi/app/blocs/app_bloc.dart';
 import 'package:fiery_flutter_prototype_archi/app/views/webstore_app.dart'
     show WebstoreApp;
 import 'package:fiery_flutter_prototype_archi/app/views/webstore_app_view.dart';
@@ -18,6 +20,14 @@ class MockUser extends Mock implements authentication_repository.User {}
 
 class MockAuthenticationRepository extends Mock
     implements authentication_repository.FirebaseAuthenticationRepository {}
+
+class MockAppBloc extends MockBloc<AppEvent, AppState> implements AppBloc {}
+
+// ignore: avoid_implementing_value_types
+class FakeAppEvent extends Fake implements AppEvent {}
+
+// ignore: avoid_implementing_value_types
+class FakeAppState extends Fake implements AppState {}
 
 void main() {
   authentication_repository.FirebaseAuthenticationRepository
@@ -82,4 +92,36 @@ void main() {
 
     await tester.pump();
   });
+
+  // group('AppView', () {
+  //   late authentication_repository.FirebaseAuthenticationRepository
+  //       firebaseAuthenticationRepository;
+  //   late AppBloc appBloc;
+
+  //   setUpAll(() {
+  //     registerFallbackValue<AppEvent>(FakeAppEvent());
+  //     registerFallbackValue<AppState>(FakeAppState());
+  //   });
+  //   setUp(() {
+  //     firebaseAuthenticationRepository = MockAuthenticationRepository();
+  //     appBloc = MockAppBloc();
+  //   });
+  //   testWidgets('navigates to HomeScreen when authenticated', (tester) async {
+  //     final user = MockUser();
+  //     when(() => user.emailAddress).thenReturn('test@gmail.com');
+  //     when(() => appBloc.state).thenReturn(AppState.authenticated(user));
+  //     await tester.pumpWidget(
+  //       RepositoryProvider.value(
+  //         value: firebaseAuthenticationRepository,
+  //         child: MaterialApp(
+  //           home: BlocProvider.value(value: appBloc, child: const AppView()),
+  //         ),
+  //       ),
+  //     );
+  //     await tester.pumpAndSettle();
+  //     debugDumpApp();
+
+  //     expect(find.byType(HomeScreen), findsOneWidget);
+  //   });
+  // });
 }
