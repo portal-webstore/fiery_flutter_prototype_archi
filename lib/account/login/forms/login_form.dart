@@ -36,19 +36,26 @@ class LoginForm extends StatelessWidget {
         // - FIXME: MAGIC NUMBERS IN SAMPLE CODE
         alignment: const Alignment(0, -1 / 3),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const AppLogoImageBanner(),
-              const TopSpacer(),
-              _EmailInput(),
-              const InterSpacer(),
-              _PasswordInput(),
-              const InterSpacer(),
-              _LoginButton(),
-              const DeprioritisedLowerSpacer(),
-              _SignUpButton(),
-            ],
+          child: FocusTraversalGroup(
+            // Non groups form
+            // Require FocusTraversalGroup otherwise the TextField tabs out
+            // of the page content and onto the outer browser context menus
+            // toolbars...
+            //
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const AppLogoImageBanner(),
+                const TopSpacer(),
+                _EmailInput(),
+                const InterSpacer(),
+                _PasswordInput(),
+                const InterSpacer(),
+                _LoginButton(),
+                const DeprioritisedLowerSpacer(),
+                _SignUpButton(),
+              ],
+            ),
           ),
         ),
       ),
