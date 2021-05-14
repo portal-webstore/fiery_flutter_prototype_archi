@@ -1,6 +1,11 @@
 import 'package:fiery_flutter_prototype_archi/account/sign_up/cubits/sign_up_cubit.dart'
     show SignUpCubit, SignUpState;
-import 'package:fiery_flutter_prototype_archi/account/sign_up/forms/signup_form_keys.dart';
+import 'package:fiery_flutter_prototype_archi/account/sign_up/forms/signup_form_keys.dart'
+    show SignUpFormKeys;
+import 'package:fiery_flutter_prototype_archi/account/sign_up/molecules/first_name_input_molecule.dart'
+    show FirstNameInput;
+import 'package:fiery_flutter_prototype_archi/account/sign_up/molecules/last_name_input_molecule.dart'
+    show LastNameInput;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocBuilder, BlocListener, ReadContext;
@@ -28,6 +33,10 @@ class SignUpForm extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               _EmailInput(),
+              const SizedBox(height: 8.0),
+              const FirstNameInput(),
+              const SizedBox(height: 8.0),
+              const LastNameInput(),
               const SizedBox(height: 8.0),
               _PasswordInput(),
               const SizedBox(height: 8.0),
