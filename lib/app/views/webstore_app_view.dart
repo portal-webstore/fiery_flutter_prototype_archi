@@ -32,7 +32,9 @@ class AppView extends StatelessWidget {
       ],
       theme: ColouredTheme.data,
       home: FlowBuilder<AppStatus>(
-        state: context.select((AppBloc bloc) => bloc.state.status),
+        state: context.select(
+          (AppBloc bloc) => bloc.state.status,
+        ),
         onGeneratePages: onGenerateAppViewPages,
       ),
       onGenerateRoute: RouteGenerator.getRouteOnGenerate,

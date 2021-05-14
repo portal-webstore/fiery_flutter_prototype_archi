@@ -1,11 +1,13 @@
+import 'package:authentication_repository/authentication_repository.dart'
+    as auth show User;
 import 'package:fiery_flutter_prototype_archi/app/blocs/app_bloc.dart'
     show AppBloc, AppLogoutRequested;
 import 'package:fiery_flutter_prototype_archi/home/keys/home_keys.dart'
     show HomeKeys;
-import 'package:fiery_flutter_prototype_archi/shared/widgets/logo/atoms/atoms.dart'
-    show WebstoreLogo;
+import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart';
+import 'package:fiery_flutter_prototype_archi/shared/widgets/logo/atoms/atoms.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
+import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext, SelectContext;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -26,6 +28,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final auth.User user = context.select(
+      (AppBloc bloc) => bloc.state.user,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title ?? 'Home'),
@@ -38,25 +45,34 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       // - TODO: Add drawer for side menu navigation fallback
-
+      drawer: const SideMenuNavigationDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
+            const WebstoreLogo(),
+            const SizedBox(height: 4.0),
             Text(
-              'Home',
-            ),
-            IconButton(
-              icon: WebstoreLogo(),
-              onPressed: null,
+              user.emailAddress,
+              style: textTheme.headline6,
             ),
             IconButton(
               key: HomeScreen.menuKey,
-              icon: Icon(
+              icon: const Icon(
                 Icons.menu,
               ),
-              onPressed: null,
-            )
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+                Scaffold.of(context).openEndDrawer();
+
+                debugPrint('openDrawer');
+              },
+            ),
+            const SizedBox(height: 4.0),
+            Text(
+              user.firstName,
+              style: textTheme.headline5,
+            ),
           ],
         ),
       ),
