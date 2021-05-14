@@ -55,7 +55,7 @@ class _EmailInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: 'Email',
             helperText: '',
-            errorText: state.email.invalid ? 'Invalid email' : null,
+            errorText: state.email.invalid ? 'Please check email format' : null,
           ),
         );
       },
@@ -77,7 +77,13 @@ class _PasswordInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: 'Password',
             helperText: '',
-            errorText: state.password.invalid ? 'Invalid password' : null,
+
+            /// Poor Bloc sample UX spamming on first keystroke every change
+            errorText: state.password.invalid
+                ? 'Please check password \n'
+                    'Case-sensitive alphanumeric + some special characters allowed \n'
+                    'Eight character-minimum'
+                : null,
           ),
         );
       },
@@ -100,10 +106,10 @@ class _ConfirmPasswordInput extends StatelessWidget {
               .confirmedPasswordChanged(confirmPassword),
           obscureText: true,
           decoration: InputDecoration(
-            labelText: 'confirm password',
+            labelText: 'Confirm password',
             helperText: '',
             errorText: state.confirmedPassword.invalid
-                ? 'passwords do not match'
+                ? 'Please check passwords match'
                 : null,
           ),
         );
