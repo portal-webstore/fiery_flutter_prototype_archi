@@ -54,11 +54,11 @@ class AppState extends Equatable {
 ///
 /// See another example
 /// https://github.com/fiery-flutter/currency-rates/commit/0e5af287375f510e1818ff864e7c27778a95fe45/lib/src/feature/rates/view/bloc/currency_rate_state.dart
-/// 
+///
 /// https://stackoverflow.com/questions/54317000/are-there-any-sealed-classes-alternatives-in-dart-2-0
-/// 
+///
 /// https://github.com/dart-lang/language/issues/349#issuecomment-388912316
-/// 
+///
 /// A relatively well-structured real-ish world example scaffolded out
 /// https://github.com/TortikiDev/mobile-app/tree/70f6427105f741775b5ff641840e3f05048a84ab/lib/bloc
-/// 
+///
