@@ -9,8 +9,9 @@ class LastNameFormzInput
   const LastNameFormzInput.pure() : super.pure('');
   const LastNameFormzInput.dirty([String value = '']) : super.dirty(value);
 
-  static final _LastNameRegExp =
-      RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z']{1,}$");
+  static final _LastNameRegExp = RegExp(
+    r"^(?=.*[A-Za-z])(?=.*)[A-Za-z']{1,}$",
+  );
 
   @override
   LastNameFormzInputValidationError? validator(String? value) {

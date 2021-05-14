@@ -9,8 +9,9 @@ class FirstNameFormzInput
   const FirstNameFormzInput.pure() : super.pure('');
   const FirstNameFormzInput.dirty([String value = '']) : super.dirty(value);
 
-  static final _FirstNameRegExp =
-      RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z']{1,}$");
+  static final _FirstNameRegExp = RegExp(
+    r"^(?=.*[A-Za-z])(?=.*)[A-Za-z']{1,}$",
+  );
 
   @override
   FirstNameFormzInputValidationError? validator(String? value) {
