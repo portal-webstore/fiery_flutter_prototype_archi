@@ -19,6 +19,12 @@ class HomeScreen extends StatefulWidget {
 
   static Page page() => const MaterialPage<void>(child: HomeScreen());
 
+  static Route<void> route() {
+    return MaterialPageRoute<void>(
+      builder: (_) => const HomeScreen(),
+    );
+  }
+
   final String? title;
 
   @override
@@ -56,22 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
               user.emailAddress,
               style: textTheme.headline6,
             ),
-            IconButton(
-              key: HomeScreen.menuKey,
-              icon: const Icon(
-                Icons.menu,
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-                Scaffold.of(context).openEndDrawer();
-
-                debugPrint('openDrawer');
-              },
-            ),
             const SizedBox(height: 4.0),
             Text(
-              user.firstName,
-              style: textTheme.headline5,
+              '${user.firstName} ${user.lastName}',
+              style: textTheme.headline6,
             ),
           ],
         ),
