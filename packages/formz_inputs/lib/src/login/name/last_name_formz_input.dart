@@ -10,7 +10,7 @@ class LastNameFormzInput
   const LastNameFormzInput.dirty([String value = '']) : super.dirty(value);
 
   static final _LastNameRegExp = RegExp(
-    r"^(?=.*[A-Za-z])(?=.*)[A-Za-z']{1,}$",
+    r"^[A-Za-z \-']{1,}$",
   );
 
   @override

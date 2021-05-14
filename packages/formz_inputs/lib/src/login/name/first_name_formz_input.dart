@@ -9,8 +9,11 @@ class FirstNameFormzInput
   const FirstNameFormzInput.pure() : super.pure('');
   const FirstNameFormzInput.dirty([String value = '']) : super.dirty(value);
 
+  /// Were the positive lookahead spams to allow the partial input like
+  /// before and after decimal single dot completed input?
+  ///
   static final _FirstNameRegExp = RegExp(
-    r"^(?=.*[A-Za-z])(?=.*)[A-Za-z']{1,}$",
+    r"^[A-Za-z \-']{1,}$",
   );
 
   @override
