@@ -102,7 +102,7 @@ class SignUpCubit extends Cubit<SignUpState> {
       await _firebaseAuthenticationRepository.signUp(
         email: state.email.value,
         password: state.password.value,
-        displayName: '${state.firstName} ${state.lastName}',
+        displayName: '${state.firstName.value} ${state.lastName.value}',
       );
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
