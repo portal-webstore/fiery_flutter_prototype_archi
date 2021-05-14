@@ -6,6 +6,7 @@ import 'package:fiery_flutter_prototype_archi/account/sign_up/molecules/first_na
     show FirstNameInput;
 import 'package:fiery_flutter_prototype_archi/account/sign_up/molecules/last_name_input_molecule.dart'
     show LastNameInput;
+import 'package:fiery_flutter_prototype_archi/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocBuilder, BlocListener, ReadContext;
@@ -19,11 +20,25 @@ class SignUpForm extends StatelessWidget {
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if (state.status.isSubmissionFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              const SnackBar(content: Text('Sign Up Failure')),
-            );
+          _showSnackText(
+            context,
+            'Sign up failure. \n' 'Please try again or email support',
+          );
+          return;
+        }
+        if (state.status.isSubmissionSuccess) {
+          // Could micro-optimise pattern match or conditionals structures
+          // const SnackBar for each state.
+
+          _showSnackText(
+            context,
+            'Sign up success',
+          );
+
+          Navigator.of(context).push(
+            HomeScreen.route(),
+          );
+          return;
         }
       },
       child: Align(
@@ -48,6 +63,21 @@ class SignUpForm extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  ScaffoldMessengerState _showSnackText(
+    BuildContext context,
+    String snackText,
+  ) {
+    return ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            snackText,
+          ),
+        ),
+      );
   }
 }
 
