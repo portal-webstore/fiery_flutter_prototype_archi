@@ -19,7 +19,6 @@ class FirstNameInput extends StatelessWidget {
           key: const Key(SignUpFormKeys.firstNameInputTextField),
           onChanged: (firstName) =>
               context.read<SignUpCubit>().firstNameChanged(firstName),
-          obscureText: true,
           decoration: InputDecoration(
             labelText: 'First name',
             helperText: '',

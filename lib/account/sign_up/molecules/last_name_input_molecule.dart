@@ -19,7 +19,6 @@ class LastNameInput extends StatelessWidget {
           key: const Key(SignUpFormKeys.lastNameInputTextField),
           onChanged: (lastName) =>
               context.read<SignUpCubit>().lastNameChanged(lastName),
-          obscureText: true,
           decoration: InputDecoration(
             labelText: 'Last name',
             helperText: '',
