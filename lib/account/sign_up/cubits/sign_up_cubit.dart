@@ -99,13 +99,10 @@ class SignUpCubit extends Cubit<SignUpState> {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
-      // - TODO: Replace this with proper state when adding name field inputs.
-      const String replaceMeDisplayNameSeed = 'testFirstName testLastName';
-
       await _firebaseAuthenticationRepository.signUp(
         email: state.email.value,
         password: state.password.value,
-        displayName: replaceMeDisplayNameSeed,
+        displayName: '${state.firstName} ${state.lastName}',
       );
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on Exception {
