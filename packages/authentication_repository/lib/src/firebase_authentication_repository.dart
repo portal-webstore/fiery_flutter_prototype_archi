@@ -100,12 +100,20 @@ class FirebaseAuthenticationRepository implements AuthenticationRepository {
   Future<firebase_auth.UserCredential> signUp({
     required String email,
     required String password,
+    required String displayName,
   }) async {
     try {
       final firebase_auth.UserCredential createdUserCredentials =
           await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
+      );
+
+      final firebase_auth.User? userToAddProfileInfo =
+          createdUserCredentials.user;
+
+      await userToAddProfileInfo?.updateProfile(
+        displayName: displayName,
       );
 
       return createdUserCredentials;
