@@ -20,7 +20,7 @@ class LoginButton extends StatelessWidget {
         primary: const Color(0xFFFFD600),
       ),
       onPressed: onPressed,
-      child: const Text('LOGIN'),
+      child: const Text('Login'),
     );
   }
 }
