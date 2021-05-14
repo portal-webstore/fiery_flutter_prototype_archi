@@ -18,15 +18,30 @@ dependencies:
     sdk: flutter
   authentication_repository:
     path: packages/authentication_repository
+
   clinic_repository:
     path: packages/clinic_repository
+  colour_style_guide:
+    path: packages/colour_style_guide
+  formz_inputs:
+    path: packages/formz_inputs
+  i18n_l10n_australian:
+    path: packages/i18n_l10n_australian
+  # input_format_helpers:
+  #   path: packages/input_format_helpers
   order_repository:
     path: packages/order_repository
   patient_repository:
     path: packages/patient_repository
+  product_repository:
+    path: packages/product_repository
   bloc: ^7.0.0
   cupertino_icons: ^1.0.2
+  equatable: ^2.0.0
+  flow_builder: ^0.0.2
   flutter_bloc: ^7.0.0
+  font_awesome_flutter: ^9.0.0
+  formz: ^0.4.0
   intl: ^0.17.0
   json_annotation: ^4.0.1
   package_info_plus: ^1.0.1
@@ -38,7 +53,10 @@ dev_dependencies:
   build_runner: ^2.0.2
   json_serializable: ^4.1.1
   lint: ^1.5.2
-  mockito: ^5.0.7
+
+  # Wait for PR before using standard mockito https://github.com/dart-lang/mockito/issues/347
+  # mockito: ^5.0.7
+  mocktail: ^0.1.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

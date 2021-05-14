@@ -37,3 +37,15 @@ class AppPackageInfo extends AppInfo with PackageInfoableMixin {
         jsonDecode(source) as Map<String, dynamic>,
       );
 }
+
+/// Dart 2.7
+///
+/// Also does not help here with factory/constructors
+extension on AppPackageInfo {
+  // ignore: unused_element
+  AppPackageInfo _extensionFromPackageInfo(
+    PackageInfo packageInfo,
+  ) {
+    return PackageInfoableMixin.getAppInfoFromPackageInfo(packageInfo);
+  }
+}

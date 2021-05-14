@@ -3,7 +3,7 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 import 'package:equatable/equatable.dart' show Equatable;
 
 class User extends Equatable {
-  User({
+  const User({
     required this.userID,
     required this.emailAddress,
     required this.lastName,
@@ -21,6 +21,19 @@ class User extends Equatable {
 
   factory User.fromJson(String source) =>
       User.fromMap(jsonDecode(source) as Map<String, dynamic>);
+
+  static const empty = User(
+    userID: '',
+    emailAddress: '',
+    lastName: '',
+    firstName: '',
+  );
+
+  /// Convenience getter to determine whether the current user is empty.
+  bool get isEmpty => this == User.empty;
+
+  /// Convenience getter to determine whether the current user is not empty.
+  bool get isNotEmpty => this != User.empty;
 
   final String userID;
   final String emailAddress;
