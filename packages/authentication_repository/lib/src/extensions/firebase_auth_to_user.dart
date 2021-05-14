@@ -30,7 +30,8 @@ extension UserConverter on firebase_auth.User {
       );
     }
 
-    final String firstName = splitNames.sublist(0, splitNames.length).join();
+    final String firstName =
+        getAllGivenNamesOutOfNameTokensAsOneConcatenatedFirstName(splitNames);
     final String lastName = splitNames.last;
 
     return auth_repo_models.User(
@@ -40,4 +41,27 @@ extension UserConverter on firebase_auth.User {
       emailAddress: blankedEmail,
     );
   }
+}
+
+/// Get everything except the last name
+///
+/// Into a single string
+/// Workaround
+///
+/// Length limits should be checked prior to calling this function
+String getAllGivenNamesOutOfNameTokensAsOneConcatenatedFirstName(
+  List<String> splitNames,
+) {
+  return getAllGivenNamesTokensExceptLastLastName(splitNames).join();
+}
+
+/// Get everything except the last name in a list
+///
+List<String> getAllGivenNamesTokensExceptLastLastName(
+  List<String> splitNames,
+) {
+  return splitNames.sublist(
+    0,
+    splitNames.length - 1,
+  );
 }
