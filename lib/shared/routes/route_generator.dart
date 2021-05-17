@@ -6,6 +6,8 @@ import 'package:fiery_flutter_prototype_archi/dashboard/screens/dashboard_screen
     show DashboardScreen;
 import 'package:fiery_flutter_prototype_archi/home/screens/home_screen.dart'
     show HomeScreen;
+import 'package:fiery_flutter_prototype_archi/manufacturing/search_clinic/screens/search_clinic_screen.dart'
+    show SearchClinicScreen;
 import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/add_patient/screens/order_add_patient_screen.dart'
     show OrderAddPatientScreen;
 import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/add_treatment_product_item/screens/add_treatment_product_item_screen.dart'
@@ -81,6 +83,11 @@ class RouteGenerator {
       case Routes.wizardReviewComplete:
         return MaterialPageRoute<void>(builder: (BuildContext context) {
           return const ReviewCompleteSaveSubmitScreen();
+        });
+
+      case Routes.searchClinic:
+        return MaterialPageRoute<void>(builder: (BuildContext context) {
+          return const SearchClinicScreen();
         });
 
       default:

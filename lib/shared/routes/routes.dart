@@ -74,4 +74,7 @@ class Routes {
 
   /// Save to draft or submit complete order.
   static const String wizardReviewComplete = '/order/review-save-submit';
+
+  /// - ADMIN:
+  static const String searchClinic = '/manufacturing/search-clinic';
 }
