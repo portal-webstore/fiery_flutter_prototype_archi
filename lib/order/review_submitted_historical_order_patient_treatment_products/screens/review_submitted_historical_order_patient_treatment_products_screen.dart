@@ -71,7 +71,7 @@ class _ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreenState
                 'Qty: 1; 700mg Rituximab in N/S 500mL Freeflex, IVINF \n'
                 'Qty: 1; Doxorubicin 76mg; Vincristine 2mg in N/S Surefuser 500mL 7-day, IVINF \n'
                 'Qty: 1; 1555mg Cyclophosphamide in N/S 500mL Freeflex, IVINF \n'
-                'Qty: 4; 389mg Cyclophosphamide N/S, IVINF \n'
+                'Qty: 4; 389mg Cyclophosphamide in N/S 500mL Freeflex, IVINF \n'
                 'Qty: 2; 70mg Cytarabine in Syringe, ITHEC \n',
           ),
         ],
