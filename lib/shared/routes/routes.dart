@@ -24,6 +24,9 @@ class Routes {
   /// We may only retain the last month anyway
   static const String orderHistory = '/order-history';
 
+  static const String reviewSubmittedHistoricalOrder =
+      '/review-submitted-order';
+
   /// Entry point for new orders.
   /// Draft order may reuse start from review-add-choice page as landing instead.
   static const String wizardCreateOrder = '/order/create';
