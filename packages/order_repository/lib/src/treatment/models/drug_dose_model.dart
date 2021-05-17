@@ -3,7 +3,7 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 import 'package:drug_repository/drug_repository.dart' show Drug;
 
 class DrugDose {
-  DrugDose({
+  const DrugDose({
     required this.drug,
     required this.dose,
   });

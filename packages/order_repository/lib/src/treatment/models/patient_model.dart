@@ -1,7 +1,7 @@
 import 'dart:convert' show jsonDecode, jsonEncode;
 
 class Patient {
-  Patient({
+  const Patient({
     required this.patientIdentifier,
     required this.lastName,
     required this.firstName,
