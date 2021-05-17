@@ -1,6 +1,23 @@
-import 'package:fiery_flutter_prototype_archi/account/login/screens/login_screen.dart';
-import 'package:fiery_flutter_prototype_archi/account/sign_up/screens/sign_up_screen.dart';
-import 'package:fiery_flutter_prototype_archi/home/screens/home_screen.dart';
+import 'package:fiery_flutter_prototype_archi/account/login/screens/login_screen.dart'
+    show LoginScreen;
+import 'package:fiery_flutter_prototype_archi/account/sign_up/screens/sign_up_screen.dart'
+    show SignUpScreen;
+import 'package:fiery_flutter_prototype_archi/dashboard/screens/dashboard_screen.dart'
+    show DashboardScreen;
+import 'package:fiery_flutter_prototype_archi/home/screens/home_screen.dart'
+    show HomeScreen;
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/add_patient/screens/order_add_patient_screen.dart'
+    show OrderAddPatientScreen;
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/add_treatment_product_item/screens/add_treatment_product_item_screen.dart'
+    show OrderAddTreatmentProductItemScreen;
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/review_order/add_choice/screens/review_add_choice_screen.dart'
+    show ReviewAddChoiceScreen;
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/review_order/complete_save_submit/screens/review_complete_save_submit_screen.dart'
+    show ReviewCompleteSaveSubmitScreen;
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/screens/create_order_screen.dart'
+    show CreateOrderScreen;
+import 'package:fiery_flutter_prototype_archi/order/order_history/screens/order_history_screen.dart'
+    show OrderHistoryScreen;
 import 'package:fiery_flutter_prototype_archi/shared/routes/routes.dart'
     show Routes;
 import 'package:flutter/material.dart'
@@ -29,6 +46,35 @@ class RouteGenerator {
       case Routes.login:
         return MaterialPageRoute<void>(builder: (BuildContext context) {
           return const LoginScreen();
+        });
+      case Routes.dashboard:
+        return MaterialPageRoute<void>(builder: (BuildContext context) {
+          return const DashboardScreen();
+        });
+      case Routes.orderHistory:
+        return MaterialPageRoute<void>(builder: (BuildContext context) {
+          return const OrderHistoryScreen();
+        });
+
+      case Routes.wizardCreateOrder:
+        return MaterialPageRoute<void>(builder: (BuildContext context) {
+          return const CreateOrderScreen();
+        });
+      case Routes.wizardAddPatient:
+        return MaterialPageRoute<void>(builder: (BuildContext context) {
+          return const OrderAddPatientScreen();
+        });
+      case Routes.wizardAddTreatmentProductItem:
+        return MaterialPageRoute<void>(builder: (BuildContext context) {
+          return const OrderAddTreatmentProductItemScreen();
+        });
+      case Routes.wizardReviewAddChoice:
+        return MaterialPageRoute<void>(builder: (BuildContext context) {
+          return const ReviewAddChoiceScreen();
+        });
+      case Routes.wizardReviewComplete:
+        return MaterialPageRoute<void>(builder: (BuildContext context) {
+          return const ReviewCompleteSaveSubmitScreen();
         });
 
       default:
