@@ -6,4 +6,13 @@ export 'src/order_repository.dart' show OrderRepository;
 
 /// Treatment specific patient treatment item models
 export 'src/treatment/treatment.dart'
-    show DrugDose, Patient, PatientTreatmentProductItem;
+    show
+        DrugDose,
+        ItemOrderStatusCode,
+        ItemOrderStatusText,
+        Patient,
+        PatientTreatmentProductItem,
+        getNameTextFromPatient,
+        getStatusCodeViewModelText,
+        DrugDoseDescription,
+        ProductDescription;

@@ -3,7 +3,7 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:product_repository/product_repository.dart' show Product;
 
-import 'drug_dose_model.dart' show DrugDose;
+import 'drug_dose_model.dart' show DrugDose, DrugDoseDescription;
 import 'patient_model.dart' show Patient;
 
 class PatientTreatmentProductItem {
@@ -96,5 +96,29 @@ class PatientTreatmentProductItem {
         patient.hashCode ^
         drugDoses.hashCode ^
         product.hashCode;
+  }
+}
+
+/// Add product description text utility
+extension ProductDescription on PatientTreatmentProductItem {
+  String getQuantifiedDosedProductText() {
+    // Need to rebuild name rules again? Simpler to show per drug dose instead
+
+    final String? drugDosesConcatenatedText = this
+        .drugDoses
+        ?.map(
+          (DrugDose drugDose) => drugDose.getDescriptionText(),
+        )
+        .join('; ');
+
+    /// Essentially unnoticed if strange error occurs - may be a bad thing
+    final String blankedDrugDosesTextTrailingSeparator =
+        drugDosesConcatenatedText == null
+            ? ''
+            : drugDosesConcatenatedText + '; ';
+
+    return 'Qty: ${this.quantity}; '
+        '${blankedDrugDosesTextTrailingSeparator}${product.productName}, '
+        '${product.administrationRoute}';
   }
 }

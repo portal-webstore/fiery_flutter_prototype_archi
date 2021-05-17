@@ -53,3 +53,10 @@ class DrugDose {
   @override
   int get hashCode => drug.hashCode ^ dose.hashCode;
 }
+
+extension DrugDoseDescription on DrugDose {
+  String getDescriptionText() {
+    return '${this.drug.drugName}: '
+        '${this.dose}${this.drug.drugUnitsOfMeasurement}';
+  }
+}

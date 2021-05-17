@@ -1,4 +1,6 @@
-export 'drug_dose_model.dart' show DrugDose;
-export 'patient_model.dart' show Patient;
+export 'drug_dose_model.dart' show DrugDose, DrugDoseDescription;
+export 'item_order_status_codes_texts.dart'
+    show ItemOrderStatusCode, ItemOrderStatusText, getStatusCodeViewModelText;
+export 'patient_model.dart' show Patient, getNameTextFromPatient;
 export 'patient_treatment_product_item_model.dart'
-    show PatientTreatmentProductItem;
+    show PatientTreatmentProductItem, ProductDescription;

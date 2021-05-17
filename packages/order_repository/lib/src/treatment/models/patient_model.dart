@@ -87,3 +87,9 @@ class Patient {
         patientOcsLink.hashCode;
   }
 }
+
+String getNameTextFromPatient(Patient patient) {
+  return '${patient.lastName}, ${patient.firstName} '
+      '(${patient.birthDate}) '
+      '${patient.patientIdentifier}';
+}
