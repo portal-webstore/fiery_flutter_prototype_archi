@@ -3,6 +3,7 @@ import 'package:order_repository/order_repository.dart';
 
 import '../molecules/patient_treatment_product_list_item.dart';
 
+/// Use our data model and place into the strings of listItem
 class PatientTreatmentProductRow extends StatelessWidget {
   const PatientTreatmentProductRow({
     Key? key,
@@ -22,9 +23,10 @@ class PatientTreatmentProductRow extends StatelessWidget {
 
         /// Should only have multiple treatments under this whole patient row.
         /// Do not redeclare the title?
+        /// Depending on grouping whether it would require another conversion
         ///
-        const PatientTreatmentProductListItem(
-          treatmentProductStatus: 'Awaiting confirmation',
+        PatientTreatmentProductListItem(
+          treatmentProductStatus: patientTreatmentProductItem.status,
           patientNameTitleLine: 'McBlogs, Joan (1293123)',
           multiProductAndQuantityContentLines:
               '1prod Test, test test test tet test setestset es tsets \n'
