@@ -4,7 +4,7 @@ import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:drug_repository/drug_repository.dart' show Drug;
 
 class Product {
-  Product({
+  const Product({
     required this.productName,
     required this.drugs,
     required this.diluentName,
