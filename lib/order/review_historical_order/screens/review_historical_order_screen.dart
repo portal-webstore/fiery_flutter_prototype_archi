@@ -6,7 +6,10 @@ import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
     show SideMenuNavigationDrawer;
 import 'package:flutter/material.dart';
 import 'package:order_repository/order_repository.dart'
-    show PatientTreatmentProductItem, ProductDescription;
+    show
+        FirebaseOrderRepository,
+        PatientTreatmentProductItem,
+        ProductDescription;
 import 'package:patient_repository/patient_repository.dart'
     show Patient, PatientBirthDateAustralian;
 
@@ -34,6 +37,8 @@ class ReviewHistoricalOrderScreen extends StatefulWidget {
 
 class _ReviewHistoricalOrderScreenState
     extends State<ReviewHistoricalOrderScreen> {
+  late final FirebaseOrderRepository _orderRepository;
+
   @override
   void initState() {
     super.initState();
@@ -45,7 +50,9 @@ class _ReviewHistoricalOrderScreenState
     super.dispose();
   }
 
-  void _load() {}
+  void _load() {
+    _orderRepository = FirebaseOrderRepository();
+  }
 
   @override
   Widget build(BuildContext context) {
