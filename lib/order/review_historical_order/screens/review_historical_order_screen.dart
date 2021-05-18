@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:order_repository/order_repository.dart'
     show
         FirebaseOrderRepository,
+        Order,
         PatientTreatmentProductItem,
         ProductDescription;
 import 'package:patient_repository/patient_repository.dart'
@@ -52,6 +53,36 @@ class _ReviewHistoricalOrderScreenState
 
   void _load() {
     _orderRepository = FirebaseOrderRepository();
+
+    _orderRepository
+        .addNewOrder(
+          Order(
+            orderID: '',
+            orderReference: 'orderReference free text',
+            createdAt: DateTime.now().millisecondsSinceEpoch,
+            updatedAt: DateTime.now().millisecondsSinceEpoch,
+            requiredByDeliveryDate: '2021-05-20',
+            comments: 'comments',
+            isDraft: true,
+            patientTreatmentProductItems: seedPatientTreatmentProducts,
+          ),
+        )
+        .onError((error, stackTrace) => print)
+        .catchError(
+      () {
+        print('add new order error');
+      },
+    );
+
+    _orderRepository.orders().listen((event) {
+      print('wahoo event added');
+      print(event.toString());
+    }).onError((
+      Object err,
+      StackTrace stackTrace,
+    ) {
+      print(err);
+    });
   }
 
   @override
