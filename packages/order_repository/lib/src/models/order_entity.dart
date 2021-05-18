@@ -114,6 +114,8 @@ class OrderEntity {
       'requiredByDeliveryDate': requiredByDeliveryDate,
       'comments': comments,
       'isDraft': isDraft,
+      'patientTreatmentProductItems':
+          _getPatientTreatmentProductItemsMappedList(),
     };
 
     return map;
@@ -128,6 +130,8 @@ class OrderEntity {
       'requiredByDeliveryDate': requiredByDeliveryDate,
       'comments': comments,
       'isDraft': isDraft,
+      'patientTreatmentProductItems':
+          _getPatientTreatmentProductItemsMappedList(),
     };
   }
 
@@ -170,4 +174,13 @@ class OrderEntity {
       other is OrderEntity && documentID == other.documentID;
 
   int get hashCode => documentID.hashCode;
+
+  List<Map<String, dynamic>> _getPatientTreatmentProductItemsMappedList() {
+    return patientTreatmentProductItems
+            ?.map(
+              (e) => e.toMap(),
+            )
+            .toList() ??
+        <Map<String, dynamic>>[];
+  }
 }
