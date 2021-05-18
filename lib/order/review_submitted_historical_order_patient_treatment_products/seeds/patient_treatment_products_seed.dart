@@ -20,7 +20,7 @@ const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
       patientIdentifier: '1895',
       lastName: 'lastName',
       firstName: 'firstName',
-      birthDate: '2000-12-31',
+      birthDate: '1960-01-31',
       patientOcsLink: -1,
     ),
     product: Product(
@@ -59,7 +59,7 @@ const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
       patientIdentifier: '37352',
       lastName: 'McBlogs',
       firstName: 'Joan',
-      birthDate: '2000-12-31',
+      birthDate: '1901-01-01',
       patientOcsLink: -1,
     ),
     product: Product(
@@ -95,10 +95,10 @@ const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
       ),
     ],
     patient: Patient(
-      patientIdentifier: '1895',
+      patientIdentifier: '02220',
       lastName: 'Blob',
       firstName: 'firstName T',
-      birthDate: '2000-12-31',
+      birthDate: '1900-02-28',
       patientOcsLink: -1,
     ),
     product: Product(
