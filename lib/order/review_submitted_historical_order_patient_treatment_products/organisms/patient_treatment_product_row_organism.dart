@@ -26,7 +26,7 @@ class PatientTreatmentProductRow extends StatelessWidget {
         /// Depending on grouping whether it would require another conversion
         ///
         PatientTreatmentProductListItem(
-          treatmentProductStatus: patientTreatmentProductItem.status,
+          treatmentProductStatusCode: patientTreatmentProductItem.status,
           patientNameTitleLine: 'McBlogs, Joan (1293123)',
           multiProductAndQuantityContentLines:
               '1prod Test, test test test tet test setestset es tsets \n'

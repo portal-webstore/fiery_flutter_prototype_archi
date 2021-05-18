@@ -42,7 +42,7 @@ const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
       ocsProductLink: -1,
     ),
     quantity: 1,
-    status: ItemOrderStatusCode.awaitingConfirmation,
+    status: ItemOrderStatusCode.pendingReviewNotReviewedYet,
   ),
   PatientTreatmentProductItem(
     drugDoses: [
@@ -81,7 +81,7 @@ const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
       ocsProductLink: -1,
     ),
     quantity: 1,
-    status: ItemOrderStatusCode.awaitingConfirmation,
+    status: ItemOrderStatusCode.pendingReviewNotReviewedYet,
   ),
   PatientTreatmentProductItem(
     drugDoses: [
@@ -120,7 +120,7 @@ const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
       ocsProductLink: -1,
     ),
     quantity: 1,
-    status: ItemOrderStatusCode.awaitingConfirmation,
+    status: ItemOrderStatusCode.pendingReviewNotReviewedYet,
   ),
   PatientTreatmentProductItem(
     drugDoses: [
@@ -172,7 +172,7 @@ const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
       ocsProductLink: -1,
     ),
     quantity: 1,
-    status: ItemOrderStatusCode.awaitingConfirmation,
+    status: ItemOrderStatusCode.pendingReviewNotReviewedYet,
   ),
   PatientTreatmentProductItem(
     drugDoses: [
@@ -211,7 +211,7 @@ const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
       ocsProductLink: -1,
     ),
     quantity: 1,
-    status: ItemOrderStatusCode.awaitingConfirmation,
+    status: ItemOrderStatusCode.pendingReviewNotReviewedYet,
   ),
   PatientTreatmentProductItem(
     drugDoses: [
@@ -250,7 +250,7 @@ const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
       ocsProductLink: -1,
     ),
     quantity: 4,
-    status: ItemOrderStatusCode.awaitingConfirmation,
+    status: ItemOrderStatusCode.pendingReviewNotReviewedYet,
   ),
   PatientTreatmentProductItem(
     drugDoses: [
@@ -289,6 +289,6 @@ const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
       ocsProductLink: -1,
     ),
     quantity: 4,
-    status: ItemOrderStatusCode.awaitingConfirmation,
+    status: ItemOrderStatusCode.shippedDispatched,
   ),
 ];

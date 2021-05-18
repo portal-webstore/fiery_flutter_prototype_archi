@@ -6,11 +6,7 @@ import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
     show SideMenuNavigationDrawer;
 import 'package:flutter/material.dart';
 import 'package:order_repository/order_repository.dart'
-    show
-        PatientTreatmentProductItem,
-        ProductDescription,
-        getNameTextFromPatient,
-        getStatusCodeViewModelText;
+    show PatientTreatmentProductItem, ProductDescription;
 import 'package:patient_repository/patient_repository.dart'
     show Patient, PatientBirthDateAustralian;
 
@@ -56,26 +52,26 @@ class _ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreenState
         padding: const EdgeInsets.all(8.0),
         children: <Widget>[
           const PatientTreatmentProductListItem(
-            treatmentProductStatus: 'Awaiting confirmation',
+            treatmentProductStatusCode: 'Awaiting confirmation',
             patientNameTitleLine: 'McBlogs, Joan (31/12/1900) 1293123',
             multiProductAndQuantityContentLines:
                 'Qty: 1; 1prod Test, test test test tet test setestset es tsets \n'
                 'Qty: 1; 2prod adae in dextr test test test',
           ),
           const PatientTreatmentProductListItem(
-            treatmentProductStatus: 'Awaiting confirmation',
+            treatmentProductStatusCode: 'Awaiting confirmation',
             patientNameTitleLine: 'McJoe, Blob (31/01/1960) 64754',
             multiProductAndQuantityContentLines:
                 'Qty: 1; 1mg Pralatrexate in Syringe, ',
           ),
           const PatientTreatmentProductListItem(
-            treatmentProductStatus: 'Awaiting confirmation',
+            treatmentProductStatusCode: 'Awaiting confirmation',
             patientNameTitleLine: 'McBlob, Jane (01/01/1960) 45712',
             multiProductAndQuantityContentLines:
                 'Qty: 2; 5460mg Cytarabine in N/S 500mL Freeflex, IVINF',
           ),
           const PatientTreatmentProductListItem(
-            treatmentProductStatus: 'Awaiting confirmation',
+            treatmentProductStatusCode: 'Awaiting confirmation',
             patientNameTitleLine: 'Soup, Rock (01/01/1901) 984374',
             multiProductAndQuantityContentLines:
                 'Qty: 1; 700mg Rituximab in N/S 500mL Freeflex, IVINF \n'
@@ -117,9 +113,7 @@ class ListItemAdaptedFromPatientTreatmentProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PatientTreatmentProductListItem(
-      treatmentProductStatus: getStatusCodeViewModelText(
-        patientTreatmentProductItem.status,
-      ),
+      treatmentProductStatusCode: patientTreatmentProductItem.status,
       patientNameTitleLine:
           patientTreatmentProductItem.patient.getNameTextFromPatient(),
       multiProductAndQuantityContentLines:
