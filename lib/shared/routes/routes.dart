@@ -25,7 +25,7 @@ class Routes {
   static const String orderHistory = '/order-history';
 
   static const String reviewSubmittedHistoricalOrder =
-      '/review-submitted-order';
+      '/review-historical-order';
 
   /// Entry point for new orders.
   /// Draft order may reuse start from review-add-choice page as landing instead.

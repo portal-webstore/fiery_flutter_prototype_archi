@@ -20,8 +20,8 @@ import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_or
     show CreateOrderScreen;
 import 'package:fiery_flutter_prototype_archi/order/order_history/screens/order_history_screen.dart'
     show OrderHistoryScreen;
-import 'package:fiery_flutter_prototype_archi/order/review_submitted_historical_order_patient_treatment_products/screens/review_submitted_historical_order_patient_treatment_products_screen.dart'
-    show ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreen;
+import 'package:fiery_flutter_prototype_archi/order/review_submitted_historical_order_patient_treatment_products/screens/review_historical_order_screen.dart'
+    show ReviewHistoricalOrderScreen;
 import 'package:fiery_flutter_prototype_archi/shared/routes/routes.dart'
     show Routes;
 import 'package:flutter/material.dart'
@@ -61,7 +61,7 @@ class RouteGenerator {
         });
       case Routes.reviewSubmittedHistoricalOrder:
         return MaterialPageRoute<void>(builder: (BuildContext context) {
-          return const ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreen();
+          return const ReviewHistoricalOrderScreen();
         });
 
       case Routes.wizardCreateOrder:

@@ -11,39 +11,48 @@ import 'package:patient_repository/patient_repository.dart'
     show Patient, PatientBirthDateAustralian;
 
 /// Review the multiple patients + products within a single consolidated order
-class ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreen
-    extends StatefulWidget {
-  const ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreen({
+class ReviewHistoricalOrderScreen extends StatefulWidget {
+  const ReviewHistoricalOrderScreen({
     Key? key,
   }) : super(key: key);
 
   static const title = 'Review ordered patient treatments';
 
-  static Page page() => const MaterialPage<void>(
-      child: ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreen());
+  static Page page() =>
+      const MaterialPage<void>(child: ReviewHistoricalOrderScreen());
 
   static Route<void> route() {
     return MaterialPageRoute<void>(
-      builder: (_) =>
-          const ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreen(),
+      builder: (_) => const ReviewHistoricalOrderScreen(),
     );
   }
 
   @override
-  _ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreenState
-      createState() =>
-          _ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreenState();
+  _ReviewHistoricalOrderScreenState createState() =>
+      _ReviewHistoricalOrderScreenState();
 }
 
-class _ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreenState
-    extends State<
-        ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreen> {
+class _ReviewHistoricalOrderScreenState
+    extends State<ReviewHistoricalOrderScreen> {
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _load() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          ReviewSubmittedHistoricalOrderPatientTreatmentProductsScreen.title,
+          ReviewHistoricalOrderScreen.title,
         ),
         actions: const <Widget>[],
       ),
