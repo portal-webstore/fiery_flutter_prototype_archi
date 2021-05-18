@@ -14,7 +14,7 @@ abstract class OrderRepository {
   /// We have dynamic orders
   ///
   /// Potentially limited retention to four weeks ~ 31 days
-  Future<List<Order>> orders();
+  Stream<List<Order>> orders();
 
   /// Update
   Future<void> updateOrder(Order order);

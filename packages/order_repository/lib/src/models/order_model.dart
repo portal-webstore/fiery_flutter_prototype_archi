@@ -1,6 +1,7 @@
 import 'dart:convert' show jsonDecode, jsonEncode;
 
 import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:order_repository/order_repository.dart';
 import 'package:order_repository/src/treatment/models/patient_treatment_product_item_model.dart'
     show PatientTreatmentProductItem;
 
@@ -40,6 +41,19 @@ class Order {
   factory Order.fromJson(String source) =>
       Order.fromMap(jsonDecode(source) as Map<String, dynamic>);
 
+  factory Order.fromEntity(OrderEntity entity) {
+    return Order(
+      orderID: entity.orderID ?? '',
+      orderReference: entity.orderReference ?? '',
+      createdAt: entity.createdAt ?? -1,
+      updatedAt: entity.updatedAt ?? -1,
+      requiredByDeliveryDate: entity.requiredByDeliveryDate ?? '',
+      comments: entity.comments ?? '',
+      isDraft: entity.isDraft ?? false,
+      patientTreatmentProductItems: entity.patientTreatmentProductItems ?? [],
+    );
+  }
+
   final String orderID;
   final String orderReference;
   final int createdAt;
@@ -47,7 +61,7 @@ class Order {
   final String requiredByDeliveryDate;
   final String comments;
   final bool isDraft;
-  final List<PatientTreatmentProductItem>? patientTreatmentProductItems;
+  final List<PatientTreatmentProductItem> patientTreatmentProductItems;
 
   Order copyWith({
     String? orderID,
@@ -88,6 +102,22 @@ class Order {
   }
 
   String toJson() => jsonEncode(toMap());
+
+  OrderEntity toEntity() {
+    return OrderEntity(
+      orderID: orderID,
+      orderReference: orderReference,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      requiredByDeliveryDate: requiredByDeliveryDate,
+      comments: comments,
+      isDraft: isDraft,
+      patientTreatmentProductItems: patientTreatmentProductItems,
+      snapshot: null,
+      reference: null,
+      documentID: orderID,
+    );
+  }
 
   @override
   String toString() {

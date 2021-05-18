@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart'
-    show DocumentReference, DocumentSnapshot;
+    show DocumentReference, DocumentSnapshot, FromFirestore;
+import 'package:order_repository/src/treatment/models/models.dart';
 
 class OrderEntity {
   const OrderEntity({
@@ -10,6 +11,7 @@ class OrderEntity {
     this.requiredByDeliveryDate,
     this.comments,
     this.isDraft,
+    this.patientTreatmentProductItems,
     this.snapshot,
     this.reference,
     this.documentID,
@@ -41,9 +43,34 @@ class OrderEntity {
           ? snapshot.get('isDraft') as bool
           : null,
       // - TODO: Add the other properties for nested objects fromJson map.
+      patientTreatmentProductItems:
+          snapshot.get('patientTreatmentProductItems') != null
+              ? getListPatientTreatmentProductsFromMap(
+                  snapshot.get('patientTreatmentProductItems'),
+                )
+              : null,
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
+    );
+  }
+
+  /// Alias in keeping with sample for maintainability.
+  factory OrderEntity.fromSnapshot(DocumentSnapshot snapshot) =>
+      OrderEntity.fromFirestore(snapshot);
+
+  static List<PatientTreatmentProductItem>
+      getListPatientTreatmentProductsFromMap(
+    dynamic patientTreatmentProductsMappedFromSnapshot,
+  ) {
+    return List<PatientTreatmentProductItem>.from(
+      (patientTreatmentProductsMappedFromSnapshot as Iterable<dynamic>? ??
+              <dynamic>[])
+          .map<PatientTreatmentProductItem>(
+        (dynamic x) => PatientTreatmentProductItem.fromMap(
+          x as Map<String, dynamic>,
+        ),
+      ),
     );
   }
 
@@ -70,6 +97,7 @@ class OrderEntity {
   final String? requiredByDeliveryDate;
   final String? comments;
   final bool? isDraft;
+  final List<PatientTreatmentProductItem>? patientTreatmentProductItems;
   final DocumentSnapshot? snapshot;
   final DocumentReference? reference;
 
@@ -89,6 +117,18 @@ class OrderEntity {
     };
 
     return map;
+  }
+
+  /// Per Firestore sample
+  Map<String, Object?> toDocument() {
+    return {
+      'orderReference': orderReference,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'requiredByDeliveryDate': requiredByDeliveryDate,
+      'comments': comments,
+      'isDraft': isDraft,
+    };
   }
 
   OrderEntity copyWith({

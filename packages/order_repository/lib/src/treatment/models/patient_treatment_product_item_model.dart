@@ -15,6 +15,8 @@ class PatientTreatmentProductItem {
     required this.product,
   });
 
+  /// Could add reusable assert for status check.
+
   factory PatientTreatmentProductItem.fromMap(Map<String, dynamic> map) {
     return PatientTreatmentProductItem(
       quantity: map['quantity'] as int,
