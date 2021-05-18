@@ -1,10 +1,10 @@
 import 'dart:convert' show jsonDecode, jsonEncode;
 
 import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:patient_repository/patient_repository.dart' show Patient;
 import 'package:product_repository/product_repository.dart' show Product;
 
 import 'drug_dose_model.dart' show DrugDose, DrugDoseDescription;
-import 'patient_model.dart' show Patient;
 
 class PatientTreatmentProductItem {
   const PatientTreatmentProductItem({

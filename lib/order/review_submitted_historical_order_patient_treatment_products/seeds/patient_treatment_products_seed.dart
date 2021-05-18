@@ -1,6 +1,8 @@
-import 'package:drug_repository/drug_repository.dart';
-import 'package:order_repository/order_repository.dart';
-import 'package:product_repository/product_repository.dart';
+import 'package:drug_repository/drug_repository.dart' show Drug;
+import 'package:order_repository/order_repository.dart'
+    show DrugDose, ItemOrderStatusCode, PatientTreatmentProductItem;
+import 'package:patient_repository/patient_repository.dart' show Patient;
+import 'package:product_repository/product_repository.dart' show Product;
 
 const List<PatientTreatmentProductItem> seedPatientTreatmentProducts = [
   PatientTreatmentProductItem(
