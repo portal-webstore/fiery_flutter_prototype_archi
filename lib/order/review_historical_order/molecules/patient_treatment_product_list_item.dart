@@ -1,4 +1,4 @@
-import 'package:fiery_flutter_prototype_archi/order/review_submitted_historical_order_patient_treatment_products/molecules/patient_treatment_product_item_description.dart'
+import 'package:fiery_flutter_prototype_archi/order/review_historical_order/molecules/patient_treatment_product_item_description.dart'
     show PatientTreatmentProductItemDescription;
 import 'package:flutter/material.dart';
 import 'package:order_repository/order_repository.dart'

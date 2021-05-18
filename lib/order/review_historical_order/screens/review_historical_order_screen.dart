@@ -1,6 +1,6 @@
-import 'package:fiery_flutter_prototype_archi/order/review_submitted_historical_order_patient_treatment_products/molecules/patient_treatment_product_list_item.dart'
+import 'package:fiery_flutter_prototype_archi/order/review_historical_order/molecules/patient_treatment_product_list_item.dart'
     show PatientTreatmentProductListItem;
-import 'package:fiery_flutter_prototype_archi/order/review_submitted_historical_order_patient_treatment_products/seeds/patient_treatment_products_seed.dart'
+import 'package:fiery_flutter_prototype_archi/order/review_historical_order/seeds/patient_treatment_products_seed.dart'
     show seedPatientTreatmentProducts;
 import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
     show SideMenuNavigationDrawer;
