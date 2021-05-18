@@ -97,7 +97,7 @@ class Order {
       'comments': comments,
       'isDraft': isDraft,
       'patientTreatmentProductItems':
-          patientTreatmentProductItems?.map((x) => x.toMap()).toList(),
+          patientTreatmentProductItems.map((x) => x.toMap()).toList(),
     };
   }
 
