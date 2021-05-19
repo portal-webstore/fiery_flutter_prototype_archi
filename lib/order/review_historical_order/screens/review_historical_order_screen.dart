@@ -73,15 +73,20 @@ class _ReviewHistoricalOrderScreenState
       () {
         print('add new order error');
       },
-    );
+    ).then((value) {
+      print('wahoo order added');
+    });
 
-    _orderRepository.orders().listen((event) {
-      print('wahoo event added');
-      print(event.toString());
+    _orderRepository.orders().listen((
+      List<Order> orders,
+    ) {
+      print('orders found and parsed');
+      print(orders.toString());
     }).onError((
       Object err,
       StackTrace stackTrace,
     ) {
+      print('err listening to orders');
       print(err);
     });
   }
