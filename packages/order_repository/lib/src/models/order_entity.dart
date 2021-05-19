@@ -18,37 +18,25 @@ class OrderEntity {
   });
 
   factory OrderEntity.fromFirestore(DocumentSnapshot snapshot) {
-    final Map<String, Object?>? map = snapshot.data() as Map<String, Object?>?;
+    final Map<String, Object?> map = snapshot.data() as Map<String, Object?>;
 
     return OrderEntity(
-      orderID: snapshot.get('orderID') != null
-          ? snapshot.get('orderID') as String
+      orderID: map['orderID'] != null ? map['orderID'] as String : null,
+      orderReference: map['orderReference'] != null
+          ? map['orderReference'] as String
           : null,
-      orderReference: snapshot.get('orderReference') != null
-          ? snapshot.get('orderReference') as String
+      createdAt: map['createdAt'] != null ? map['createdAt'] as int : null,
+      updatedAt: map['updatedAt'] != null ? map['updatedAt'] as int : null,
+      requiredByDeliveryDate: map['requiredByDeliveryDate'] != null
+          ? map['requiredByDeliveryDate'] as String
           : null,
-      createdAt: snapshot.get('createdAt') != null
-          ? snapshot.get('createdAt') as int
+      comments: map['comments'] != null ? map['comments'] as String : null,
+      isDraft: map['isDraft'] != null ? map['isDraft'] as bool : null,
+      patientTreatmentProductItems: map['patientTreatmentProductItems'] != null
+          ? getListPatientTreatmentProductsFromMap(
+              map['patientTreatmentProductItems'],
+            )
           : null,
-      updatedAt: snapshot.get('updatedAt') != null
-          ? snapshot.get('updatedAt') as int
-          : null,
-      requiredByDeliveryDate: snapshot.get('requiredByDeliveryDate') != null
-          ? snapshot.get('requiredByDeliveryDate') as String
-          : null,
-      comments: snapshot.get('comments') != null
-          ? snapshot.get('comments') as String
-          : null,
-      isDraft: snapshot.get('isDraft') != null
-          ? snapshot.get('isDraft') as bool
-          : null,
-      // - TODO: Add the other properties for nested objects fromJson map.
-      patientTreatmentProductItems:
-          snapshot.get('patientTreatmentProductItems') != null
-              ? getListPatientTreatmentProductsFromMap(
-                  snapshot.get('patientTreatmentProductItems'),
-                )
-              : null,
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
