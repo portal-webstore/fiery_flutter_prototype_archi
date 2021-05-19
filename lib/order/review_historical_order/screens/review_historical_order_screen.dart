@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:order_repository/order_repository.dart'
     show
         FirebaseOrderRepository,
+        OrderRepository,
         Order,
         PatientTreatmentProductItem,
         ProductDescription;
@@ -38,7 +39,7 @@ class ReviewHistoricalOrderScreen extends StatefulWidget {
 
 class _ReviewHistoricalOrderScreenState
     extends State<ReviewHistoricalOrderScreen> {
-  late final FirebaseOrderRepository _orderRepository;
+  late final OrderRepository _orderRepository;
 
   @override
   void initState() {
