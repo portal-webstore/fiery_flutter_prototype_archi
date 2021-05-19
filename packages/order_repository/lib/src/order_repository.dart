@@ -10,11 +10,13 @@ abstract class OrderRepository {
   /// Delete
   Future<void> deleteOrder(Order order);
 
+  Future<Order?> getOrder(Order order);
+
   /// Read
   /// We have dynamic orders
   ///
   /// Potentially limited retention to four weeks ~ 31 days
-  Stream<List<Order>> orders();
+  Stream<List<Order>> orders({int limitMostRecentCount = 6});
 
   /// Update
   Future<void> updateOrder(Order order);
