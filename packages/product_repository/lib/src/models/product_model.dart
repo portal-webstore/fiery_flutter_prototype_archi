@@ -33,7 +33,7 @@ class Product {
       diluentName: map['diluentName'] as String,
       containerName: map['containerName'] as String,
       containerCustomName: map['containerCustomName'] as String,
-      containerVolume: (['containerVolume'] as num).toDouble(),
+      containerVolume: (map['containerVolume'] as num).toDouble(),
       containerIsFixedFinalVolume: map['containerIsFixedFinalVolume'] as bool,
       administrationRoute: map['administrationRoute'] as String,
       attachmentName: map['attachmentName'] as String,
