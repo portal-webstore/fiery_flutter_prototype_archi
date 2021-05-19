@@ -23,7 +23,7 @@ class PatientTreatmentProductItem {
       status: map['status'] as String,
       patient: Patient.fromMap(map['patient'] as Map<String, dynamic>),
       drugDoses: List<DrugDose>.from(
-        (map['drugDoses'] as Iterable<Map<String, dynamic>>?)?.map<DrugDose>(
+        (map['drugDoses'] as List<dynamic>?)?.map<DrugDose>(
               (dynamic x) => DrugDose.fromMap(
                 x as Map<String, dynamic>,
               ),
