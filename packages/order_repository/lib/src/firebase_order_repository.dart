@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart'
     show
         CollectionReference,
+        DocumentReference,
         FirebaseFirestore,
         QueryDocumentSnapshot,
         QuerySnapshot;
@@ -30,6 +31,7 @@ class FirebaseOrderRepository implements OrderRepository {
         .orderBy('createdAt', descending: true)
         .limit(6)
         .snapshots();
+
     final Stream<List<Order>> orderDocuments = sortedSnapshots.map(
       (querySnapshot) {
         final ordersQuerySnapDocs = querySnapshot.docs;
@@ -50,8 +52,10 @@ class FirebaseOrderRepository implements OrderRepository {
 
   @override
   Future<void> updateOrder(Order order) {
-    final orderDocRef = orderCollection.doc(order.orderID);
-    final orderDocDataToUpdateWith = order.toEntity().toDocument();
+    final DocumentReference<Map<String, dynamic>> orderDocRef =
+        orderCollection.doc(order.orderID);
+    final Map<String, Object?> orderDocDataToUpdateWith =
+        order.toEntity().toDocument();
 
     return orderDocRef.update(
       orderDocDataToUpdateWith,
