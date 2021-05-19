@@ -3,6 +3,11 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:drug_repository/drug_repository.dart' show Drug;
 
+abstract class Mappable<T> {
+  Mappable.fromMap(dynamic map);
+  Map<String, Object?> toMap();
+}
+
 class Product {
   const Product({
     required this.productName,
@@ -19,11 +24,7 @@ class Product {
 
   /// Convert from a **queried** json map with no optionals.
   factory Product.fromMap(Map<String, dynamic> map) {
-    final Iterable<Drug> drugs =
-        (map['drugs'] as Iterable<Map<String, dynamic>>?)?.map<Drug>(
-              (x) => Drug.fromMap(x),
-            ) ??
-            [];
+    final Iterable<Drug> drugs = getIterableParsedFromDynamicList(map);
 
     return Product(
       productName: map['productName'] as String,
@@ -41,6 +42,28 @@ class Product {
       /// This should not be null if we are querying from a json!
       ocsProductLink: map['ocsProductLink'] as int,
     );
+  }
+
+  /// See https://github.com/dart-lang/language/issues/356
+  /// for info on abstract (no factory or constructors are abstractable)
+  /// want to enforce the generic shape of having a fromMap serailising function
+  /// same use case
+  ///
+  /// abstract static method
+  ///
+  ///  See potential emulation https://github.com/dart-lang/language/issues/356#issuecomment-494467605
+  /// static Iterable<T> getIterableParsedFromDynamicList< T, G extends Mappable<T>>(
+  static Iterable<Drug> getIterableParsedFromDynamicList(
+    Map<String, dynamic> map,
+  ) {
+    return (map['drugs'] as Iterable<dynamic>?)?.map<Drug>((
+          dynamic drugMap,
+        ) {
+          return Drug.fromMap(
+            drugMap as Map<String, dynamic>,
+          );
+        }) ??
+        <Drug>[];
   }
 
   factory Product.fromJson(String source) =>
