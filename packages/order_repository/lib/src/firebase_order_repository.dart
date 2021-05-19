@@ -15,7 +15,7 @@ class FirebaseOrderRepository implements OrderRepository {
 
   @override
   Future<void> addNewOrder(Order order) {
-    final document = order.toEntity().toDocument();
+    final Map<String, Object?> document = order.toEntity().toDocument();
 
     return orderCollection.add(document);
   }
@@ -27,10 +27,11 @@ class FirebaseOrderRepository implements OrderRepository {
 
   @override
   Stream<List<Order>> orders() {
-    final sortedSnapshots = orderCollection
-        .orderBy('createdAt', descending: true)
-        .limit(6)
-        .snapshots();
+    final Stream<QuerySnapshot<Map<String, dynamic>>> sortedSnapshots =
+        orderCollection
+            .orderBy('createdAt', descending: true)
+            .limit(6)
+            .snapshots();
 
     final Stream<List<Order>> orderDocuments = sortedSnapshots.map(
       (querySnapshot) {
