@@ -12,6 +12,7 @@ export 'src/treatment/treatment.dart'
         DrugDose,
         ItemOrderStatusCode,
         ItemOrderStatusText,
+        PatientTreatmentProductItemEntity,
         PatientTreatmentProductItem,
         getStatusCodeViewModelText,
         DrugDoseDescription,

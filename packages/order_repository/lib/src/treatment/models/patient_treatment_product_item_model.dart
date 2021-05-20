@@ -1,6 +1,8 @@
 import 'dart:convert' show jsonDecode, jsonEncode;
 
 import 'package:collection/collection.dart' show DeepCollectionEquality;
+import 'package:order_repository/src/treatment/models/patient_treatment_product_item_entity.dart'
+    show PatientTreatmentProductItemEntity;
 import 'package:patient_repository/patient_repository.dart' show Patient;
 import 'package:product_repository/product_repository.dart' show Product;
 
@@ -8,6 +10,7 @@ import 'drug_dose_model.dart' show DrugDose, DrugDoseDescription;
 
 class PatientTreatmentProductItem {
   const PatientTreatmentProductItem({
+    this.patientTreatmentProductItemID,
     required this.quantity,
     required this.status,
     required this.patient,
@@ -38,6 +41,31 @@ class PatientTreatmentProductItem {
       PatientTreatmentProductItem.fromMap(
         jsonDecode(source) as Map<String, dynamic>,
       );
+
+  factory PatientTreatmentProductItem.fromEntity(
+    PatientTreatmentProductItemEntity entity,
+  ) {
+    return PatientTreatmentProductItem(
+      quantity: entity.quantity,
+      status: entity.status,
+      patient: entity.patient,
+      drugDoses: entity.drugDoses,
+      product: entity.product,
+    );
+  }
+
+  /// Added ID here due to subcollection concession for simple docID usage
+  /// For ostensibly draft orders or editing functionality in the future
+  ///
+  /// We may not end up using this at all
+  ///
+  /// Code smell here rather than completely separate read/write model
+  /// vs scalable boilerplate
+  ///
+  /// Null String indicates this is part of a working order being built up
+  /// (not from a database read query that has already crystallised committed)
+  ///
+  final String? patientTreatmentProductItemID;
 
   final int quantity;
   final String status;
