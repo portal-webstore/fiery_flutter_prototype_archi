@@ -66,6 +66,21 @@ class FirebaseOrderRepository implements OrderRepository {
   }
 
   @override
+  Future<Order?> getOrder(
+    String orderID,
+  ) async {
+    final DocumentReference<Map<String, dynamic>> orderDocRef =
+        orderCollection.doc(orderID);
+    final DocumentSnapshot<Map<String, dynamic>> orderSnap =
+        await orderDocRef.get();
+
+    final OrderEntity orderEntity = OrderEntity.fromSnapshot(orderSnap);
+    final Order order = Order.fromEntity(orderEntity);
+
+    return order;
+  }
+
+  @override
   Future<void> updateOrder(Order order) {
     final DocumentReference<Map<String, dynamic>> orderDocRef =
         orderCollection.doc(order.orderID);
