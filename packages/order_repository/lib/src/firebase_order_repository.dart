@@ -21,7 +21,8 @@ class FirebaseOrderRepository implements OrderRepository {
   static const String ordersPath = 'orders';
   static const String orderCreatedAtEpochFieldName = 'createdAt';
 
-  final orderCollection = FirebaseFirestore.instance.collection(ordersPath);
+  final CollectionReference<Map<String, dynamic>> orderCollection =
+      FirebaseFirestore.instance.collection(ordersPath);
 
   @override
   Future<void> addNewOrder(Order order) {
@@ -47,9 +48,10 @@ class FirebaseOrderRepository implements OrderRepository {
 
     final Stream<List<Order>> orderDocuments = sortedSnapshots.map(
       (querySnapshot) {
-        final ordersQuerySnapDocs = querySnapshot.docs;
-        final orders = ordersQuerySnapDocs.map(
-          (doc) {
+        final List<QueryDocumentSnapshot<Map<String, dynamic>>>
+            ordersQuerySnapDocs = querySnapshot.docs;
+        final List<Order> orders = ordersQuerySnapDocs.map(
+          (QueryDocumentSnapshot<Map<String, dynamic>> doc) {
             return Order.fromEntity(
               OrderEntity.fromSnapshot(doc),
             );
