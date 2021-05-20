@@ -130,6 +130,68 @@ class FirebaseOrderRepository implements OrderRepository {
     return orders;
   }
 
+  /// Get all the patient treatment product items found within the subcollection
+  /// within order
+  ///
+  /// From subcollection?
+  /// Or direct UUID searching orders
+  ///
+  /// Not reusing this for orderItem to keep the network request / firestore usage lean.
+  ///
+  ///
+  /// Clean code prefers empty arrays as they can still be iterated + lazily
+  /// vs a broad null with explicit checks;
+  ///  :thinking:
+  @override
+  Stream<List<PatientTreatmentProductItem>> getItemsFromOrder({
+    required String orderID,
+  }) {
+    final CollectionReference<Map<String, dynamic>> itemCollection =
+        orderCollection
+            .doc(
+              orderID,
+            )
+            .collection(
+              orderPatientTreatmentProductItemsSubcollectionIDPath,
+            );
+
+    final Stream<QuerySnapshot<Map<String, dynamic>>> itemSnaps =
+        itemCollection.snapshots();
+
+    final Stream<List<PatientTreatmentProductItem>> items =
+        itemSnaps.map((QuerySnapshot<Map<String, dynamic>> itemSnap) {
+      final List<QueryDocumentSnapshot<Map<String, dynamic>>> itemDocs =
+          itemSnap.docs;
+
+      final Iterable<PatientTreatmentProductItem> items =
+          itemDocs.map((QueryDocumentSnapshot<Map<String, dynamic>> itemDoc) {
+        final PatientTreatmentProductItemEntity itemEntity =
+            PatientTreatmentProductItemEntity.fromFirestore(itemDoc);
+
+        final PatientTreatmentProductItem item =
+            PatientTreatmentProductItem.fromEntity(itemEntity);
+
+        return item;
+      });
+
+      return items.toList();
+    });
+
+    /// ? Will need to be maintaining the orderID (doc id) and orderItemID (doc id)
+    /// for its lifecycle in further calls... Code smell?
+    ///
+    /// And do not make the presentation logic code dependent on entity
+    ///
+    /// Could make optional identifier?
+    /// An accessible view logic interface would, in the background, compare the
+    /// whole array diff for the specific changes and only allow the specific
+    /// doc to be updated in the subcollection here in the repo code.
+    ///
+    /// Would be technically cool.
+
+    return items;
+  }
+
   @override
   Future<void> updateOrder(Order order) {
     final DocumentReference<Map<String, dynamic>> orderDocRef =
