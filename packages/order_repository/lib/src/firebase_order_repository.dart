@@ -256,6 +256,22 @@ class FirebaseOrderRepository implements OrderRepository {
       orderDocDataToUpdateWith,
     );
   }
+
+  @override
+  Future<void> updateItemStatusWithinOrder(
+    Order order,
+    PatientTreatmentProductItem item,
+  ) async {
+    /// Much more readable as long as everything is working happy path
+    /// Otherwise break out self-descriptive variables for debuggability and
+    /// onboarding
+    return await orderCollection
+        .doc(order.orderID)
+        .collection(orderPatientTreatmentProductItemsSubcollectionIDPath)
+        .doc(item.patientTreatmentProductItemID)
+        .update({statusFieldName: item.status});
+  }
+
   /// Utility to help map common conversions from firestore entity to our
   /// business logical data model.
   static List<Order> _getOrdersFromOrderQueryDocumentSnapshots(
