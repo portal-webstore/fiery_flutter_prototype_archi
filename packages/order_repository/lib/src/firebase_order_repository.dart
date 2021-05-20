@@ -19,7 +19,14 @@ class FirebaseOrderRepository implements OrderRepository {
   static const int arbitraryDocQueryCountLimit = 6;
 
   static const String ordersPath = 'orders';
+
+  /// i.e. semantically, orders.<docID>.patientTreatmentProductItems.<docID> as
+  /// the path to get the items subcollection arr
+  static const String orderPatientTreatmentProductItemsSubcollectionIDPath =
+      'patientTreatmentProductItems';
+
   static const String orderCreatedAtEpochFieldName = 'createdAt';
+  static const String statusFieldName = 'status';
 
   final CollectionReference<Map<String, dynamic>> orderCollection =
       FirebaseFirestore.instance.collection(ordersPath);
