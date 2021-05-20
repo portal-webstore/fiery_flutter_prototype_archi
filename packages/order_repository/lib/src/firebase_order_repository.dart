@@ -2,11 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart'
     show
         CollectionReference,
         DocumentReference,
+        DocumentSnapshot,
         FirebaseFirestore,
+        Query,
         QueryDocumentSnapshot,
         QuerySnapshot;
 import 'package:order_repository/order_repository.dart'
-    show Order, OrderEntity, OrderRepository;
+    show
+        Order,
+        OrderEntity,
+        OrderRepository,
+        PatientTreatmentProductItemEntity,
+        PatientTreatmentProductItem;
 
 class FirebaseOrderRepository implements OrderRepository {
   static const String ordersPath = 'orders';
