@@ -24,7 +24,8 @@ class Product {
 
   /// Convert from a **queried** json map with no optionals.
   factory Product.fromMap(Map<String, dynamic> map) {
-    final Iterable<Drug> drugs = getIterableParsedFromDynamicList(map);
+    final Iterable<Drug> drugs =
+        getDrugsParsedFromProductMapAccessDynamicList(map);
 
     return Product(
       productName: map['productName'] as String,
@@ -53,7 +54,7 @@ class Product {
   ///
   ///  See potential emulation https://github.com/dart-lang/language/issues/356#issuecomment-494467605
   /// static Iterable<T> getIterableParsedFromDynamicList< T, G extends Mappable<T>>(
-  static Iterable<Drug> getIterableParsedFromDynamicList(
+  static Iterable<Drug> getDrugsParsedFromProductMapAccessDynamicList(
     Map<String, dynamic> map,
   ) {
     return (map['drugs'] as Iterable<dynamic>?)?.map<Drug>((
