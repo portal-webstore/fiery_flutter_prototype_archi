@@ -16,6 +16,8 @@ import 'package:order_repository/order_repository.dart'
         PatientTreatmentProductItem;
 
 class FirebaseOrderRepository implements OrderRepository {
+  static const int arbitraryDocQueryCountLimit = 6;
+
   static const String ordersPath = 'orders';
   static const String orderCreatedAtEpochFieldName = 'createdAt';
 
@@ -34,7 +36,9 @@ class FirebaseOrderRepository implements OrderRepository {
   }
 
   @override
-  Stream<List<Order>> orders({int limitMostRecentCount = 6}) {
+  Stream<List<Order>> orders({
+    int limitMostRecentCount = arbitraryDocQueryCountLimit,
+  }) {
     final Stream<QuerySnapshot<Map<String, dynamic>>> sortedSnapshots =
         orderCollection
             .orderBy(orderCreatedAtEpochFieldName, descending: true)
