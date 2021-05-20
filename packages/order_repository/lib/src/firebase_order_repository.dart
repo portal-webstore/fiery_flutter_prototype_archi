@@ -130,6 +130,59 @@ class FirebaseOrderRepository implements OrderRepository {
     return orders;
   }
 
+  /// Query a single item from the order's subcollection for Firestore efficiency.
+  ///
+  /// Otherwise we could reuse the bulk query items.
+  @override
+  Future<PatientTreatmentProductItem?> getItemFromOrder({
+    required String orderID,
+    required String orderItemID,
+  }) async {
+    try {
+      final CollectionReference<Map<String, dynamic>> items = orderCollection
+          .doc(orderID)
+          .collection(orderPatientTreatmentProductItemsSubcollectionIDPath);
+
+      /// Clean code would prefere separate classes to safeguard the props
+      /// For quick value: reuse the same PatientTreatmentProductItem class
+      /// and add an optional **nullable* ID attribute for existing compatibility
+      /// Then refactor back out the write vs read model adaptation
+      ///
+      /// i.e. Input model building the item up has no ID by necessity;
+      /// however, it could potentially have an id in an edit use case.
+      ///
+
+      final DocumentReference<Map<String, dynamic>> itemDocRef =
+          await items.doc(orderItemID);
+
+      /// Use Future get document read.
+      /// We do not need real-time updates
+      ///
+      /// Partitioned single user's view for drafts potential
+      /// Otherwise historical doesn't change apart from clinic confirmation
+      /// or twp internal status update tick
+      ///
+      final DocumentSnapshot<Map<String, dynamic>> itemSnap =
+          await itemDocRef.get();
+
+      final PatientTreatmentProductItemEntity itemEntity =
+          PatientTreatmentProductItemEntity.fromSnapshot(itemSnap);
+      final PatientTreatmentProductItem item =
+          PatientTreatmentProductItem.fromEntity(itemEntity);
+
+      return item;
+    } on Exception catch (exception) {
+      print(exception);
+
+      /// Flutter fire doc hover hints do not explicitly show the types of exception
+      /// calls?
+      ///
+      /// Assuming that a non-existent path will break here
+      ///
+      return null;
+    }
+  }
+
   /// Get all the patient treatment product items found within the subcollection
   /// within order
   ///
