@@ -14,6 +14,14 @@ abstract class OrderRepository {
   /// Get a single order
   Future<Order?> getOrder(String orderID);
 
+  /// **Read**
+  /// Search orders by a clinic-given order reference text
+  ///
+  /// Free text = no guarantees.
+  Stream<List<Order>> getOrders({
+    required String orderReferenceFreeText,
+  });
+
   /// Read
   /// We have dynamic orders
   ///
