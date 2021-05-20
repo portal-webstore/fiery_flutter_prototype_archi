@@ -11,13 +11,16 @@ import 'package:order_repository/order_repository.dart'
     show
         Order,
         OrderEntity,
+        OrderPatientTreatmentProductItemRepository,
         OrderRepository,
-        PatientTreatmentProductItemEntity,
-        PatientTreatmentProductItem;
+        PatientTreatmentProductItem,
+        PatientTreatmentProductItemEntity;
 
 class FirebaseOrderRepository implements OrderRepository {
   static const int arbitraryDocQueryCountLimit = 6;
 
+  /// - FIXME: These accessors should really be nested under clinic collection
+  /// clinic/clinicID/orders/orderID/items/*
   static const String ordersPath = 'orders';
 
   /// i.e. semantically, orders.<docID>.patientTreatmentProductItems.<docID> as
