@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart'
-    show DocumentReference, DocumentSnapshot, FromFirestore;
+    show DocumentReference, DocumentSnapshot;
 import 'package:order_repository/src/treatment/models/models.dart';
 
 class OrderEntity {
