@@ -61,6 +61,11 @@ abstract class OrderPatientTreatmentProductItemRepository {
     required String orderItemID,
   });
 
+  /// **Read**
+  Future<List<PatientTreatmentProductItem>> getItemsFromOrder({
+    required String orderID,
+  });
+
   /// **Update**
   ///
   /// **we only want to update the status**
