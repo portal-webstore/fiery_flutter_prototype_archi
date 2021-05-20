@@ -130,6 +130,17 @@ class FirebaseOrderRepository implements OrderRepository {
     return orders;
   }
 
+  @override
+  Future<void> updateOrder(Order order) {
+    final DocumentReference<Map<String, dynamic>> orderDocRef =
+        orderCollection.doc(order.orderID);
+    final Map<String, Object?> orderDocDataToUpdateWith =
+        order.toEntity().toDocument();
+
+    return orderDocRef.update(
+      orderDocDataToUpdateWith,
+    );
+  }
   /// Utility to help map common conversions from firestore entity to our
   /// business logical data model.
   static List<Order> _getOrdersFromOrderQueryDocumentSnapshots(
@@ -148,15 +159,37 @@ class FirebaseOrderRepository implements OrderRepository {
     return orders;
   }
 
-  @override
-  Future<void> updateOrder(Order order) {
-    final DocumentReference<Map<String, dynamic>> orderDocRef =
-        orderCollection.doc(order.orderID);
-    final Map<String, Object?> orderDocDataToUpdateWith =
-        order.toEntity().toDocument();
+  /// Subcollection access utility
+  Future<List<PatientTreatmentProductItem>> _getItemsCollectionFromOrder(
+    String orderID,
+  ) async {
+    final CollectionReference<Map<String, dynamic>> itemsCollection =
+        orderCollection
+            .doc(orderID)
+            .collection(orderPatientTreatmentProductItemsSubcollectionIDPath);
 
-    return orderDocRef.update(
-      orderDocDataToUpdateWith,
-    );
+    /// Convert into an entity while retaining ID if we so choose to update
+    /// specific item one at a time
+    /// or update item status field
+    ///
+
+    final QuerySnapshot<Map<String, dynamic>> itemQuerySnapshot =
+        await itemsCollection.get();
+
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> itemDocSnaps =
+        itemQuerySnapshot.docs;
+
+    final List<PatientTreatmentProductItem> items = itemDocSnaps
+        .map((QueryDocumentSnapshot<Map<String, dynamic>> itemDocSnap) {
+      final PatientTreatmentProductItemEntity itemEntity =
+          PatientTreatmentProductItemEntity.fromSnapshot(itemDocSnap);
+
+      final PatientTreatmentProductItem item =
+          PatientTreatmentProductItem.fromEntity(itemEntity);
+
+      return item;
+    }).toList();
+
+    return items;
   }
 }
