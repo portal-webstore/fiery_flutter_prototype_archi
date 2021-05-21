@@ -6,7 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart'
         FirebaseFirestore,
         Query,
         QueryDocumentSnapshot,
-        QuerySnapshot;
+        QuerySnapshot,
+        WriteBatch;
 import 'package:order_repository/order_repository.dart'
     show
         Order,
@@ -23,10 +24,10 @@ class FirebaseOrderRepository implements OrderRepository {
   /// clinic/clinicID/orders/orderID/items/*
   static const String ordersPath = 'orders';
 
+  /// Subcollection ID
   /// i.e. semantically, orders.<docID>.patientTreatmentProductItems.<docID> as
   /// the path to get the items subcollection arr
-  static const String orderPatientTreatmentProductItemsSubcollectionIDPath =
-      'patientTreatmentProductItems';
+  static const String itemsPath = 'patientTreatmentProductItems';
 
   static const String orderCreatedAtEpochFieldName = 'createdAt';
   static const String statusFieldName = 'status';
@@ -142,9 +143,8 @@ class FirebaseOrderRepository implements OrderRepository {
     required String orderItemID,
   }) async {
     try {
-      final CollectionReference<Map<String, dynamic>> items = orderCollection
-          .doc(orderID)
-          .collection(orderPatientTreatmentProductItemsSubcollectionIDPath);
+      final CollectionReference<Map<String, dynamic>> items =
+          orderCollection.doc(orderID).collection(itemsPath);
 
       /// Clean code would prefere separate classes to safeguard the props
       /// For quick value: reuse the same PatientTreatmentProductItem class
@@ -208,7 +208,7 @@ class FirebaseOrderRepository implements OrderRepository {
               orderID,
             )
             .collection(
-              orderPatientTreatmentProductItemsSubcollectionIDPath,
+              itemsPath,
             );
 
     final Stream<QuerySnapshot<Map<String, dynamic>>> itemSnaps =
@@ -270,7 +270,7 @@ class FirebaseOrderRepository implements OrderRepository {
     /// onboarding
     return await orderCollection
         .doc(order.orderID)
-        .collection(orderPatientTreatmentProductItemsSubcollectionIDPath)
+        .collection(itemsPath)
         .doc(item.patientTreatmentProductItemID)
         .update({statusFieldName: item.status});
   }
@@ -298,9 +298,7 @@ class FirebaseOrderRepository implements OrderRepository {
     String orderID,
   ) async {
     final CollectionReference<Map<String, dynamic>> itemsCollection =
-        orderCollection
-            .doc(orderID)
-            .collection(orderPatientTreatmentProductItemsSubcollectionIDPath);
+        orderCollection.doc(orderID).collection(itemsPath);
 
     /// Convert into an entity while retaining ID if we so choose to update
     /// specific item one at a time
