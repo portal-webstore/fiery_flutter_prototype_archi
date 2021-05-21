@@ -211,27 +211,14 @@ class FirebaseOrderRepository implements OrderRepository {
               itemsPath,
             );
 
-    final Stream<QuerySnapshot<Map<String, dynamic>>> itemSnaps =
-        itemCollection.snapshots();
+    final QuerySnapshot<Map<String, dynamic>> itemSnaps =
+        await itemCollection.get();
 
-    final Stream<List<PatientTreatmentProductItem>> items =
-        itemSnaps.map((QuerySnapshot<Map<String, dynamic>> itemSnap) {
-      final List<QueryDocumentSnapshot<Map<String, dynamic>>> itemDocs =
-          itemSnap.docs;
-
-      final Iterable<PatientTreatmentProductItem> items =
-          itemDocs.map((QueryDocumentSnapshot<Map<String, dynamic>> itemDoc) {
-        final PatientTreatmentProductItemEntity itemEntity =
-            PatientTreatmentProductItemEntity.fromFirestore(itemDoc);
-
-        final PatientTreatmentProductItem item =
-            PatientTreatmentProductItem.fromEntity(itemEntity);
-
-        return item;
-      });
-
-      return items.toList();
-    });
+    final List<PatientTreatmentProductItem> items = itemSnaps.docs
+        .map(
+          _getPatientTreatmentProductItemFromSnapshot,
+        )
+        .toList();
 
     /// ? Will need to be maintaining the orderID (doc id) and orderItemID (doc id)
     /// for its lifecycle in further calls... Code smell?
@@ -291,6 +278,15 @@ class FirebaseOrderRepository implements OrderRepository {
     final List<Order> orders = ordersIterable.toList();
 
     return orders;
+  }
+
+  PatientTreatmentProductItem _getPatientTreatmentProductItemFromSnapshot(
+      QueryDocumentSnapshot<Map<String, dynamic>> itemSnap) {
+    return PatientTreatmentProductItem.fromEntity(
+      PatientTreatmentProductItemEntity.fromSnapshot(
+        itemSnap,
+      ),
+    );
   }
 
   /// Subcollection access utility
