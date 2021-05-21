@@ -101,6 +101,19 @@ class PatientTreatmentProductItem {
 
   String toJson() => jsonEncode(toMap());
 
+  PatientTreatmentProductItemEntity toEntity() {
+    return PatientTreatmentProductItemEntity(
+      quantity: quantity,
+      status: status,
+      patient: patient,
+      drugDoses: drugDoses ?? [],
+      product: product,
+      snapshot: null,
+      reference: null,
+      patientTreatmentProductItemID: patientTreatmentProductItemID,
+    );
+  }
+
   @override
   String toString() {
     return 'PatientTreatmentProductItem(quantity: $quantity, status: $status, patient: $patient, drugDoses: $drugDoses, product: $product)';

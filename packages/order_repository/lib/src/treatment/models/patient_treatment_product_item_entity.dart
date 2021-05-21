@@ -71,6 +71,11 @@ class PatientTreatmentProductItemEntity {
         'product': product,
       };
 
+  /// Note that there is no ID on creating a new Firestore document
+  /// Firestore handles and creates an autoID itself.
+  ///
+  Map<String, dynamic> toDocument() => toMap();
+
   PatientTreatmentProductItemEntity copyWith({
     int? quantity,
     String? status,
