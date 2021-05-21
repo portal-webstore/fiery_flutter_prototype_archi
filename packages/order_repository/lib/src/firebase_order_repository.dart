@@ -20,6 +20,9 @@ import 'package:order_repository/order_repository.dart'
 class FirebaseOrderRepository implements OrderRepository {
   static const int arbitraryDocQueryCountLimit = 6;
 
+
+  /// 2nd-level orders subcollection
+  ///
   /// - FIXME: These accessors should really be nested under clinic collection
   /// clinic/clinicID/orders/orderID/items/*
   static const String ordersPath = 'orders';
@@ -35,16 +38,73 @@ class FirebaseOrderRepository implements OrderRepository {
   final CollectionReference<Map<String, dynamic>> orderCollection =
       FirebaseFirestore.instance.collection(ordersPath);
 
+  /// Write order with the given items.
   @override
-  Future<void> addNewOrder(Order order) {
-    final Map<String, Object?> document = order.toEntity().toDocument();
+  Future<void> addNewOrder(Order order) async {
+    final Map<String, Object?> document = _getDocumentFromOrder(order);
 
-    return orderCollection.add(document);
+    final DocumentReference<Map<String, dynamic>> newOrderDocument =
+        await orderCollection.add(document);
+    // - TODO: Add subcollection path step here for dynamically adding items cxn
+    final CollectionReference<Map<String, dynamic>> newOrderItemsSubcollection =
+        newOrderDocument.collection(itemsPath);
+
+    // final addedItems = newOrderItemsSubcollection.add();
+
+    final WriteBatch batchWriter = FirebaseFirestore.instance.batch();
+
+    /// Loop through setting up each item doc into the batch write
+    order.patientTreatmentProductItems.forEach((
+      PatientTreatmentProductItem item,
+    ) {
+      final Map<String, dynamic> itemDocData = _getDocumentFromItem(item);
+      final DocumentReference<Map<String, dynamic>> autoGenNewDocRef =
+          newOrderItemsSubcollection.doc();
+
+      batchWriter.set(
+        autoGenNewDocRef,
+        itemDocData,
+      );
+    });
+
+    /// Commit whole subcollection item docs creation of batch writes at once
+    await batchWriter.commit();
   }
 
+  /// Expect less than 15 items in an order
+  /// Adequately covered by deleting here
+  ///
+  /// Memory sizing?
+  ///
+  /// Otherwise look to production security performant cloud fn implementation
+  /// https://firebase.google.com/docs/firestore/solutions/delete-collections#cloud_function
   @override
-  Future<void> deleteOrder(Order order) {
-    return orderCollection.doc(order.orderID).delete();
+  Future<void> deleteOrder(Order order) async {
+    // Deleting collections from web client is not recommended.
+
+    final CollectionReference<Map<String, dynamic>> itemCollection =
+        await orderCollection.doc(order.orderID).collection(itemsPath);
+    final QuerySnapshot<Map<String, dynamic>> itemsSnap =
+        await itemCollection.get();
+
+    // Delete all the subcollection items as well.
+    final WriteBatch batchWriter = FirebaseFirestore.instance.batch();
+
+    itemsSnap.docs.forEach((
+      QueryDocumentSnapshot<Map<String, dynamic>> itemDoc,
+    ) {
+      final DocumentReference<Map<String, dynamic>> itemDocRef =
+          itemDoc.reference;
+
+      /// Set up
+      batchWriter.delete(itemDocRef);
+    });
+
+    /// Subcollections are independent? wonder if any temporal coupling
+    /// Can delete parent doc before subcollection?
+    await batchWriter.commit();
+
+    await orderCollection.doc(order.orderID).delete();
   }
 
   @override
@@ -83,9 +143,15 @@ class FirebaseOrderRepository implements OrderRepository {
     final DocumentSnapshot<Map<String, dynamic>> orderSnap =
         await orderDocRef.get();
 
-    final Order order = _getOrderFromSnapshot(orderSnap);
+    final Order orderBase = _getOrderFromSnapshot(orderSnap);
+    final List<PatientTreatmentProductItem> items =
+        await getItemsFromOrder(orderID: orderID);
 
-    return order;
+    final Order orderWithItems = orderBase.copyWith(
+      patientTreatmentProductItems: items,
+    );
+
+    return orderWithItems;
   }
 
   /// Depending on UX flow of either searching by:
@@ -225,6 +291,12 @@ class FirebaseOrderRepository implements OrderRepository {
     return items;
   }
 
+
+  /// Should be relatively unused
+  /// Maybe for overall order status or notes or potentially change delivery date
+  /// Un-draft.
+  ///
+  /// This should not be used to update specific items within the subcollection
   @override
   Future<void> updateOrder(Order order) {
     final DocumentReference<Map<String, dynamic>> orderDocRef =
