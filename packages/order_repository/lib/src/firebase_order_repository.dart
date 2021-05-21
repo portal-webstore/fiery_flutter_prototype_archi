@@ -104,25 +104,25 @@ class FirebaseOrderRepository implements OrderRepository {
   /// we could filter recents locally instead of through firestore query.
   ///
   @override
-  Stream<List<Order>> getOrders({
+  Future<List<Order>> getOrders({
     required String orderReferenceFreeText,
-  }) {
+  }) async {
     final Query<Map<String, dynamic>> orderQuery = orderCollection.where(
       'orderReference',
       isEqualTo: orderReferenceFreeText,
     );
 
     /// Snapshots Stream vs get() Future List
-    final Stream<QuerySnapshot<Map<String, dynamic>>> orderSnaps =
-        orderQuery.limit(arbitraryDocQueryCountLimit).snapshots();
+    final QuerySnapshot<Map<String, dynamic>> orderSnaps =
+        await orderQuery.limit(arbitraryDocQueryCountLimit).get();
 
-    final Stream<List<Order>> orders = orderSnaps.map((
-      QuerySnapshot<Map<String, dynamic>> orderSnap,
+    final orders = orderSnaps.docs.map((
+      QueryDocumentSnapshot<Map<String, dynamic>> orderSnap,
     ) {
       final Order order = _getOrderFromSnapshot(orderSnap);
 
-      return orders;
-    });
+      return order;
+    }).toList();
 
     return orders;
   }
@@ -189,9 +189,9 @@ class FirebaseOrderRepository implements OrderRepository {
   /// vs a broad null with explicit checks;
   ///  :thinking:
   @override
-  Stream<List<PatientTreatmentProductItem>> getItemsFromOrder({
+  Future<List<PatientTreatmentProductItem>> getItemsFromOrder({
     required String orderID,
-  }) {
+  }) async {
     final CollectionReference<Map<String, dynamic>> itemCollection =
         orderCollection
             .doc(

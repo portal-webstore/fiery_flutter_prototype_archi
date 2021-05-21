@@ -18,7 +18,7 @@ abstract class OrderRepository {
   /// Search orders by a clinic-given order reference text
   ///
   /// Free text = no guarantees.
-  Stream<List<Order>> getOrders({
+  Future<List<Order>> getOrders({
     required String orderReferenceFreeText,
   });
 
@@ -97,8 +97,8 @@ abstract class OrderPatientTreatmentProductItemRepository {
   ///
   /// Remove item from order
   Future<void> deleteItemFromOrder({
-    Order order,
-    PatientTreatmentProductItem item,
+    required Order order,
+    required PatientTreatmentProductItem item,
   });
 }
 
