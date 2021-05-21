@@ -61,13 +61,11 @@ class FirebaseOrderRepository implements OrderRepository {
       (querySnapshot) {
         final List<QueryDocumentSnapshot<Map<String, dynamic>>>
             ordersQuerySnapDocs = querySnapshot.docs;
-        final List<Order> orders = ordersQuerySnapDocs.map(
-          (QueryDocumentSnapshot<Map<String, dynamic>> doc) {
-            return Order.fromEntity(
-              OrderEntity.fromSnapshot(doc),
-            );
-          },
-        ).toList();
+        final List<Order> orders = ordersQuerySnapDocs
+            .map(
+              _getOrderFromSnapshot,
+            )
+            .toList();
 
         return orders;
       },
@@ -85,8 +83,7 @@ class FirebaseOrderRepository implements OrderRepository {
     final DocumentSnapshot<Map<String, dynamic>> orderSnap =
         await orderDocRef.get();
 
-    final OrderEntity orderEntity = OrderEntity.fromSnapshot(orderSnap);
-    final Order order = Order.fromEntity(orderEntity);
+    final Order order = _getOrderFromSnapshot(orderSnap);
 
     return order;
   }
@@ -122,11 +119,7 @@ class FirebaseOrderRepository implements OrderRepository {
     final Stream<List<Order>> orders = orderSnaps.map((
       QuerySnapshot<Map<String, dynamic>> orderSnap,
     ) {
-      final List<QueryDocumentSnapshot<Map<String, dynamic>>> orderSnapDocs =
-          orderSnap.docs;
-
-      final List<Order> orders =
-          _getOrdersFromOrderQueryDocumentSnapshots(orderSnapDocs);
+      final Order order = _getOrderFromSnapshot(orderSnap);
 
       return orders;
     });
@@ -168,10 +161,7 @@ class FirebaseOrderRepository implements OrderRepository {
       final DocumentSnapshot<Map<String, dynamic>> itemSnap =
           await itemDocRef.get();
 
-      final PatientTreatmentProductItemEntity itemEntity =
-          PatientTreatmentProductItemEntity.fromSnapshot(itemSnap);
-      final PatientTreatmentProductItem item =
-          PatientTreatmentProductItem.fromEntity(itemEntity);
+      final PatientTreatmentProductItem item = _getItemFromSnapshot(itemSnap);
 
       return item;
     } on Exception catch (exception) {
@@ -216,7 +206,7 @@ class FirebaseOrderRepository implements OrderRepository {
 
     final List<PatientTreatmentProductItem> items = itemSnaps.docs
         .map(
-          _getPatientTreatmentProductItemFromSnapshot,
+          _getItemFromSnapshot,
         )
         .toList();
 
@@ -240,7 +230,7 @@ class FirebaseOrderRepository implements OrderRepository {
     final DocumentReference<Map<String, dynamic>> orderDocRef =
         orderCollection.doc(order.orderID);
     final Map<String, Object?> orderDocDataToUpdateWith =
-        order.toEntity().toDocument();
+        _getDocumentFromOrder(order);
 
     return orderDocRef.update(
       orderDocDataToUpdateWith,
@@ -262,31 +252,37 @@ class FirebaseOrderRepository implements OrderRepository {
         .update({statusFieldName: item.status});
   }
 
+  static Order _getOrderFromSnapshot(
+    DocumentSnapshot<Map<String, dynamic>> orderSnap,
+  ) {
+    final OrderEntity orderEntity = OrderEntity.fromSnapshot(orderSnap);
+    final Order order = Order.fromEntity(orderEntity);
+
+    return order;
+  }
+
   /// Utility to help map common conversions from firestore entity to our
   /// business logical data model.
-  static List<Order> _getOrdersFromOrderQueryDocumentSnapshots(
-    List<QueryDocumentSnapshot<Map<String, dynamic>>> orderSnapDocs,
+  static List<Order> _getOrdersFromOrderDocumentSnapshots(
+    List<DocumentSnapshot<Map<String, dynamic>>> orderSnapDocs,
   ) {
-    final Iterable<Order> ordersIterable = orderSnapDocs.map((
-      QueryDocumentSnapshot<Map<String, dynamic>> orderSnapDoc,
-    ) {
-      final OrderEntity orderEntity = OrderEntity.fromSnapshot(orderSnapDoc);
-      final Order order = Order.fromEntity(orderEntity);
-
-      return order;
-    });
+    final Iterable<Order> ordersIterable = orderSnapDocs.map(
+      _getOrderFromSnapshot,
+    );
     final List<Order> orders = ordersIterable.toList();
 
     return orders;
   }
 
-  PatientTreatmentProductItem _getPatientTreatmentProductItemFromSnapshot(
-      QueryDocumentSnapshot<Map<String, dynamic>> itemSnap) {
-    return PatientTreatmentProductItem.fromEntity(
-      PatientTreatmentProductItemEntity.fromSnapshot(
-        itemSnap,
-      ),
-    );
+  PatientTreatmentProductItem _getItemFromSnapshot(
+    DocumentSnapshot<Map<String, dynamic>> itemSnap,
+  ) {
+    final PatientTreatmentProductItemEntity itemEntity =
+        PatientTreatmentProductItemEntity.fromSnapshot(itemSnap);
+    final PatientTreatmentProductItem item =
+        PatientTreatmentProductItem.fromEntity(itemEntity);
+
+    return item;
   }
 
   /// Subcollection access utility
@@ -294,7 +290,13 @@ class FirebaseOrderRepository implements OrderRepository {
     String orderID,
   ) async {
     final CollectionReference<Map<String, dynamic>> itemsCollection =
-        orderCollection.doc(orderID).collection(itemsPath);
+        orderCollection
+            .doc(
+              orderID,
+            )
+            .collection(
+              itemsPath,
+            );
 
     /// Convert into an entity while retaining ID if we so choose to update
     /// specific item one at a time
@@ -303,21 +305,22 @@ class FirebaseOrderRepository implements OrderRepository {
 
     final QuerySnapshot<Map<String, dynamic>> itemQuerySnapshot =
         await itemsCollection.get();
-
     final List<QueryDocumentSnapshot<Map<String, dynamic>>> itemDocSnaps =
         itemQuerySnapshot.docs;
 
     final List<PatientTreatmentProductItem> items = itemDocSnaps
-        .map((QueryDocumentSnapshot<Map<String, dynamic>> itemDocSnap) {
-      final PatientTreatmentProductItemEntity itemEntity =
-          PatientTreatmentProductItemEntity.fromSnapshot(itemDocSnap);
-
-      final PatientTreatmentProductItem item =
-          PatientTreatmentProductItem.fromEntity(itemEntity);
-
-      return item;
-    }).toList();
+        .map(
+          _getItemFromSnapshot,
+        )
+        .toList();
 
     return items;
   }
+
+  Map<String, dynamic> _getDocumentFromItem(PatientTreatmentProductItem item) =>
+      item.toEntity().toDocument();
+
+  Map<String, Object?> _getDocumentFromOrder(Order order) =>
+      order.toEntity().toDocument();
+
 }
