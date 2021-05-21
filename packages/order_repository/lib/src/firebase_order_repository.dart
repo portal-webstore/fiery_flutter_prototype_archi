@@ -340,10 +340,17 @@ class FirebaseOrderRepository implements OrderRepository {
     /// Otherwise break out self-descriptive variables for debuggability and
     /// onboarding
     return await orderCollection
+  /// Helper to localise the
+  /// order doc -> items subcollection -> item doc ref accessor for mutations
+  ///
+  DocumentReference<Map<String, dynamic>> _referItemWithinOrder(
+    Order order,
+    PatientTreatmentProductItem item,
+  ) {
+    return orderCollection
         .doc(order.orderID)
         .collection(itemsPath)
-        .doc(item.patientTreatmentProductItemID)
-        .update({statusFieldName: item.status});
+        .doc(item.patientTreatmentProductItemID);
   }
 
   /// - MARK: Internal helper functions below;
