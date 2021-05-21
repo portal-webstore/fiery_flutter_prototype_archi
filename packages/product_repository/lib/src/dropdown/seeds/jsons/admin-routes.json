@@ -1,0 +1,52 @@
+[
+   {
+      "adminRouteCode": "IVINF",
+      "adminRouteDescription": "Intravenous Infusion",
+      "defaultDirectionsHeaderText": "For IV infusion"
+   },
+   {
+      "adminRouteCode": "IVBOL",
+      "adminRouteDescription": "Intravenous Bolus",
+      "defaultDirectionsHeaderText": "For intravenous use"
+   },
+   {
+      "adminRouteCode": "IVENOS",
+      "adminRouteDescription": "Intravenous",
+      "defaultDirectionsHeaderText": "For intravenous use"
+   },
+   {
+      "adminRouteCode": "IMUSC",
+      "adminRouteDescription": "Intramuscular",
+      "defaultDirectionsHeaderText": "For intramuscular use"
+   },
+   {
+      "adminRouteCode": "IPERI",
+      "adminRouteDescription": "Intraperitoneal",
+      "defaultDirectionsHeaderText": "For intraperitoneal use"
+   },
+   {
+      "adminRouteCode": "ITHEC",
+      "adminRouteDescription": "Intrathecal",
+      "defaultDirectionsHeaderText": "For intrathecal use"
+   },
+   {
+      "adminRouteCode": "IVESIC",
+      "adminRouteDescription": "Intravesical",
+      "defaultDirectionsHeaderText": "For intravesical use"
+   },
+   {
+      "adminRouteCode": "ORAL",
+      "adminRouteDescription": "Oral",
+      "defaultDirectionsHeaderText": "For oral use"
+   },
+   {
+      "adminRouteCode": "SCUTAN",
+      "adminRouteDescription": "Subcutaneous",
+      "defaultDirectionsHeaderText": "For subcutaneous use"
+   },
+   {
+      "adminRouteCode": "CONC",
+      "adminRouteDescription": "Concentrate",
+      "defaultDirectionsHeaderText": "Concentrate (for further dilution prior to use)"
+   }
+]
