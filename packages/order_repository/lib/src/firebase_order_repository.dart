@@ -318,6 +318,22 @@ class FirebaseOrderRepository implements OrderRepository {
   /// Add item to an existing order
   Future<void> addItemToOrder(
     Order order,
+    PatientTreatmentProductItem item,
+  ) async {
+    await orderCollection
+        .doc(
+          order.orderID,
+        )
+        .collection(
+          itemsPath,
+        )
+        .add(
+          item.toEntity().toDocument(),
+        );
+  }
+
+  /// If we can use doc ID directly globally we may be able to update item
+  /// directly without going through the order collection path
   ///
   @Deprecated(
     'Unused method updateItemWithinOrder. \n'
@@ -339,7 +355,19 @@ class FirebaseOrderRepository implements OrderRepository {
     /// Much more readable as long as everything is working happy path
     /// Otherwise break out self-descriptive variables for debuggability and
     /// onboarding
-    return await orderCollection
+    return await _referItemWithinOrder(order, item).update({
+      statusFieldName: item.status,
+    });
+  }
+
+  @override
+  Future<void> deleteItemFromOrder({
+    required Order order,
+    required PatientTreatmentProductItem item,
+  }) async {
+    await _referItemWithinOrder(order, item).delete();
+  }
+
   /// Helper to localise the
   /// order doc -> items subcollection -> item doc ref accessor for mutations
   ///
