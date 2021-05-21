@@ -13,6 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
   cloud_firestore: ^2.0.0
+  clinic_repository:
+    path: ../clinic_repository
   patient_repository:
     path: "../patient_repository"
   product_repository:
