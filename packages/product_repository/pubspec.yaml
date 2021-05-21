@@ -13,9 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
   drug_repository:
-    path: "../drug_repository"
+    path: ../drug_repository
+  equatable: ^2.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-flutter:
