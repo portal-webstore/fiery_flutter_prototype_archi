@@ -38,6 +38,7 @@ class FirebaseOrderRepository implements OrderRepository {
   final CollectionReference<Map<String, dynamic>> orderCollection =
       FirebaseFirestore.instance.collection(ordersPath);
 
+  /// **Create**
   /// Write order with the given items.
   @override
   Future<void> addNewOrder(Order order) async {
@@ -69,42 +70,6 @@ class FirebaseOrderRepository implements OrderRepository {
 
     /// Commit whole subcollection item docs creation of batch writes at once
     await batchWriter.commit();
-  }
-
-  /// Expect less than 15 items in an order
-  /// Adequately covered by deleting here
-  ///
-  /// Memory sizing?
-  ///
-  /// Otherwise look to production security performant cloud fn implementation
-  /// https://firebase.google.com/docs/firestore/solutions/delete-collections#cloud_function
-  @override
-  Future<void> deleteOrder(Order order) async {
-    // Deleting collections from web client is not recommended.
-
-    final CollectionReference<Map<String, dynamic>> itemCollection =
-        await orderCollection.doc(order.orderID).collection(itemsPath);
-    final QuerySnapshot<Map<String, dynamic>> itemsSnap =
-        await itemCollection.get();
-
-    // Delete all the subcollection items as well.
-    final WriteBatch batchWriter = FirebaseFirestore.instance.batch();
-
-    itemsSnap.docs.forEach((
-      QueryDocumentSnapshot<Map<String, dynamic>> itemDoc,
-    ) {
-      final DocumentReference<Map<String, dynamic>> itemDocRef =
-          itemDoc.reference;
-
-      /// Set up
-      batchWriter.delete(itemDocRef);
-    });
-
-    /// Subcollections are independent? wonder if any temporal coupling
-    /// Can delete parent doc before subcollection?
-    await batchWriter.commit();
-
-    await orderCollection.doc(order.orderID).delete();
   }
 
   @override
@@ -154,6 +119,7 @@ class FirebaseOrderRepository implements OrderRepository {
     return orderWithItems;
   }
 
+  /// **READ**
   /// Depending on UX flow of either searching by:
   ///
   /// No uniqueness restriction for the clinic's given order reference.
@@ -191,6 +157,61 @@ class FirebaseOrderRepository implements OrderRepository {
     }).toList();
 
     return orders;
+  }
+
+  /// **Update**
+  /// Should be relatively unused
+  /// Maybe for overall order status or notes or potentially change delivery date
+  /// Un-draft.
+  ///
+  /// This should not be used to update specific items within the subcollection
+  @override
+  Future<void> updateOrder(Order order) {
+    final DocumentReference<Map<String, dynamic>> orderDocRef =
+        orderCollection.doc(order.orderID);
+    final Map<String, Object?> orderDocDataToUpdateWith =
+        _getDocumentFromOrder(order);
+
+    return orderDocRef.update(
+      orderDocDataToUpdateWith,
+    );
+  }
+
+  /// **Delete**
+  /// Expect less than 15 items in an order
+  /// Adequately covered by deleting here
+  ///
+  /// Memory sizing?
+  ///
+  /// Otherwise look to production security performant cloud fn implementation
+  /// https://firebase.google.com/docs/firestore/solutions/delete-collections#cloud_function
+  @override
+  Future<void> deleteOrder(Order order) async {
+    // Deleting collections from web client is not recommended.
+
+    final CollectionReference<Map<String, dynamic>> itemCollection =
+        await orderCollection.doc(order.orderID).collection(itemsPath);
+    final QuerySnapshot<Map<String, dynamic>> itemsSnap =
+        await itemCollection.get();
+
+    // Delete all the subcollection items as well.
+    final WriteBatch batchWriter = FirebaseFirestore.instance.batch();
+
+    itemsSnap.docs.forEach((
+      QueryDocumentSnapshot<Map<String, dynamic>> itemDoc,
+    ) {
+      final DocumentReference<Map<String, dynamic>> itemDocRef =
+          itemDoc.reference;
+
+      /// Set up
+      batchWriter.delete(itemDocRef);
+    });
+
+    /// Subcollections are independent? wonder if any temporal coupling
+    /// Can delete parent doc before subcollection?
+    await batchWriter.commit();
+
+    await orderCollection.doc(order.orderID).delete();
   }
 
   /// Query a single item from the order's subcollection for Firestore efficiency.
@@ -291,22 +312,23 @@ class FirebaseOrderRepository implements OrderRepository {
     return items;
   }
 
+  /// - MARK: Item-specific utilities CRUD
+  /// OrderPatientTreatmentProductItemRepository
 
-  /// Should be relatively unused
-  /// Maybe for overall order status or notes or potentially change delivery date
-  /// Un-draft.
+  /// Add item to an existing order
+  Future<void> addItemToOrder(
+    Order order,
   ///
-  /// This should not be used to update specific items within the subcollection
-  @override
-  Future<void> updateOrder(Order order) {
-    final DocumentReference<Map<String, dynamic>> orderDocRef =
-        orderCollection.doc(order.orderID);
-    final Map<String, Object?> orderDocDataToUpdateWith =
-        _getDocumentFromOrder(order);
-
-    return orderDocRef.update(
-      orderDocDataToUpdateWith,
-    );
+  @Deprecated(
+    'Unused method updateItemWithinOrder. \n'
+    'See [updateItemStatusWithinOrder]',
+  )
+  Future<void> updateItemWithinOrder(
+    Order order,
+    PatientTreatmentProductItem item,
+  ) async {
+    /// Unused
+    throw UnimplementedError();
   }
 
   @override
@@ -324,6 +346,7 @@ class FirebaseOrderRepository implements OrderRepository {
         .update({statusFieldName: item.status});
   }
 
+  /// - MARK: Internal helper functions below;
   static Order _getOrderFromSnapshot(
     DocumentSnapshot<Map<String, dynamic>> orderSnap,
   ) {
@@ -394,5 +417,4 @@ class FirebaseOrderRepository implements OrderRepository {
 
   Map<String, Object?> _getDocumentFromOrder(Order order) =>
       order.toEntity().toDocument();
-
 }
