@@ -136,6 +136,12 @@ class OrderEntity {
   }
 
   /// Per Firestore sample
+  /// Items is not considered inherently part of the order document.
+  ///
+  /// The patientTreatmentProductItems should be added in a bulk write as a
+  /// subcollection to the order.
+  ///
+  ///
   Map<String, Object?> toDocument() {
     return {
       'orderReference': orderReference,
@@ -144,8 +150,6 @@ class OrderEntity {
       'requiredByDeliveryDate': requiredByDeliveryDate,
       'comments': comments,
       'isDraft': isDraft,
-      'patientTreatmentProductItems':
-          _getPatientTreatmentProductItemsMappedList(),
     };
   }
 
