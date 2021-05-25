@@ -8,7 +8,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      # Start using commit hashes for more safety/resiliency against potential rewritten history ref tags
+      # actions/checkout@v2.3.4 5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: 2.13.0
