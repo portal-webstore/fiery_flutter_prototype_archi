@@ -2,3 +2,4 @@
 ///
 /// Data boundary safety in case a naughty dev edits the backend (Firestore)
 typedef ConstructorTransform<T> = T Function(dynamic dataJsonMap);
+typedef TryConstructorTransform<T> = T? Function(dynamic dataJsonMap);
