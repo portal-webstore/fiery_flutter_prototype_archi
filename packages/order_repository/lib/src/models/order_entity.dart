@@ -63,6 +63,22 @@ class OrderEntity {
   factory OrderEntity.fromSnapshot(DocumentSnapshot snapshot) =>
       OrderEntity.fromFirestore(snapshot);
 
+  factory OrderEntity.fromMap(Map<String, dynamic> map) {
+    return OrderEntity(
+      orderID: map['orderID'] != null ? map['orderID'] as String : null,
+      orderReference: map['orderReference'] != null
+          ? map['orderReference'] as String
+          : null,
+      createdAt: map['createdAt'] != null ? map['createdAt'] as int : null,
+      updatedAt: map['updatedAt'] != null ? map['updatedAt'] as int : null,
+      requiredByDeliveryDate: map['requiredByDeliveryDate'] != null
+          ? map['requiredByDeliveryDate'] as String
+          : null,
+      comments: map['comments'] != null ? map['comments'] as String : null,
+      isDraft: map['isDraft'] != null ? map['isDraft'] as bool : null,
+    );
+  }
+
   /// Note that (flutter)firestore document snapshot data maps list as <dynamic>
   /// Runtime type List<dynamic> is kept part of the list value
   /// Even though we only want it for readonly purposes
@@ -86,22 +102,6 @@ class OrderEntity {
     ).toList();
 
     return objectifiedPatientTreatmentProducts;
-  }
-
-  factory OrderEntity.fromMap(Map<String, dynamic> map) {
-    return OrderEntity(
-      orderID: map['orderID'] != null ? map['orderID'] as String : null,
-      orderReference: map['orderReference'] != null
-          ? map['orderReference'] as String
-          : null,
-      createdAt: map['createdAt'] != null ? map['createdAt'] as int : null,
-      updatedAt: map['updatedAt'] != null ? map['updatedAt'] as int : null,
-      requiredByDeliveryDate: map['requiredByDeliveryDate'] != null
-          ? map['requiredByDeliveryDate'] as String
-          : null,
-      comments: map['comments'] != null ? map['comments'] as String : null,
-      isDraft: map['isDraft'] != null ? map['isDraft'] as bool : null,
-    );
   }
 
   final String? orderID;
