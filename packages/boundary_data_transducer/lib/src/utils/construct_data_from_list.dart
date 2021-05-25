@@ -19,8 +19,8 @@ typedef ValidConstructionAccumulator<T> = List<T> Function(
 ///
 /// Cover with unit tests instead until we get better type unions or other
 /// Dart language features
-List<T> constructValidObjectsFromData<T>(
-  List<dynamic> dataJsonMaps,
+List<T> constructValidObjectsFromData<T, D>(
+  List<D> dataJsonMaps,
   ConstructorTransform<T> transform,
 ) {
   final List<T> initialBlankListCurrPrev = <T>[];
