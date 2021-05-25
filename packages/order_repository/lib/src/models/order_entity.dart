@@ -41,7 +41,7 @@ class OrderEntity {
     );
 
     return OrderEntity(
-      orderID: map['orderID'] != null ? map['orderID'] as String : null,
+      orderID: snapshot.id,
       orderReference: map['orderReference'] != null
           ? map['orderReference'] as String
           : null,
