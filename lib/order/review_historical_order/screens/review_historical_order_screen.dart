@@ -92,6 +92,18 @@ class _ReviewHistoricalOrderScreenState
       print('err listening to orders');
       print(err);
     });
+
+    _orderRepository
+        .getOrders(orderReferenceFreeText: 'super day order text title')
+        .then((
+      value,
+    ) {
+      print(
+        'Success getOrders review historical order ${value.toString()}',
+      );
+
+      return;
+    });
   }
 
   @override
