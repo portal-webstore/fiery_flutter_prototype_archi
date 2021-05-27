@@ -119,35 +119,11 @@ class _ReviewHistoricalOrderScreenState
       body: ListView(
         padding: const EdgeInsets.all(8.0),
         children: <Widget>[
-          const PatientTreatmentProductListItem(
-            treatmentProductStatusCode: 'Awaiting confirmation',
-            patientNameTitleLine: 'McBlogs, Joan (31/12/1900) 1293123',
-            multiProductAndQuantityContentLines:
-                'Qty: 1; 1prod Test, test test test tet test setestset es tsets \n'
-                'Qty: 1; 2prod adae in dextr test test test',
-          ),
-          const PatientTreatmentProductListItem(
-            treatmentProductStatusCode: 'Awaiting confirmation',
-            patientNameTitleLine: 'McJoe, Blob (31/01/1960) 64754',
-            multiProductAndQuantityContentLines:
-                'Qty: 1; 1mg Pralatrexate in Syringe, ',
-          ),
-          const PatientTreatmentProductListItem(
-            treatmentProductStatusCode: 'Awaiting confirmation',
-            patientNameTitleLine: 'McBlob, Jane (01/01/1960) 45712',
-            multiProductAndQuantityContentLines:
-                'Qty: 2; 5460mg Cytarabine in N/S 500mL Freeflex, IVINF',
-          ),
-          const PatientTreatmentProductListItem(
-            treatmentProductStatusCode: 'Awaiting confirmation',
-            patientNameTitleLine: 'Soup, Rock (01/01/1901) 984374',
-            multiProductAndQuantityContentLines:
-                'Qty: 1; 700mg Rituximab in N/S 500mL Freeflex, IVINF \n'
-                'Qty: 1; Doxorubicin 76mg; Vincristine 2mg in N/S Surefuser 500mL 7-day, IVINF \n'
-                'Qty: 1; 1555mg Cyclophosphamide in N/S 500mL Freeflex, IVINF \n'
-                'Qty: 4; 389mg Cyclophosphamide in N/S 500mL Freeflex, IVINF \n'
-                'Qty: 2; 70mg Cytarabine in Syringe, ITHEC \n',
-          ),
+              final item = items[index];
+
+              return PatientTreatmentProductListItem(
+                multiProductAndQuantityContentLines:
+                    item.getQuantifiedDosedProductText(),
           ..._getSeedListItems(),
         ],
       ),
