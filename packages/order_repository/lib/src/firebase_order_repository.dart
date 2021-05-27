@@ -83,13 +83,6 @@ class FirebaseOrderRepository
     final CollectionReference<Map<String, dynamic>> newOrderItemsSubcollection =
         newOrderDocument.collection(itemsPath);
 
-    /// Add explicit batch writer set for nascent to-be-created doc?
-    /// Duplicate. Does not seem to be required
-    // batchWriter.set(newOrderDocument, document);
-
-    /// ? Depending on race. BatchWrite may need read = Transaction instead
-    /// ?
-    /// Loop through setting up each item doc into the batch write
     order.patientTreatmentProductItems.forEach((
       PatientTreatmentProductItem item,
     ) {
