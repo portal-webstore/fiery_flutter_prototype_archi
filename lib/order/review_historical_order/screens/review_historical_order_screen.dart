@@ -19,18 +19,31 @@ import 'package:patient_repository/patient_repository.dart'
 class ReviewHistoricalOrderScreen extends StatefulWidget {
   const ReviewHistoricalOrderScreen({
     Key? key,
+    required this.orderID,
   }) : super(key: key);
 
   static const title = 'Review ordered patient treatments';
 
-  static Page page() =>
-      const MaterialPage<void>(child: ReviewHistoricalOrderScreen());
+  static Page page({
+    required String orderID,
+  }) =>
+      MaterialPage<void>(
+        child: ReviewHistoricalOrderScreen(
+          orderID: orderID,
+        ),
+      );
 
-  static Route<void> route() {
+  static Route<void> route({
+    required String orderID,
+  }) {
     return MaterialPageRoute<void>(
-      builder: (_) => const ReviewHistoricalOrderScreen(),
+      builder: (_) => ReviewHistoricalOrderScreen(
+        orderID: orderID,
+      ),
     );
   }
+
+  final String orderID;
 
   @override
   _ReviewHistoricalOrderScreenState createState() =>
@@ -40,7 +53,6 @@ class ReviewHistoricalOrderScreen extends StatefulWidget {
 class _ReviewHistoricalOrderScreenState
     extends State<ReviewHistoricalOrderScreen> {
   late final OrderRepository _orderRepository;
-  static const __testPlaceholderOrderID = '4eT1jaNv2bHoTlDU8No4';
 
   @override
   void initState() {
@@ -121,7 +133,7 @@ class _ReviewHistoricalOrderScreenState
             itemCount: items.length,
           );
         },
-        future: _orderRepository.getOrder(__testPlaceholderOrderID),
+        future: _orderRepository.getOrder(widget.orderID),
       ),
     );
   }
