@@ -27,11 +27,6 @@ class OrderEntity {
       );
     }
 
-    /// Dart runtime type as List<dynamic> ...
-    /// Bugs out if we cast List<Map<String, Object?>>
-    /// In Dart, the element type of a list is provided when the list is created,
-    /// See explanation https://stackoverflow.com/a/55577750
-    /// The list is set by the json parser at time of parse (API upstream to us)
     final List<dynamic> patientTreatmentProductMaps =
         map['patientTreatmentProductItems'] as List<dynamic>;
 

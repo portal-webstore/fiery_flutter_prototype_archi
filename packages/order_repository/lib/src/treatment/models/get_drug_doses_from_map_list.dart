@@ -1,5 +1,14 @@
 import 'package:order_repository/order_repository.dart' show DrugDose;
 
+/// Dart runtime type [drugDoseMaps] as List<dynamic> ...
+/// Bugs out if we cast List<Map<String, Object?>>
+/// In Dart, the element type of a list is provided when the list is created,
+/// See explanation https://stackoverflow.com/a/55577750
+/// The list is set by the json parser at time of parse (API upstream to us)
+/// Must be List<dynamic> from FlutterFire Firestore runtime type.
+/// Otherwise results in uncaught runtime error
+///
+///
 /// For internal repository models package usage Firestore map conversions
 ///
 /// The clinic nurse customer given drug doses as part of adding drug (products)
