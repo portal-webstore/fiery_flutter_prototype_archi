@@ -1,5 +1,6 @@
 import 'package:fiery_flutter_prototype_archi/order/review_historical_order/molecules/patient_treatment_product_list_item.dart'
     show PatientTreatmentProductListItem;
+import 'package:fiery_flutter_prototype_archi/order/review_historical_order/screens/review_historical_order_screen_arguments.dart';
 import 'package:fiery_flutter_prototype_archi/order/review_historical_order/seeds/patient_treatment_products_seed.dart'
     show seedPatientTreatmentProducts;
 import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
@@ -19,67 +20,31 @@ import 'package:patient_repository/patient_repository.dart'
 class ReviewHistoricalOrderScreen extends StatefulWidget {
   const ReviewHistoricalOrderScreen({
     Key? key,
-    required this.orderID,
-    required this.clinicID,
+    required this.argumentsClinicOrderInfo,
   }) : super(key: key);
 
   static const title = 'Review ordered patient treatments';
 
   static Page page({
-    required String orderID,
-    required String clinicID,
+    required ReviewHistoricalOrderScreenArguments argumentsClinicOrderInfo,
   }) =>
       MaterialPage<void>(
         child: ReviewHistoricalOrderScreen(
-          orderID: orderID,
-          clinicID: clinicID,
+          argumentsClinicOrderInfo: argumentsClinicOrderInfo,
         ),
       );
 
   static Route<void> route({
-    required String orderID,
-    required String clinicID,
+    required ReviewHistoricalOrderScreenArguments argumentsClinicOrderInfo,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => ReviewHistoricalOrderScreen(
-        orderID: orderID,
-        clinicID: clinicID,
+        argumentsClinicOrderInfo: argumentsClinicOrderInfo,
       ),
     );
   }
 
-  /// Quick hacky solution
-  /// Our quick validator to make sure the untyped route settings are valid
-  /// for use in review order details screen
-  static Map<String, String>? getValidatedRouteParamsArgs(Object? args) {
-    if (args == null) {
-      return null;
-    }
-    try {
-      final Map<String, String?> navParams = args as Map<String, String?>;
-
-      // May throw runtime type errors on access instead of exception?
-      final String clinic = navParams['clinicID'] ?? '';
-      final String orderID = navParams['orderID'] ?? '';
-
-      if (clinic.isEmpty || orderID.isEmpty) {
-        throw const FormatException(
-          'Invalid route details for order review',
-        );
-      }
-
-      return navParams as Map<String, String>;
-    } on Exception catch (exception) {
-      print(
-        'Unable to retrieve query information for route order details '
-        '${exception.toString()}',
-      );
-    }
-    return null;
-  }
-
-  final String orderID;
-  final String clinicID;
+  final ReviewHistoricalOrderScreenArguments argumentsClinicOrderInfo;
 
   @override
   _ReviewHistoricalOrderScreenState createState() =>
@@ -103,7 +68,7 @@ class _ReviewHistoricalOrderScreenState
 
   void _load() {
     _orderRepository = FirebaseOrderRepository(
-      clinicID: widget.clinicID,
+      clinicID: widget.argumentsClinicOrderInfo.clinicID,
     );
 
     _orderRepository
@@ -168,7 +133,8 @@ class _ReviewHistoricalOrderScreenState
             itemCount: items.length,
           );
         },
-        future: _orderRepository.getOrder(widget.orderID),
+        future:
+            _orderRepository.getOrder(widget.argumentsClinicOrderInfo.orderID),
       ),
     );
   }

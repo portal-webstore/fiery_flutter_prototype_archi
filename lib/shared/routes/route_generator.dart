@@ -22,6 +22,8 @@ import 'package:fiery_flutter_prototype_archi/order/order_history/screens/order_
     show OrderHistoryScreen;
 import 'package:fiery_flutter_prototype_archi/order/review_historical_order/screens/review_historical_order_screen.dart'
     show ReviewHistoricalOrderScreen;
+import 'package:fiery_flutter_prototype_archi/order/review_historical_order/screens/review_historical_order_screen_arguments.dart'
+    show ReviewHistoricalOrderScreenArguments;
 import 'package:fiery_flutter_prototype_archi/shared/routes/routes.dart'
     show Routes;
 import 'package:flutter/material.dart'
@@ -66,13 +68,18 @@ class RouteGenerator {
           );
         }
 
-        final Map<String, String> map =
-            ReviewHistoricalOrderScreen.getValidatedRouteParamsArgs(args)!;
+        final ReviewHistoricalOrderScreenArguments? reviewOrderArgs =
+            ReviewHistoricalOrderScreenArguments.tryParse(
+          args,
+        );
 
         return MaterialPageRoute<void>(builder: (BuildContext context) {
+          const placeholderFailedScreenLoadArgs =
+              ReviewHistoricalOrderScreenArguments('', '');
+
           return ReviewHistoricalOrderScreen(
-            clinicID: map['clinicID'] ?? '',
-            orderID: map['orderID'] ?? '',
+            argumentsClinicOrderInfo:
+                reviewOrderArgs ?? placeholderFailedScreenLoadArgs,
           );
         });
 
