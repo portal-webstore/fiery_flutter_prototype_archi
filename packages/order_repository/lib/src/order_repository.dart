@@ -29,6 +29,15 @@ abstract class OrderRepository {
   ///
   /// Stream of orders for ongoing reads listening?
   ///
+  @Deprecated(
+    'See [getOrders] instead for simplicity of load. '
+    'Note that the stream appears to load faster. '
+    'Initially loads once with a single order (strange) and then listener '
+    'returns another time (even though the orders all existed when the first '
+    'query was called in the first place...'
+    '\n Would expect all of the orders to have streamed in at once rather than'
+    'streaming 1 then 1+2',
+  )
   Stream<List<Order>> orders({
     int limitMostRecentCount = arbitraryDocQueryCountLimit,
   });

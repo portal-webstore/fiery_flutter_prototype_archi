@@ -20,21 +20,6 @@ class OrderEntity {
   factory OrderEntity.fromFirestore(DocumentSnapshot snapshot) {
     final Map<String, Object?> map = snapshot.data() as Map<String, Object?>;
 
-    if (map['patientTreatmentProductItems'] == null) {
-      throw FormatException(
-        'Expected patient treatment product items maps in a list. '
-        'Please check data store or conversion adaptors and try again',
-      );
-    }
-
-    final List<dynamic> patientTreatmentProductMaps =
-        map['patientTreatmentProductItems'] as List<dynamic>;
-
-    final List<PatientTreatmentProductItem> patientTreatmentProductItems =
-        getListPatientTreatmentProductsFromFirestoreJsonMaps(
-      patientTreatmentProductMaps,
-    );
-
     return OrderEntity(
       orderID: snapshot.id,
       orderReference: map['orderReference'] != null
@@ -47,7 +32,10 @@ class OrderEntity {
           : null,
       comments: map['comments'] != null ? map['comments'] as String : null,
       isDraft: map['isDraft'] != null ? map['isDraft'] as bool : null,
-      patientTreatmentProductItems: patientTreatmentProductItems,
+
+      /// We use awaited subcollection
+      /// rather than a nested array
+      patientTreatmentProductItems: [],
       snapshot: snapshot,
       reference: snapshot.reference,
       documentID: snapshot.id,
@@ -106,6 +94,10 @@ class OrderEntity {
   final String? requiredByDeliveryDate;
   final String? comments;
   final bool? isDraft;
+
+  /// We should use the asynchronous subcollection getter to populate these
+  /// items.
+  /// Otherwise initialise first with empty list.
   final List<PatientTreatmentProductItem>? patientTreatmentProductItems;
   final DocumentSnapshot? snapshot;
   final DocumentReference? reference;

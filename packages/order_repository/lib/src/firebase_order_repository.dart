@@ -76,15 +76,19 @@ class FirebaseOrderRepository
   Future<void> addNewOrder(Order order) async {
     final Map<String, Object?> document = _getDocumentFromOrder(order);
 
+    final WriteBatch batchWriter = FirebaseFirestore.instance.batch();
+
     final DocumentReference<Map<String, dynamic>> newOrderDocument =
         await _getClinicOrderCollection.add(document);
     final CollectionReference<Map<String, dynamic>> newOrderItemsSubcollection =
         newOrderDocument.collection(itemsPath);
 
-    // final addedItems = newOrderItemsSubcollection.add();
+    /// Add explicit batch writer set for nascent to-be-created doc?
+    /// Duplicate. Does not seem to be required
+    // batchWriter.set(newOrderDocument, document);
 
-    final WriteBatch batchWriter = FirebaseFirestore.instance.batch();
-
+    /// ? Depending on race. BatchWrite may need read = Transaction instead
+    /// ?
     /// Loop through setting up each item doc into the batch write
     order.patientTreatmentProductItems.forEach((
       PatientTreatmentProductItem item,
@@ -100,9 +104,17 @@ class FirebaseOrderRepository
     });
 
     /// Commit whole subcollection item docs creation of batch writes at once
-    await batchWriter.commit();
+    await batchWriter.commit().onError((
+      Error? err,
+      StackTrace stacktrace,
+    ) {
+      print('Add new order failed');
+    });
   }
 
+  @Deprecated(
+    'Remove this in lieu of [getOrders]',
+  )
   @override
   Stream<List<Order>> orders({
     int limitMostRecentCount = arbitraryDocQueryCountLimit,
@@ -180,15 +192,28 @@ class FirebaseOrderRepository
     final QuerySnapshot<Map<String, dynamic>> orderSnaps =
         await orderQuery.limit(arbitraryDocQueryCountLimit).get();
 
-    final orders = orderSnaps.docs.map((
+    final List<Future<Order>> orders = orderSnaps.docs.map((
       QueryDocumentSnapshot<Map<String, dynamic>> orderSnap,
-    ) {
-      final Order order = _getOrderFromSnapshot(orderSnap);
+    ) async {
+      /// - TODO: Wrap in try catch block for I/O boundary conversion issues
+      ///  i.e. 1. when field map access unexpected type
+      /// createdAt is given in Firebase.Timestamp instead of int()
+      /// TypeErrorImpl
+      /// 2. When field is missing attempted to parse
+      ///  reduce for single iteration skip nulls
+      final Order orderBase = _getOrderFromSnapshot(orderSnap);
+      final List<PatientTreatmentProductItem> items =
+          await getItemsFromOrder(orderID: orderSnap.id);
+
+      final Order order = orderBase.copyWith(
+        patientTreatmentProductItems: items,
+      );
 
       return order;
     }).toList();
+    final List<Order> awaitedOrders = await Future.wait(orders);
 
-    return orders;
+    return awaitedOrders;
   }
 
   /// **Update**
@@ -325,8 +350,11 @@ class FirebaseOrderRepository
     final QuerySnapshot<Map<String, dynamic>> itemSnaps =
         await itemCollection.get();
 
-    final List<PatientTreatmentProductItem> items = itemSnaps.docs
+    final List<QueryDocumentSnapshot<Map<String, dynamic>>> itemSnapDocs =
+        itemSnaps.docs;
+    final List<PatientTreatmentProductItem> items = itemSnapDocs
         .map(
+          // Risky data conversion should be sent to crashlytics reporter
           _getItemFromSnapshot,
         )
         .toList();
