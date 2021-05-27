@@ -20,30 +20,36 @@ class ReviewHistoricalOrderScreen extends StatefulWidget {
   const ReviewHistoricalOrderScreen({
     Key? key,
     required this.orderID,
+    required this.clinicID,
   }) : super(key: key);
 
   static const title = 'Review ordered patient treatments';
 
   static Page page({
     required String orderID,
+    required String clinicID,
   }) =>
       MaterialPage<void>(
         child: ReviewHistoricalOrderScreen(
           orderID: orderID,
+          clinicID: clinicID,
         ),
       );
 
   static Route<void> route({
     required String orderID,
+    required String clinicID,
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => ReviewHistoricalOrderScreen(
         orderID: orderID,
+        clinicID: clinicID,
       ),
     );
   }
 
   final String orderID;
+  final String clinicID;
 
   @override
   _ReviewHistoricalOrderScreenState createState() =>
@@ -66,9 +72,8 @@ class _ReviewHistoricalOrderScreenState
   }
 
   void _load() {
-    const String clinicID = 'TEST';
     _orderRepository = FirebaseOrderRepository(
-      clinicID: clinicID,
+      clinicID: widget.clinicID,
     );
 
     _orderRepository
