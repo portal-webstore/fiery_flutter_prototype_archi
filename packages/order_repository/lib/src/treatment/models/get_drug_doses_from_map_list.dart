@@ -25,19 +25,20 @@ List<DrugDose> getDrugDosesParsedFromDynamicList(
   List<dynamic>? drugDoseMaps,
 ) {
   final Iterable<DrugDose> drugDosesIterable = drugDoseMaps?.map<DrugDose>(
-        (
-          dynamic drugMap,
-        ) {
-          return _getDrugDoseFromDynamicMap(drugMap);
-        },
+        _getDrugDoseFromDynamicMap,
       ) ??
-      <DrugDose>[];
+      [];
 
   return drugDosesIterable.toList();
 }
 
 DrugDose _getDrugDoseFromDynamicMap(dynamic drugMap) {
+  if (drugMap == null) {
+    print('weird null');
+  }
+
+  final Map<String, dynamic> map = drugMap as Map<String, dynamic>;
   return DrugDose.fromMap(
-    drugMap as Map<String, dynamic>,
+    map,
   );
 }

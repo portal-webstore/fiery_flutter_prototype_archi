@@ -11,7 +11,10 @@ class Drug {
   });
 
   /// Convert from a **queried** json map with no optionals.
-  factory Drug.fromMap(Map<String, dynamic> map) {
+  factory Drug.fromMap(Map<String, dynamic>? map) {
+    if (map == null) {
+      throw FormatException('Weird error null drug');
+    }
     return Drug(
       drugName: map['drugName'] as String,
       drugUnitsOfMeasurement: map['drugUnitsOfMeasurement'] as String,
@@ -19,7 +22,7 @@ class Drug {
       /// We are not querying drug dropdowns; however, this would indicate
       /// presence of mandatory ocsDrugLink scraped from OCS.
       /// Different to container names and diluent names which are baked-in text
-      ocsDrugLink: map['ocsDrugLink'] as int,
+      ocsDrugLink: (map['ocsDrugLink'] as num).toInt(),
     );
   }
 

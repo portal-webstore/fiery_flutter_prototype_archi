@@ -31,7 +31,8 @@ class PatientTreatmentProductItemEntity {
   factory PatientTreatmentProductItemEntity.fromFirestore(
     DocumentSnapshot snapshot,
   ) {
-    final Map<String, dynamic?> map = snapshot.data() as Map<String, dynamic?>;
+    final Map<String, dynamic> map = snapshot.data() as Map<String, dynamic>;
+
     if (map['patient'] == null ||
         map['drugDoses'] == null ||
         map['product'] == null) {
@@ -40,13 +41,22 @@ class PatientTreatmentProductItemEntity {
       );
     }
 
+    final Patient patient = Patient.fromMap(
+      map['patient'] as Map<String, dynamic>,
+    );
+    final List<DrugDose> drugDoses = getDrugDosesParsedFromDynamicList(
+      map['drugDoses'] as List<Map<String, dynamic>>,
+    );
+    final Product product = Product.fromMap(
+      map['product'] as Map<String, dynamic>,
+    );
+
     return PatientTreatmentProductItemEntity(
       quantity: (map['quantity'] as num).toInt(),
       status: map['status'] as String,
-      patient: Patient.fromMap(map['patient'] as Map<String, dynamic>),
-      drugDoses:
-          getDrugDosesParsedFromDynamicList(map['drugDoses'] as List<dynamic>),
-      product: Product.fromMap(map['product'] as Map<String, dynamic>),
+      patient: patient,
+      drugDoses: drugDoses,
+      product: product,
       snapshot: snapshot,
       reference: snapshot.reference,
       patientTreatmentProductItemID: snapshot.id,
