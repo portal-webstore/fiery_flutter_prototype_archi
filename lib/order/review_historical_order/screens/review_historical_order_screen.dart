@@ -53,7 +53,10 @@ class _ReviewHistoricalOrderScreenState
   }
 
   void _load() {
-    _orderRepository = FirebaseOrderRepository();
+    const String clinicID = 'TEST';
+    _orderRepository = FirebaseOrderRepository(
+      clinicID: clinicID,
+    );
 
     _orderRepository
         .addNewOrder(
