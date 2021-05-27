@@ -26,8 +26,8 @@ class ReviewHistoricalOrderScreen extends StatefulWidget {
   static const title = 'Review ordered patient treatments';
 
   static Page page({
-    required String orderID,
-    required String clinicID,
+    String orderID = '',
+    String clinicID = '',
   }) =>
       MaterialPage<void>(
         child: ReviewHistoricalOrderScreen(
@@ -37,8 +37,8 @@ class ReviewHistoricalOrderScreen extends StatefulWidget {
       );
 
   static Route<void> route({
-    required String orderID,
-    required String clinicID,
+    String orderID = '',
+    String clinicID = '',
   }) {
     return MaterialPageRoute<void>(
       builder: (_) => ReviewHistoricalOrderScreen(
