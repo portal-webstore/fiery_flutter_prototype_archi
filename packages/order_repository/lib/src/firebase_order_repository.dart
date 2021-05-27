@@ -17,9 +17,25 @@ import 'package:order_repository/order_repository.dart'
         PatientTreatmentProductItem,
         PatientTreatmentProductItemEntity;
 
-class FirebaseOrderRepository implements OrderRepository {
+class FirebaseOrderRepository
+    implements OrderRepository, OrderPatientTreatmentProductItemRepository {
+  FirebaseOrderRepository({
+    required this.clinicID,
+  });
+
+  /// Should ideally use [Clinic] object later when we have implemented
+  /// the Clinic object
+  ///
+  /// Otherwise still good to use primitive clinicID string directly
+  /// less superficial coupling
+  final String clinicID;
   static const int arbitraryDocQueryCountLimit = 6;
 
+  /// Root clinic collection
+  ///
+  /// clinics -> clinic -> orders -> order -> patientTreatmentProductItems -> patientTreatmentProductItem
+  ///
+  static const String clinicsPath = 'clinics';
 
   /// 2nd-level orders subcollection
   ///
@@ -35,8 +51,24 @@ class FirebaseOrderRepository implements OrderRepository {
   static const String orderCreatedAtEpochFieldName = 'createdAt';
   static const String statusFieldName = 'status';
 
-  final CollectionReference<Map<String, dynamic>> orderCollection =
-      FirebaseFirestore.instance.collection(ordersPath);
+  /// - TODO: Refactor pass instance FirebaseFirestore.instance in lieu of a
+  /// getter called get ().instance
+  ///
+  ///
+  /// Inconsistent bloc examples. We can pass in the instance in main instead
+  ///  without issue... Unless no dependencies?
+  ///
+  ///  Looks to essentially be a global FirebaseApp singleton anyway from js
+  ///
+  CollectionReference<Map<String, dynamic>> get _getClinicOrderCollection {
+    final CollectionReference<Map<String, dynamic>> orderCollection =
+        FirebaseFirestore.instance
+            .collection(clinicsPath)
+            .doc(clinicID)
+            .collection(ordersPath);
+
+    return orderCollection;
+  }
 
   /// **Create**
   /// Write order with the given items.
@@ -45,8 +77,7 @@ class FirebaseOrderRepository implements OrderRepository {
     final Map<String, Object?> document = _getDocumentFromOrder(order);
 
     final DocumentReference<Map<String, dynamic>> newOrderDocument =
-        await orderCollection.add(document);
-    // - TODO: Add subcollection path step here for dynamically adding items cxn
+        await _getClinicOrderCollection.add(document);
     final CollectionReference<Map<String, dynamic>> newOrderItemsSubcollection =
         newOrderDocument.collection(itemsPath);
 
@@ -77,7 +108,7 @@ class FirebaseOrderRepository implements OrderRepository {
     int limitMostRecentCount = arbitraryDocQueryCountLimit,
   }) {
     final Stream<QuerySnapshot<Map<String, dynamic>>> sortedSnapshots =
-        orderCollection
+        _getClinicOrderCollection
             .orderBy(orderCreatedAtEpochFieldName, descending: true)
             .limit(limitMostRecentCount)
             .snapshots();
@@ -104,7 +135,7 @@ class FirebaseOrderRepository implements OrderRepository {
     String orderID,
   ) async {
     final DocumentReference<Map<String, dynamic>> orderDocRef =
-        orderCollection.doc(orderID);
+        _getClinicOrderCollection.doc(orderID);
     final DocumentSnapshot<Map<String, dynamic>> orderSnap =
         await orderDocRef.get();
 
@@ -139,7 +170,8 @@ class FirebaseOrderRepository implements OrderRepository {
   Future<List<Order>> getOrders({
     required String orderReferenceFreeText,
   }) async {
-    final Query<Map<String, dynamic>> orderQuery = orderCollection.where(
+    final Query<Map<String, dynamic>> orderQuery =
+        _getClinicOrderCollection.where(
       'orderReference',
       isEqualTo: orderReferenceFreeText,
     );
@@ -168,7 +200,7 @@ class FirebaseOrderRepository implements OrderRepository {
   @override
   Future<void> updateOrder(Order order) {
     final DocumentReference<Map<String, dynamic>> orderDocRef =
-        orderCollection.doc(order.orderID);
+        _getClinicOrderCollection.doc(order.orderID);
     final Map<String, Object?> orderDocDataToUpdateWith =
         _getDocumentFromOrder(order);
 
@@ -190,7 +222,9 @@ class FirebaseOrderRepository implements OrderRepository {
     // Deleting collections from web client is not recommended.
 
     final CollectionReference<Map<String, dynamic>> itemCollection =
-        await orderCollection.doc(order.orderID).collection(itemsPath);
+        await _getClinicOrderCollection
+            .doc(order.orderID)
+            .collection(itemsPath);
     final QuerySnapshot<Map<String, dynamic>> itemsSnap =
         await itemCollection.get();
 
@@ -211,7 +245,7 @@ class FirebaseOrderRepository implements OrderRepository {
     /// Can delete parent doc before subcollection?
     await batchWriter.commit();
 
-    await orderCollection.doc(order.orderID).delete();
+    await _getClinicOrderCollection.doc(order.orderID).delete();
   }
 
   /// Query a single item from the order's subcollection for Firestore efficiency.
@@ -224,7 +258,7 @@ class FirebaseOrderRepository implements OrderRepository {
   }) async {
     try {
       final CollectionReference<Map<String, dynamic>> items =
-          orderCollection.doc(orderID).collection(itemsPath);
+          _getClinicOrderCollection.doc(orderID).collection(itemsPath);
 
       /// Clean code would prefere separate classes to safeguard the props
       /// For quick value: reuse the same PatientTreatmentProductItem class
@@ -280,7 +314,7 @@ class FirebaseOrderRepository implements OrderRepository {
     required String orderID,
   }) async {
     final CollectionReference<Map<String, dynamic>> itemCollection =
-        orderCollection
+        _getClinicOrderCollection
             .doc(
               orderID,
             )
@@ -320,7 +354,7 @@ class FirebaseOrderRepository implements OrderRepository {
     Order order,
     PatientTreatmentProductItem item,
   ) async {
-    await orderCollection
+    await _getClinicOrderCollection
         .doc(
           order.orderID,
         )
@@ -375,7 +409,7 @@ class FirebaseOrderRepository implements OrderRepository {
     Order order,
     PatientTreatmentProductItem item,
   ) {
-    return orderCollection
+    return _getClinicOrderCollection
         .doc(order.orderID)
         .collection(itemsPath)
         .doc(item.patientTreatmentProductItemID);
@@ -420,7 +454,7 @@ class FirebaseOrderRepository implements OrderRepository {
     String orderID,
   ) async {
     final CollectionReference<Map<String, dynamic>> itemsCollection =
-        orderCollection
+        _getClinicOrderCollection
             .doc(
               orderID,
             )
