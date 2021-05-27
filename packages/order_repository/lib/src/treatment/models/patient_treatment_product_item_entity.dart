@@ -78,9 +78,9 @@ class PatientTreatmentProductItemEntity {
   Map<String, dynamic> toMap() => <String, dynamic>{
         'quantity': quantity,
         'status': status,
-        'patient': patient,
-        'drugDoses': drugDoses,
-        'product': product,
+        'patient': patient.toMap(),
+        'drugDoses': drugDoses.map((x) => x.toMap()).toList(),
+        'product': product.toMap(),
       };
 
   /// Note that there is no ID on creating a new Firestore document
