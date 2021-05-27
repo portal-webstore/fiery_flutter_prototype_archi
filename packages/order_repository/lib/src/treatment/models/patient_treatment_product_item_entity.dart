@@ -45,7 +45,9 @@ class PatientTreatmentProductItemEntity {
       map['patient'] as Map<String, dynamic>,
     );
     final List<DrugDose> drugDoses = getDrugDosesParsedFromDynamicList(
-      map['drugDoses'] as List<Map<String, dynamic>>,
+      /// Must be List<dynamic> to allow parsing
+      /// Must not be List<Map<String, dynamic>> as it results in error.
+      map['drugDoses'] as List<dynamic>,
     );
     final Product product = Product.fromMap(
       map['product'] as Map<String, dynamic>,
