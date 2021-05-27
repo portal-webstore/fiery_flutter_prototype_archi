@@ -60,8 +60,20 @@ class RouteGenerator {
           return const OrderHistoryScreen();
         });
       case Routes.reviewSubmittedHistoricalOrder:
+        if (args == null) {
+          throw const FormatException(
+            'Expected clinic and order ID for details screen',
+          );
+        }
+
+        final Map<String, String> map =
+            ReviewHistoricalOrderScreen.getValidatedRouteParamsArgs(args)!;
+
         return MaterialPageRoute<void>(builder: (BuildContext context) {
-          return const ReviewHistoricalOrderScreen();
+          return ReviewHistoricalOrderScreen(
+            clinicID: map['clinicID'] ?? '',
+            orderID: map['orderID'] ?? '',
+          );
         });
 
       case Routes.wizardCreateOrder:

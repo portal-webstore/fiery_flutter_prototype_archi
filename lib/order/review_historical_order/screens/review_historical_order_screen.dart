@@ -48,6 +48,36 @@ class ReviewHistoricalOrderScreen extends StatefulWidget {
     );
   }
 
+  /// Quick hacky solution
+  /// Our quick validator to make sure the untyped route settings are valid
+  /// for use in review order details screen
+  static Map<String, String>? getValidatedRouteParamsArgs(Object? args) {
+    if (args == null) {
+      return null;
+    }
+    try {
+      final Map<String, String?> navParams = args as Map<String, String?>;
+
+      // May throw runtime type errors on access instead of exception?
+      final String clinic = navParams['clinicID'] ?? '';
+      final String orderID = navParams['orderID'] ?? '';
+
+      if (clinic.isEmpty || orderID.isEmpty) {
+        throw const FormatException(
+          'Invalid route details for order review',
+        );
+      }
+
+      return navParams as Map<String, String>;
+    } on Exception catch (exception) {
+      print(
+        'Unable to retrieve query information for route order details '
+        '${exception.toString()}',
+      );
+    }
+    return null;
+  }
+
   final String orderID;
   final String clinicID;
 
