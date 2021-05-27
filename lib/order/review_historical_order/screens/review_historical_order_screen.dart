@@ -79,31 +79,6 @@ class _ReviewHistoricalOrderScreenState
     ).then((value) {
       print('wahoo order added');
     });
-
-    _orderRepository.orders().listen((
-      List<Order> orders,
-    ) {
-      print('orders found and parsed');
-      print(orders.toString());
-    }).onError((
-      Object err,
-      StackTrace stackTrace,
-    ) {
-      print('err listening to orders');
-      print(err);
-    });
-
-    _orderRepository
-        .getOrders(orderReferenceFreeText: 'super day order text title')
-        .then((
-      value,
-    ) {
-      print(
-        'Success getOrders review historical order ${value.toString()}',
-      );
-
-      return;
-    });
   }
 
   @override
