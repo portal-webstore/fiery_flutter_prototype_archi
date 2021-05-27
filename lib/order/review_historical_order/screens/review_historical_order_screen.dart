@@ -40,6 +40,7 @@ class ReviewHistoricalOrderScreen extends StatefulWidget {
 class _ReviewHistoricalOrderScreenState
     extends State<ReviewHistoricalOrderScreen> {
   late final OrderRepository _orderRepository;
+  static const __testPlaceholderOrderID = '4eT1jaNv2bHoTlDU8No4';
 
   @override
   void initState() {
@@ -91,16 +92,36 @@ class _ReviewHistoricalOrderScreenState
         actions: const <Widget>[],
       ),
       drawer: const SideMenuNavigationDrawer(),
-      body: ListView(
-        padding: const EdgeInsets.all(8.0),
-        children: <Widget>[
+      body: FutureBuilder(
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<Order?> snapshot,
+        ) {
+          final Order? dartLangNullabilityBlankedOrder = snapshot.data;
+          if (dartLangNullabilityBlankedOrder == null || !snapshot.hasData) {
+            return const CircularProgressIndicator.adaptive();
+          }
+
+          final Order order = dartLangNullabilityBlankedOrder;
+          final List<PatientTreatmentProductItem> items =
+              order.patientTreatmentProductItems;
+
+          return ListView.builder(
+            padding: const EdgeInsets.all(8.0),
+            itemBuilder: (context, index) {
               final item = items[index];
 
               return PatientTreatmentProductListItem(
+                treatmentProductStatusCode: item.status,
+                patientNameTitleLine: item.patient.getNameTextFromPatient(),
                 multiProductAndQuantityContentLines:
                     item.getQuantifiedDosedProductText(),
-          ..._getSeedListItems(),
-        ],
+              );
+            },
+            itemCount: items.length,
+          );
+        },
+        future: _orderRepository.getOrder(__testPlaceholderOrderID),
       ),
     );
   }
