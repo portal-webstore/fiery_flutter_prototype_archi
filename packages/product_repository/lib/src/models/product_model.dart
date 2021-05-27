@@ -25,7 +25,7 @@ class Product {
   /// Convert from a **queried** json map with no optionals.
   factory Product.fromMap(Map<String, dynamic> map) {
     final Iterable<Drug> drugs =
-        getDrugsParsedFromProductMapAccessDynamicList(map);
+        _getDrugsParsedFromProductMapAccessDynamicList(map);
 
     return Product(
       productName: map['productName'] as String,
@@ -45,6 +45,9 @@ class Product {
     );
   }
 
+  factory Product.fromJson(String source) =>
+      Product.fromMap(jsonDecode(source) as Map<String, dynamic>);
+
   /// See https://github.com/dart-lang/language/issues/356
   /// for info on abstract (no factory or constructors are abstractable)
   /// want to enforce the generic shape of having a fromMap serailising function
@@ -54,21 +57,19 @@ class Product {
   ///
   ///  See potential emulation https://github.com/dart-lang/language/issues/356#issuecomment-494467605
   /// static Iterable<T> getIterableParsedFromDynamicList< T, G extends Mappable<T>>(
-  static Iterable<Drug> getDrugsParsedFromProductMapAccessDynamicList(
+  static Iterable<Drug> _getDrugsParsedFromProductMapAccessDynamicList(
     Map<String, dynamic> map,
   ) {
-    return (map['drugs'] as Iterable<dynamic>?)?.map<Drug>((
-          dynamic drugMap,
-        ) {
-          return Drug.fromMap(
-            drugMap as Map<String, dynamic>,
-          );
-        }) ??
-        <Drug>[];
-  }
+    final Iterable drugMaps = map['drugs'] as Iterable<dynamic>;
 
-  factory Product.fromJson(String source) =>
-      Product.fromMap(jsonDecode(source) as Map<String, dynamic>);
+    return (drugMaps).map<Drug>((
+      dynamic drugMap,
+    ) {
+      return Drug.fromMap(
+        drugMap as Map<String, dynamic>,
+      );
+    });
+  }
 
   final String productName;
   final List<Drug> drugs;
