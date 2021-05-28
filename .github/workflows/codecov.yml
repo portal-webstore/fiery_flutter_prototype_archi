@@ -8,11 +8,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Install Flutter
-        uses: subosito/flutter-action@v1.4.0
+      # Start using commit hashes for more safety/resiliency against potential rewritten history ref tags
+      # actions/checkout@v2.3.4 5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: dart-lang/setup-dart@v1
         with:
-          flutter-version: "2.0.6"
+          sdk: 2.13.0
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1.5.0
+        with:
+          flutter-version: "2.2.0"
           channel: "stable"
       - name: Check flutter version (debug)
         run: flutter --version

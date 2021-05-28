@@ -8,8 +8,8 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  sdk: ">=2.13.0 <3.0.0"
+  flutter: ">=2.2.0"
 
 dependencies:
   flutter:
@@ -23,6 +23,8 @@ dependencies:
     path: packages/clinic_repository
   colour_style_guide:
     path: packages/colour_style_guide
+  drug_repository:
+    path: packages/drug_repository
   formz_inputs:
     path: packages/formz_inputs
   i18n_l10n_australian:

@@ -2,13 +2,26 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 
 import 'package:drug_repository/drug_repository.dart' show Drug;
 
+/// - FIXME: Fundamental deviation in ERD here.
+/// Make sure Firestore is consistent
+/// are we flattening drugName drugUnitsOfMeasurement ocsDrugLink here?
+/// We have passed in a Drug map into the DrugDose converter..
 class DrugDose {
-  DrugDose({
+  const DrugDose({
     required this.drug,
     required this.dose,
   });
 
-  factory DrugDose.fromMap(Map<String, dynamic> map) {
+  factory DrugDose.fromMap(Map<String, dynamic>? map) {
+    if (map == null) {
+      throw FormatException('Weird error null drugDose map when not');
+    }
+    if (map['drug'] == null) {
+      throw FormatException('Weird error null drugDose.drug');
+    }
+    if (map['dose'] == null) {
+      throw FormatException('Weird error null drugDose.dose');
+    }
     return DrugDose(
       drug: Drug.fromMap(map['drug'] as Map<String, dynamic>),
       dose: (map['dose'] as num).toDouble(),
@@ -52,4 +65,11 @@ class DrugDose {
 
   @override
   int get hashCode => drug.hashCode ^ dose.hashCode;
+}
+
+extension DrugDoseDescription on DrugDose {
+  String getDescriptionText() {
+    return '${this.drug.drugName}: '
+        '${this.dose}${this.drug.drugUnitsOfMeasurement}';
+  }
 }

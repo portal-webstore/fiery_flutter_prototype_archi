@@ -3,8 +3,13 @@ import 'dart:convert' show jsonDecode, jsonEncode;
 import 'package:collection/collection.dart' show DeepCollectionEquality;
 import 'package:drug_repository/drug_repository.dart' show Drug;
 
+abstract class Mappable<T> {
+  Mappable.fromMap(dynamic map);
+  Map<String, Object?> toMap();
+}
+
 class Product {
-  Product({
+  const Product({
     required this.productName,
     required this.drugs,
     required this.diluentName,
@@ -20,10 +25,7 @@ class Product {
   /// Convert from a **queried** json map with no optionals.
   factory Product.fromMap(Map<String, dynamic> map) {
     final Iterable<Drug> drugs =
-        (map['drugs'] as Iterable<Map<String, dynamic>>?)?.map<Drug>(
-              (x) => Drug.fromMap(x),
-            ) ??
-            [];
+        _getDrugsParsedFromProductMapAccessDynamicList(map);
 
     return Product(
       productName: map['productName'] as String,
@@ -33,7 +35,7 @@ class Product {
       diluentName: map['diluentName'] as String,
       containerName: map['containerName'] as String,
       containerCustomName: map['containerCustomName'] as String,
-      containerVolume: (['containerVolume'] as num).toDouble(),
+      containerVolume: (map['containerVolume'] as num).toDouble(),
       containerIsFixedFinalVolume: map['containerIsFixedFinalVolume'] as bool,
       administrationRoute: map['administrationRoute'] as String,
       attachmentName: map['attachmentName'] as String,
@@ -45,6 +47,29 @@ class Product {
 
   factory Product.fromJson(String source) =>
       Product.fromMap(jsonDecode(source) as Map<String, dynamic>);
+
+  /// See https://github.com/dart-lang/language/issues/356
+  /// for info on abstract (no factory or constructors are abstractable)
+  /// want to enforce the generic shape of having a fromMap serailising function
+  /// same use case
+  ///
+  /// abstract static method
+  ///
+  ///  See potential emulation https://github.com/dart-lang/language/issues/356#issuecomment-494467605
+  /// static Iterable<T> getIterableParsedFromDynamicList< T, G extends Mappable<T>>(
+  static Iterable<Drug> _getDrugsParsedFromProductMapAccessDynamicList(
+    Map<String, dynamic> map,
+  ) {
+    final Iterable drugMaps = map['drugs'] as Iterable<dynamic>;
+
+    return (drugMaps).map<Drug>((
+      dynamic drugMap,
+    ) {
+      return Drug.fromMap(
+        drugMap as Map<String, dynamic>,
+      );
+    });
+  }
 
   final String productName;
   final List<Drug> drugs;

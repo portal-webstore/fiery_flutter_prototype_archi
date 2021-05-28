@@ -1,0 +1,372 @@
+[
+ {
+   "drugName": "Alemtuzumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 684
+ },
+ {
+   "drugName": "Arsenic trioxide",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 737
+ },
+ {
+   "drugName": "Asparaginase",
+   "drugUnitsOfMeasurement": "IU",
+   "ocsDrugLink": 193
+ },
+ {
+   "drugName": "Atezolizumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 1025
+ },
+ {
+   "drugName": "Avelumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 1027
+ },
+ {
+   "drugName": "Azacitidine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 775
+ },
+ {
+   "drugName": "Bendamustine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 889
+ },
+ {
+   "drugName": "Bevacizumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 693
+ },
+ {
+   "drugName": "Bleomycin",
+   "drugUnitsOfMeasurement": "IU",
+   "ocsDrugLink": 113
+ },
+ {
+   "drugName": "Bortezomib",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 675
+ },
+ {
+   "drugName": "Brentuximab vedotin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 1023
+ },
+ {
+   "drugName": "Cabazitaxel",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 790
+ },
+ {
+   "drugName": "Carboplatin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 1
+ },
+ {
+   "drugName": "Carfilzomib",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 971
+ },
+ {
+   "drugName": "Cetuximab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 690
+ },
+ {
+   "drugName": "Cisplatin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 125
+ },
+ {
+   "drugName": "Cladribine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 229
+ },
+ {
+   "drugName": "Cyclophosphamide",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 196
+ },
+ {
+   "drugName": "Cytarabine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 256
+ },
+ {
+   "drugName": "Dacarbazine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 590
+ },
+ {
+   "drugName": "Dactinomycin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 267
+ },
+ {
+   "drugName": "Daratumumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 1028
+ },
+ {
+   "drugName": "Daunorubicin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 688
+ },
+ {
+   "drugName": "Docetaxel",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 599
+ },
+ {
+   "drugName": "Doxorubicin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 2
+ },
+ {
+   "drugName": "Doxorubicin(liposomal)",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 361
+ },
+ {
+   "drugName": "Durvalumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 1047
+ },
+ {
+   "drugName": "Eculizumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 991
+ },
+ {
+   "drugName": "Epirubicin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 139
+ },
+ {
+   "drugName": "Eribulin mesilate",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 882
+ },
+ {
+   "drugName": "Etoposide",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 959
+ },
+ {
+   "drugName": "Etoposide (E/phos br)",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 209
+ },
+ {
+   "drugName": "Fludarabine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 224
+ },
+ {
+   "drugName": "Fluorouracil",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 269
+ },
+ {
+   "drugName": "Fotemustine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 168
+ },
+ {
+   "drugName": "Ganciclovir",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 412
+ },
+ {
+   "drugName": "Gemcitabine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 173
+ },
+ {
+   "drugName": "Gemtuzumab Ozogamicin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 682
+ },
+ {
+   "drugName": "Hydrocortisone",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 735
+ },
+ {
+   "drugName": "Idarubicin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 352
+ },
+ {
+   "drugName": "Ifosfamide",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 425
+ },
+ {
+   "drugName": "Infliximab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 765
+ },
+ {
+   "drugName": "Ipilimumab(Yervoy)",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 859
+ },
+ {
+   "drugName": "Irinotecan",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 153
+ },
+ {
+   "drugName": "Irinotecan - Liposomal",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 997
+ },
+ {
+   "drugName": "Lurbinectedin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 1051
+ },
+ {
+   "drugName": "Mesna",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 250
+ },
+ {
+   "drugName": "Methotrexate",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 463
+ },
+ {
+   "drugName": "Mitomycin C",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 506
+ },
+ {
+   "drugName": "Mitozantrone",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 515
+ },
+ {
+   "drugName": "NAB Paclitaxel (Abraxane)",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 766
+ },
+ {
+   "drugName": "Nivolumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 896
+ },
+ {
+   "drugName": "Obinutuzumab(Gazyva)",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 899
+ },
+ {
+   "drugName": "Ocrelizumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 1038
+ },
+ {
+   "drugName": "Ofatumumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 948
+ },
+ {
+   "drugName": "Oxaliplatin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 536
+ },
+ {
+   "drugName": "Paclitaxel",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 544
+ },
+ {
+   "drugName": "Panitumumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 681
+ },
+ {
+   "drugName": "Pembrolizumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 890
+ },
+ {
+   "drugName": "Pemetrexed",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 669
+ },
+ {
+   "drugName": "Pertuzumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 881
+ },
+ {
+   "drugName": "Plitidepsin",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 1050
+ },
+ {
+   "drugName": "Pralatrexate",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 1018
+ },
+ {
+   "drugName": "Raltitrexed",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 665
+ },
+ {
+   "drugName": "Rituximab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 436
+ },
+ {
+   "drugName": "Temsirolimus",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 759
+ },
+ {
+   "drugName": "Tocilizumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 868
+ },
+ {
+   "drugName": "Topotecan",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 577
+ },
+ {
+   "drugName": "Trastuzumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 421
+ },
+ {
+   "drugName": "Trastuzumab EMTANSINE",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 875
+ },
+ {
+   "drugName": "Vedolizumab",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 963
+ },
+ {
+   "drugName": "Vinblastine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 582
+ },
+ {
+   "drugName": "Vincristine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 367
+ },
+ {
+   "drugName": "Vinorelbine",
+   "drugUnitsOfMeasurement": "mg",
+   "ocsDrugLink": 184
+ }
+]
