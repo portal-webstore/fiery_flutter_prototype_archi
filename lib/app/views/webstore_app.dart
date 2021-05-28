@@ -13,7 +13,7 @@ class WebstoreApp extends StatelessWidget {
   const WebstoreApp({
     Key? key,
     required FirebaseAuthenticationRepository authenticationRepository,
-  })   : _authenticationRepository = authenticationRepository,
+  })  : _authenticationRepository = authenticationRepository,
         super(key: key);
 
   final FirebaseAuthenticationRepository _authenticationRepository;

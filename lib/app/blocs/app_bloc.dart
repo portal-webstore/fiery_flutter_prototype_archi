@@ -11,7 +11,7 @@ part 'app_state.dart';
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
     required FirebaseAuthenticationRepository firebaseAuthenticationRepository,
-  })   : _firebaseAuthenticationRepository = firebaseAuthenticationRepository,
+  })  : _firebaseAuthenticationRepository = firebaseAuthenticationRepository,
         super(
           firebaseAuthenticationRepository.currentUser.isNotEmpty
               ? AppState.authenticated(
