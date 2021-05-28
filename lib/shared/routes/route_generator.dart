@@ -75,7 +75,10 @@ class RouteGenerator {
 
         return MaterialPageRoute<void>(builder: (BuildContext context) {
           const placeholderFailedScreenLoadArgs =
-              ReviewHistoricalOrderScreenArguments('', '');
+              ReviewHistoricalOrderScreenArguments(
+            clinicID: '',
+            orderID: '',
+          );
 
           return ReviewHistoricalOrderScreen(
             argumentsClinicOrderInfo:

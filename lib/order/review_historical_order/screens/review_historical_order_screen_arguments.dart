@@ -4,10 +4,10 @@
 /// Order information to load specific order query
 ///
 class ReviewHistoricalOrderScreenArguments {
-  const ReviewHistoricalOrderScreenArguments(
-    this.clinicID,
-    this.orderID,
-  );
+  const ReviewHistoricalOrderScreenArguments({
+    required this.clinicID,
+    required this.orderID,
+  });
 
   /// Quick hacky solution
   /// Our quick validator to make sure the untyped route settings are valid
@@ -31,7 +31,10 @@ class ReviewHistoricalOrderScreenArguments {
       );
     }
 
-    return ReviewHistoricalOrderScreenArguments(clinicID, orderID);
+    return ReviewHistoricalOrderScreenArguments(
+      clinicID: clinicID,
+      orderID: orderID,
+    );
   }
 
   static ReviewHistoricalOrderScreenArguments? tryParse(
@@ -42,6 +45,10 @@ class ReviewHistoricalOrderScreenArguments {
           .getValidatedFromRouteParamsArgs(
         args,
       );
+    }
+    // ignore: avoid_catching_errors
+    on ArgumentError catch (_) {
+      return null;
     } on Exception catch (_) {
       return null;
     }
