@@ -62,16 +62,19 @@ class RouteGenerator {
           return const OrderHistoryScreen();
         });
       case Routes.reviewSubmittedHistoricalOrder:
-        if (args == null) {
-          throw const FormatException(
-            'Expected clinic and order ID for details screen',
-          );
-        }
 
-        final ReviewHistoricalOrderScreenArguments? reviewOrderArgs =
-            ReviewHistoricalOrderScreenArguments.tryParse(
-          args,
-        );
+        /// Flutter web route goes through this. and finds null
+        /// Null as no data through direct chrome address bar
+        // if (args == null) {
+        //   throw const FormatException(
+        //     'Expected clinic and order ID for details screen',
+        //   );
+        // }
+
+        // final ReviewHistoricalOrderScreenArguments? reviewOrderArgs =
+        //     ReviewHistoricalOrderScreenArguments.tryParse(
+        //   args,
+        // );
 
         return MaterialPageRoute<void>(builder: (BuildContext context) {
           const placeholderFailedScreenLoadArgs =
@@ -81,8 +84,7 @@ class RouteGenerator {
           );
 
           return ReviewHistoricalOrderScreen(
-            argumentsClinicOrderInfo:
-                reviewOrderArgs ?? placeholderFailedScreenLoadArgs,
+            argumentsClinicOrderInfo: placeholderFailedScreenLoadArgs,
           );
         });
 

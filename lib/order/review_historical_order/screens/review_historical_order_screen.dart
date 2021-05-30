@@ -20,7 +20,10 @@ import 'package:patient_repository/patient_repository.dart'
 class ReviewHistoricalOrderScreen extends StatefulWidget {
   const ReviewHistoricalOrderScreen({
     Key? key,
-    required this.argumentsClinicOrderInfo,
+    this.argumentsClinicOrderInfo = const ReviewHistoricalOrderScreenArguments(
+      clinicID: 'TEST',
+      orderID: '4cepouEDpRrhFPNCMeqU',
+    ),
   }) : super(key: key);
 
   static const title = 'Review ordered patient treatments';
