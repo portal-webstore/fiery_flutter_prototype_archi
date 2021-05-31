@@ -3,7 +3,7 @@ library form_input_helpers;
 export 'src/date/date.dart' show DateValidator, getLastDayOfMonth;
 export 'src/numeric/numeric.dart'
     show
-        allowDecimalTwoPlacesInput,
+        allowTwoDecimalPlacesInput,
         doseInvalidValueEmptyInputErrorText,
         doseInvalidValueErrorText,
         resetOnExceedingTwoDecimalPlacesInputFormatter,

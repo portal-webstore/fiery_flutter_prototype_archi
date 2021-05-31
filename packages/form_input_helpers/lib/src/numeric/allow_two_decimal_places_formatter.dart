@@ -13,7 +13,7 @@ import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 /// - 9.8
 ///
 ///
-final FilteringTextInputFormatter allowDecimalTwoPlacesInput =
+final FilteringTextInputFormatter allowTwoDecimalPlacesInput =
     FilteringTextInputFormatter.allow(
   // ^ match start of string to avoid reevaluting trailing numbers as new token
   // \d+ multiple whole digits
