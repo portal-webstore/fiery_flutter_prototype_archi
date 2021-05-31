@@ -25,12 +25,12 @@ dependencies:
     path: packages/colour_style_guide
   drug_repository:
     path: packages/drug_repository
+  form_input_helpers:
+    path: packages/form_input_helpers
   formz_inputs:
     path: packages/formz_inputs
   i18n_l10n_australian:
     path: packages/i18n_l10n_australian
-  # input_format_helpers:
-  #   path: packages/input_format_helpers
   order_repository:
     path: packages/order_repository
   patient_repository:
