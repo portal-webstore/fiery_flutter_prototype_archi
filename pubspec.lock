@@ -364,6 +364,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "9.0.0"
+  form_input_helpers:
+    dependency: "direct main"
+    description:
+      path: "packages/form_input_helpers"
+      relative: true
+    source: path
+    version: "0.0.1"
   formz:
     dependency: "direct main"
     description:
