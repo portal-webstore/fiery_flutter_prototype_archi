@@ -1,10 +1,9 @@
-import 'package:colour_style_guide/colour_style_guide.dart';
-import 'package:fiery_flutter_prototype_archi/app/blocs/app_bloc.dart';
-import 'package:fiery_flutter_prototype_archi/app/routes/routes.dart';
-import 'package:fiery_flutter_prototype_archi/shared/routes/route_generator.dart';
-import 'package:flow_builder/flow_builder.dart' show FlowBuilder;
+import 'package:colour_style_guide/colour_style_guide.dart' show ColouredTheme;
+import 'package:fiery_flutter_prototype_archi/home/screens/home_screen.dart'
+    show HomeScreen;
+import 'package:fiery_flutter_prototype_archi/shared/routes/route_generator.dart'
+    show RouteGenerator;
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart' show SelectContext;
 import 'package:flutter_localizations/flutter_localizations.dart'
     show GlobalMaterialLocalizations, GlobalWidgetsLocalizations;
 import 'package:i18n_l10n_australian/i18n_l10n_australian.dart'
@@ -31,12 +30,7 @@ class AppView extends StatelessWidget {
         Locale('en', 'US'), // English (United States) for safe defaults
       ],
       theme: ColouredTheme.data,
-      home: FlowBuilder<AppStatus>(
-        state: context.select(
-          (AppBloc bloc) => bloc.state.status,
-        ),
-        onGeneratePages: onGenerateAppViewPages,
-      ),
+      home: const HomeScreen(),
       onGenerateRoute: RouteGenerator.getRouteOnGenerate,
     );
   }
