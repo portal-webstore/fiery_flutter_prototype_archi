@@ -1,3 +1,7 @@
+import 'package:fiery_flutter_prototype_archi/order/atoms/padding.dart'
+    show edgeInsetsPadding;
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/add_patient/forms/add_patient_form.dart'
+    show AddPatientForm;
 import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
     show SideMenuNavigationDrawer;
 import 'package:flutter/material.dart';
@@ -31,13 +35,9 @@ class _OrderAddPatientScreenState extends State<OrderAddPatientScreen> {
         actions: const <Widget>[],
       ),
       drawer: const SideMenuNavigationDrawer(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            SizedBox(height: 4.0),
-          ],
-        ),
+      body: const SingleChildScrollView(
+        padding: edgeInsetsPadding,
+        child: AddPatientForm(),
       ),
     );
   }

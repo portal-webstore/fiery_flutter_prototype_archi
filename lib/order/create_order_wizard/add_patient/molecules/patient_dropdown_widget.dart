@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:form_input_helpers/form_input_helpers.dart' show validateEmpty;
 
-class PatientBirthDateField extends StatelessWidget {
-  const PatientBirthDateField({
+/// To be replaced with functional patient query searcher **autocomplete**
+/// dropdown
+///
+/// For selecting the realised Patient object with identifier and ocsLink
+/// rather than a freely ad hoc-created Patient
+///
+class PatientDropdown extends StatelessWidget {
+  const PatientDropdown({
     Key? key,
     required this.focusNode,
     required this.textEditingController,
@@ -10,7 +16,7 @@ class PatientBirthDateField extends StatelessWidget {
     required this.onSaved,
   }) : super(key: key);
 
-  static const String getLabel = 'Birth date';
+  static const String getLabel = 'Search existing patient';
   final FocusNode focusNode;
   final TextEditingController textEditingController;
   final void Function(String? input) onFieldSubmitted;
