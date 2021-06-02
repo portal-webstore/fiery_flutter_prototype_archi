@@ -88,7 +88,7 @@ class RouteGenerator {
           );
         });
 
-      case Routes.wizardCreateOrder:
+      case Routes.wizardCreateStartOrder:
         return MaterialPageRoute<void>(builder: (BuildContext context) {
           return const StartOrderScreen();
         });
