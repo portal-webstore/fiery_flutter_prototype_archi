@@ -1,3 +1,7 @@
+import 'package:fiery_flutter_prototype_archi/order/atoms/padding.dart'
+    show edgeInsetsPadding;
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/forms/start_order_form.dart'
+    show StartOrderForm;
 import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
     show SideMenuNavigationDrawer;
 import 'package:flutter/material.dart';
@@ -30,13 +34,9 @@ class _StartOrderScreenState extends State<StartOrderScreen> {
         actions: const <Widget>[],
       ),
       drawer: const SideMenuNavigationDrawer(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            SizedBox(height: 4.0),
-          ],
-        ),
+      body: const SingleChildScrollView(
+        padding: edgeInsetsPadding,
+        child: StartOrderForm(),
       ),
     );
   }

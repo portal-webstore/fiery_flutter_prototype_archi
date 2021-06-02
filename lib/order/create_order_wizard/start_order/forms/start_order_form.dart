@@ -1,9 +1,10 @@
-import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/molecules/order_comments_field_widget.dart';
-import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/molecules/order_reference_field_widget.dart';
-import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/molecules/order_required_by_delivery_date_field_widget.dart';
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/molecules/order_comments_field_widget.dart'
+    show OrderCommentsField;
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/molecules/order_reference_field_widget.dart'
+    show OrderReferenceField;
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/molecules/order_required_by_delivery_date_field_widget.dart'
+    show OrderRequiredByDeliveryDateField;
 import 'package:flutter/material.dart';
-
-const EdgeInsets edgeInsetsPadding = EdgeInsets.fromLTRB(16, 16, 16, 16);
 
 /// Required date
 /// initial notes
@@ -32,45 +33,42 @@ class _StartOrderFormState extends State<StartOrderForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: edgeInsetsPadding,
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            OrderReferenceField(
-              onFieldSubmitted: (String? input) {
-                return;
-              },
-              onSaved: (String? input) {
-                return;
-              },
-              focusNode: _orderReferenceFocus,
-              textEditingController: _orderReferenceController,
-            ),
-            OrderRequiredByDeliveryDateField(
-              onFieldSubmitted: (String? input) {
-                return;
-              },
-              onSaved: (String? input) {
-                return;
-              },
-              focusNode: _orderRequiredByDeliveryDateFocus,
-              textEditingController: _orderRequiredByDeliveryDateController,
-            ),
-            OrderCommentsField(
-              onFieldSubmitted: (String? input) {
-                return;
-              },
-              onSaved: (String? input) {
-                return;
-              },
-              focusNode: _orderCommentsFocus,
-              textEditingController: _orderCommentsController,
-            ),
-          ],
-        ),
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          OrderReferenceField(
+            onFieldSubmitted: (String? input) {
+              return;
+            },
+            onSaved: (String? input) {
+              return;
+            },
+            focusNode: _orderReferenceFocus,
+            textEditingController: _orderReferenceController,
+          ),
+          OrderRequiredByDeliveryDateField(
+            onFieldSubmitted: (String? input) {
+              return;
+            },
+            onSaved: (String? input) {
+              return;
+            },
+            focusNode: _orderRequiredByDeliveryDateFocus,
+            textEditingController: _orderRequiredByDeliveryDateController,
+          ),
+          OrderCommentsField(
+            onFieldSubmitted: (String? input) {
+              return;
+            },
+            onSaved: (String? input) {
+              return;
+            },
+            focusNode: _orderCommentsFocus,
+            textEditingController: _orderCommentsController,
+          ),
+        ],
       ),
     );
   }
