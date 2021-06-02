@@ -1,3 +1,5 @@
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/atoms/nav_add_patient_button.dart'
+    show NavAddPatientButton;
 import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/molecules/order_comments_field_widget.dart'
     show OrderCommentsField;
 import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/molecules/order_reference_field_widget.dart'
@@ -68,6 +70,7 @@ class _StartOrderFormState extends State<StartOrderForm> {
             focusNode: _orderCommentsFocus,
             textEditingController: _orderCommentsController,
           ),
+          const NavAddPatientButton(),
         ],
       ),
     );
