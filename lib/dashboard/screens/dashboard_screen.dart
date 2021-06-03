@@ -63,6 +63,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const ClinicDeliveryTimeDisclaimerText(),
             GridView.count(
               crossAxisCount: 3,
+              childAspectRatio: 2 / 3,
               // Shrink wrap otherwise conflicts with parent column/row
               // Renderbox not laid out
               shrinkWrap: true,
