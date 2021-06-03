@@ -2,6 +2,7 @@ import 'package:authentication_repository/authentication_repository.dart'
     as auth show User;
 import 'package:fiery_flutter_prototype_archi/app/blocs/app_bloc.dart'
     show AppBloc, AppLogoutRequested;
+import 'package:fiery_flutter_prototype_archi/clinic/atoms/clinic_delivery_time_disclaimer_text.dart';
 import 'package:fiery_flutter_prototype_archi/order/atoms/padding.dart'
     show edgeInsetsPadding;
 import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
@@ -59,6 +60,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               'TEST clinic',
               style: Theme.of(context).textTheme.headline2,
             ),
+            const ClinicDeliveryTimeDisclaimerText(),
             GridView.count(
               crossAxisCount: 3,
               // Shrink wrap otherwise conflicts with parent column/row
