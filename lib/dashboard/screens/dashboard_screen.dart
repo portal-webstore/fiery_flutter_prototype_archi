@@ -54,9 +54,96 @@ class _DashboardScreenState extends State<DashboardScreen> {
       drawer: const SideMenuNavigationDrawer(),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            SizedBox(height: 4.0),
+          children: [
+            Text(
+              'TEST clinic',
+              style: Theme.of(context).textTheme.headline2,
+            ),
+            GridView.count(
+              crossAxisCount: 3,
+              // Shrink wrap otherwise conflicts with parent column/row
+              // Renderbox not laid out
+              shrinkWrap: true,
+              children: const [
+                MockDashboardTile(
+                  count: 7,
+                  title: 'Recent orders',
+                ),
+
+                /// Orders that have at least one item awaiting clinic confirm
+                MockDashboardTile(
+                  count: 3,
+                  title: 'Orders awaiting confirmation',
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MockDashboardTile extends StatelessWidget {
+  const MockDashboardTile({
+    Key? key,
+    required this.title,
+    required this.count,
+  }) : super(key: key);
+
+  final String title;
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 1.0,
+      margin: edgeInsetsPadding,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondaryVariant.withOpacity(
+                0.1,
+              ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: edgeInsetsPadding,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 4.0,
+                    ),
+                    Text(
+                      title,
+                      maxLines: 2,
+                      overflow: TextOverflow.fade,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Expanded(
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(
+                          count.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                          style: Theme.of(context).textTheme.headline2,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.list),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
