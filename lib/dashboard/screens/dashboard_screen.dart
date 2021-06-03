@@ -2,6 +2,8 @@ import 'package:authentication_repository/authentication_repository.dart'
     as auth show User;
 import 'package:fiery_flutter_prototype_archi/app/blocs/app_bloc.dart'
     show AppBloc, AppLogoutRequested;
+import 'package:fiery_flutter_prototype_archi/order/atoms/padding.dart'
+    show edgeInsetsPadding;
 import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
     show SideMenuNavigationDrawer;
 import 'package:flutter/material.dart';
@@ -15,7 +17,9 @@ class DashboardScreen extends StatefulWidget {
   static const title = 'Dashboard';
   static const Key logoutButtonKey = Key('__dashboard_screen_logout_button__');
 
-  static Page page() => const MaterialPage<void>(child: DashboardScreen());
+  static Page page() => const MaterialPage<void>(
+        child: DashboardScreen(),
+      );
 
   static Route<void> route() {
     return MaterialPageRoute<void>(
@@ -41,7 +45,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
           IconButton(
             key: DashboardScreen.logoutButtonKey,
             icon: const Icon(Icons.logout),
-            onPressed: () => context.read<AppBloc>().add(AppLogoutRequested()),
+            onPressed: () => context.read<AppBloc>().add(
+                  AppLogoutRequested(),
+                ),
           )
         ],
       ),
