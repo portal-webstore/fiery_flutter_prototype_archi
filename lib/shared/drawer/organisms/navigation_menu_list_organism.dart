@@ -19,7 +19,12 @@ class NavigationMenuList extends StatelessWidget {
         MenuListItem(
           title: 'Home',
           icon: Icons.home,
-          onTap: () {},
+          onTap: () {
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.home,
+            );
+          },
         ),
         MenuListItem(
           title: 'Create order',

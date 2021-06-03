@@ -1,6 +1,6 @@
 import 'package:colour_style_guide/colour_style_guide.dart' show ColouredTheme;
-import 'package:fiery_flutter_prototype_archi/home/screens/home_screen.dart'
-    show HomeScreen;
+import 'package:fiery_flutter_prototype_archi/dashboard/screens/dashboard_screen.dart'
+    show DashboardScreen;
 import 'package:fiery_flutter_prototype_archi/shared/routes/route_generator.dart'
     show RouteGenerator;
 import 'package:flutter/material.dart';
@@ -30,7 +30,7 @@ class AppView extends StatelessWidget {
         Locale('en', 'US'), // English (United States) for safe defaults
       ],
       theme: ColouredTheme.data,
-      home: const HomeScreen(),
+      home: const DashboardScreen(),
       onGenerateRoute: RouteGenerator.getRouteOnGenerate,
     );
   }
