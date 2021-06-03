@@ -52,7 +52,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
       drawer: const SideMenuNavigationDrawer(),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
