@@ -1,43 +1,42 @@
 import 'package:fiery_flutter_prototype_archi/order/atoms/padding.dart'
     show edgeInsetsPadding;
-import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/add_patient/forms/add_patient_form.dart'
-    show AddPatientForm;
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/start_order/forms/start_order_form.dart'
+    show StartOrderForm;
 import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
     show SideMenuNavigationDrawer;
 import 'package:flutter/material.dart';
 
-class OrderAddPatientScreen extends StatefulWidget {
-  const OrderAddPatientScreen({
+class StartOrderScreen extends StatefulWidget {
+  const StartOrderScreen({
     Key? key,
   }) : super(key: key);
 
-  static const title = 'Add patient to order';
+  static const title = 'Create order';
 
-  static Page page() =>
-      const MaterialPage<void>(child: OrderAddPatientScreen());
+  static Page page() => const MaterialPage<void>(child: StartOrderScreen());
 
   static Route<void> route() {
     return MaterialPageRoute<void>(
-      builder: (_) => const OrderAddPatientScreen(),
+      builder: (_) => const StartOrderScreen(),
     );
   }
 
   @override
-  _OrderAddPatientScreenState createState() => _OrderAddPatientScreenState();
+  _StartOrderScreenState createState() => _StartOrderScreenState();
 }
 
-class _OrderAddPatientScreenState extends State<OrderAddPatientScreen> {
+class _StartOrderScreenState extends State<StartOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(OrderAddPatientScreen.title),
+        title: const Text(StartOrderScreen.title),
         actions: const <Widget>[],
       ),
       drawer: const SideMenuNavigationDrawer(),
       body: const SingleChildScrollView(
         padding: edgeInsetsPadding,
-        child: AddPatientForm(),
+        child: StartOrderForm(),
       ),
     );
   }

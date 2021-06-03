@@ -29,7 +29,7 @@ class Routes {
 
   /// Entry point for new orders.
   /// Draft order may reuse start from review-add-choice page as landing instead.
-  static const String wizardCreateOrder = '/order/create';
+  static const String wizardCreateStartOrder = '/order/create';
 
   /// No granular edit. Draft order main purpose is to build up over time
   /// Potentially allow draft to remove patient and add again

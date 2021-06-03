@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:form_input_helpers/form_input_helpers.dart' show validateEmpty;
 
-/// Replace or add on the autocomplete functionality later.
-/// Text-assistive only. Not a replacement for the free-text.
-class AdministrationRouteDropdown extends StatelessWidget {
-  const AdministrationRouteDropdown({
+class PatientFirstNameField extends StatelessWidget {
+  const PatientFirstNameField({
     Key? key,
     required this.focusNode,
     required this.textEditingController,
@@ -12,7 +10,7 @@ class AdministrationRouteDropdown extends StatelessWidget {
     required this.onSaved,
   }) : super(key: key);
 
-  static const String getLabel = 'Administration route';
+  static const String getLabel = 'First name';
   final FocusNode focusNode;
   final TextEditingController textEditingController;
   final void Function(String? input) onFieldSubmitted;

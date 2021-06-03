@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:form_input_helpers/form_input_helpers.dart' show validateEmpty;
 
-/// Replace or add on the autocomplete functionality later.
-/// Text-assistive only. Not a replacement for the free-text.
-class AdministrationRouteDropdown extends StatelessWidget {
-  const AdministrationRouteDropdown({
+class OrderRequiredByDeliveryDateField extends StatelessWidget {
+  const OrderRequiredByDeliveryDateField({
     Key? key,
-    required this.focusNode,
-    required this.textEditingController,
     required this.onFieldSubmitted,
     required this.onSaved,
+    required this.focusNode,
+    required this.textEditingController,
   }) : super(key: key);
 
-  static const String getLabel = 'Administration route';
   final FocusNode focusNode;
   final TextEditingController textEditingController;
-  final void Function(String? input) onFieldSubmitted;
-  final void Function(String? input) onSaved;
+  final void Function(String?) onFieldSubmitted;
+  final void Function(String?) onSaved;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: const InputDecoration(
-        border: UnderlineInputBorder(),
+      decoration: InputDecoration(
+        border: const UnderlineInputBorder(),
         labelText: getLabel,
         helperText: '',
       ),
@@ -34,5 +31,9 @@ class AdministrationRouteDropdown extends StatelessWidget {
       onSaved: onSaved,
       textInputAction: TextInputAction.next,
     );
+  }
+
+  static String get getLabel {
+    return 'Delivery date';
   }
 }
