@@ -28,7 +28,10 @@ class DashboardTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(title),
-                const SizedBox(height: 32.0),
+                const SizedBox(
+                  height: 32.0,
+                  width: 32.0,
+                ),
 
                 /// No count, depending on Firestore agg query usability / cost
                 /// Text(count),
