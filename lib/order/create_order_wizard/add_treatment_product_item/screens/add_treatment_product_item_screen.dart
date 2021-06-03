@@ -1,3 +1,5 @@
+import 'package:fiery_flutter_prototype_archi/order/atoms/padding.dart';
+import 'package:fiery_flutter_prototype_archi/order/create_order_wizard/add_treatment_product_item/forms/add_treatment_product_item_form.dart';
 import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
     show SideMenuNavigationDrawer;
 import 'package:flutter/material.dart';
@@ -39,13 +41,9 @@ class _OrderAddTreatmentProductItemScreenState
         actions: const <Widget>[],
       ),
       drawer: const SideMenuNavigationDrawer(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            SizedBox(height: 4.0),
-          ],
-        ),
+      body: const SingleChildScrollView(
+        padding: edgeInsetsPadding,
+        child: AddTreatmentProductItemForm(),
       ),
     );
   }
