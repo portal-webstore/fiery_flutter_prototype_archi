@@ -21,7 +21,8 @@ class ClinicDeliveryTimeDisclaimerText extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       'For orders where treatment time is before the expected delivery time, '
-      'please allow an extra business day',
+      'please allow an additional business day '
+      'before placing your order',
     );
   }
 }

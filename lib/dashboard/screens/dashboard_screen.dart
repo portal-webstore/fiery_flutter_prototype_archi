@@ -60,7 +60,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               'TEST clinic',
               style: Theme.of(context).textTheme.headline2,
             ),
-            const ClinicDeliveryTimeDisclaimerText(),
+            Container(
+              padding: edgeInsetsPadding,
+              child: const ClinicDeliveryTimeDisclaimerText(),
+            ),
             GridView.count(
               crossAxisCount: 3,
               childAspectRatio: 2 / 3,
