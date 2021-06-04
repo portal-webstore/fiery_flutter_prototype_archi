@@ -4,8 +4,10 @@ import 'package:fiery_flutter_prototype_archi/app/blocs/app_bloc.dart'
     show AppBloc, AppLogoutRequested;
 import 'package:fiery_flutter_prototype_archi/home/keys/home_keys.dart'
     show HomeKeys;
-import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart';
-import 'package:fiery_flutter_prototype_archi/shared/widgets/logo/atoms/atoms.dart';
+import 'package:fiery_flutter_prototype_archi/shared/drawer/drawer.dart'
+    show SideMenuNavigationDrawer;
+import 'package:fiery_flutter_prototype_archi/shared/widgets/logo/atoms/atoms.dart'
+    show WebstoreLogo;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext, SelectContext;
 
